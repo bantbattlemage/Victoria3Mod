@@ -424,6 +424,7 @@ STATES = {
 			owned_provinces = { 
 				x2D821B x24CC25 xCF5B71 x1B1E8B xE5842F xDA6117 x25C814 xAB5E06 x1711F0 x54AC76 x76A411 x9040C0 x876BD0 x08A728 x4A5328 x10C0C0 x0364B8 xEEC0B1 xA00FE0 x5A143B x6377BB x432B51 
 				x2CA41F xDF119B x0CD9E6 x69F3E2 x0B51E5 xE80F7D xA68A21 x029975 x5D421A xB8266A xD26D2D xEB3089
+				x94CB2D x49EB3C x405BB7 x17C2F0 xEB0DEB xAF6622 xD3D517 x231FA5
 			}
 			state_type = unincorporated
 		}
@@ -434,12 +435,7 @@ STATES = {
 				x770EB3 xBE4BF0 x6C6CF4 x5196C1 x05C8DA x8E9862
 			}
 		}
-		create_state = {
-			country = c:COM
-			owned_provinces = {
-				x94CB2D x49EB3C x405BB7 x17C2F0 xEB0DEB xAF6622 xD3D517 x231FA5
-			}
-		}
+
 		add_homeland = siouan
 	}
 	s:STATE_OKLAHOMA = {
@@ -448,11 +444,6 @@ STATES = {
 			owned_provinces = { 
 				xCE7722 x384259 xD545C6 xEB66DA x3DC254 xE64C00 x7507ED xC62026 xE0ACB6 xD72549 
 				xA07F85 x9A9935 x94D9C2 xF98E99 x7A707B x8BDF6D x5F2DBA x4BE9C6 xC03040 xE1CC08 x158786 x8CD89B x269541 x32D681 xF6681C x47C329 x286941 xD6ADF2 xAE0966 xEF15A7 x49BF7D xBFD5C4 
-			}
-		}
-		create_state = {
-			country = c:COM
-			owned_provinces = {
 				x3A130C xF3AC52 xE43B98 xDAABDA x5C449B x3449B1 xCF0284 x51621D xA1D6F3 x13C47E x4034FA x70D146 x7A74B8 x155091 x90C0C0 x37CCC2
 			}
 		}
@@ -3534,7 +3525,6 @@ STATES = {
 		create_state = {
 			country = c:POR
 			owned_provinces = { x51F0A0 }
-			state_type = unincorporated
 		}
 		create_state = {
 			country = c:BIC
