@@ -1,0 +1,10 @@
+# Removed Pondicherry's treaty port status. (Beware AI France claming a new treaty port from East India Company however, lol. It happened several times in my tests; the AI knows it's busted I guess.)
+# Removed Goa's treaty port status.
+# Hokkaido now starts fully owned by Japan.
+# Mexican Colorado is now owned by the US, because the US absolutely refuses to take the split state in a peace deal & would rather leave a Mexican exclave inside it's borders forever.
+# The Commanche provinces in Kansas and Oklahoma given to Indian Territory and the US to prevent Mexican colony islands forming.
+# The Blackfoot decentralized provinces have been split between Hudson Bay Company & the US to create a clean border between them.
+# Mindanao in the Phillipines now starts fully owned by Spanish Phillipines, because the AI very rarely chooses to ever colonize the last bit of the Phillipines.
+# Western Australia now starts fully owned by Western Australia, because the AI very rarely (never?) chooses to colonize this bit of Australia. Australia will actually form because of this.
+# Parma, Lucca, and Modena have been removed from Austria's Custom Union because Austria will very often retain a deathgrip on them even if Italy forms. This helps Italy integrate all of the minors.
+# The level 40 Barracks in Lower Egypt has been reduced to level 20 to help Ottomans win the war against them.
