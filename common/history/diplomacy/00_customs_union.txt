@@ -1,18 +1,4 @@
 ﻿DIPLOMACY = {
-	c:AUS = {	
-		create_diplomatic_pact = {
-			country = c:MOD
-			type = customs_union
-		}
-		create_diplomatic_pact = {
-			country = c:PAR
-			type = customs_union
-		}
-		create_diplomatic_pact = {
-			country = c:LUC
-			type = customs_union
-		}		
-	}
 	# Zollverein
 	c:PRU = {
 		create_diplomatic_pact = {
