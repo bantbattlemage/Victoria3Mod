@@ -109,7 +109,6 @@ STATES = {
 		}
 		create_state = {
 			country = c:OMA
-			state_type = treaty_port
 			owned_provinces = { xB7B2BD }
 		}
 		create_state = {
@@ -273,13 +272,6 @@ STATES = {
 	}
 	s:STATE_COLORADO = {
 		create_state = {
-			country = c:MEX
-			owned_provinces = { 
-				x150652 x9F53C7 x904040 xD5F00A xEBE9CE x687718 x129391 x66CBE4 x433C79 xA891E3 xCEB851 x83741F xD0C000 xB1E3F4 xFD4329
-			}
-			state_type = unincorporated
-		}
-		create_state = {
 			country = c:ARP
 			owned_provinces = {
 				x1BE078 xC5CFEF x1DAD86 x25C53C x26A01D xBBFA06 x8C51FE xD07052 x0B9901 x4B60B0 x820130 x52080F xE86EE3 x348ACD x32230C x8C7A20 xA69111 xEB212F x017E79 x7854CE xAB4C21 x307992 xA90729 x812CF7 x719099
@@ -295,6 +287,7 @@ STATES = {
 			country = c:USA
 			owned_provinces = {
 				x742D27 xE85180 x704257 x05E33E x61CB37 x511F34 xC97B5E x88B597 xD04000
+				x150652 x9F53C7 x904040 xD5F00A xEBE9CE x687718 x129391 x66CBE4 x433C79 xA891E3 xCEB851 x83741F xD0C000 xB1E3F4 xFD4329
 			}
 			state_type = unincorporated
 		}
