@@ -1,3 +1,4 @@
+### Game Start State Ownership Changes ###
 # Removed Pondicherry's treaty port status. (Beware AI France claming a new treaty port from East India Company however, lol. It happened several times in my tests; the AI knows it's busted I guess.)
 # Removed Goa's treaty port status.
 # Removed Oman's treaty port in Baluchistan.
@@ -7,12 +8,35 @@
 # The Blackfoot decentralized provinces have been split between Hudson Bay Company & the US to create a clean border between them.
 # Mindanao in the Phillipines now starts fully owned by Spanish Phillipines, because the AI very rarely chooses to ever colonize the last bit of the Phillipines.
 # Western Australia now starts fully owned by Western Australia, because the AI very rarely (never?) chooses to colonize this bit of Australia. Australia will actually form because of this.
-# Parma, Lucca, and Modena have been removed from Austria's Custom Union because Austria will very often retain a deathgrip on them even if Italy forms. This helps Italy integrate all of the minors.
+# Added French claims to Algeria and Constantine to encourage French AI to take them.
+# Added Russian claims to the central Asian states to encourage Russian AI to take them. 
+# Added Dutch East Indies claims to all of it's historical territory to encourage the AI to take them.
+
+### Game Start Building Changes ###
 # The level 40 Barracks in Lower Egypt has been reduced to level 10 to help Ottomans win the war against them.
-# Changed Egypt AI's attitute toward Ottomans from Conquer to None. This causes them to not take territory as aggressively even if they win the war.
+
+### Game Start Diplomacy Changes ###
+# Parma, Lucca, and Modena have been removed from Austria's Custom Union because Austria will very often retain a deathgrip on them even if Italy forms. This helps Italy integrate all of the minors.
+# Added a Rivalry between the USA and Mexico at game start. (They seem to drop it pretty often though.)
+
+### Specific AI Strategy Changes ###
 # Set Great Britain/East India Company AI to desire to conquer Burma and Malaya.
 # Set France AI to desire to conquer Algeria.
+# Changed Egypt AI's attitute toward Ottomans from Conquer to None. This causes them to not take territory as aggressively even if they win the war.
 # Set Netherlands & Dutch East Indies AI to desire to conquer Indonesian minors.
+# Set Dutch East Indies AI and East India Company AI to seek to befriend each other.
 # Set Russia AI to desire to conquer the central Asian minors.
 # Set Prussia AI to desure to befriend Sardinia & Sicily and vice versa.
 # Set Great Britain AI to desire to befriend Prussia & vice versa.
+# Set Italy AI to desire to conquer Italian states.
+# Expanded the states that USA cares about in it's modifiers with Mexico.
+# Russia AU no longer has a "Conquer" goal on the Ottomans. (They are still Rivals, but this will change what Russia AI takes in peace deals)
+# Sardinia and Two Sicilys AI now desire to conquer the other Italian minors.
+# Set Hedjaz AI to attempt to conquer the Arabian peninsula.
+
+### General AI Strategy Changes ###
+# The AI should in general declare more wars than it did before.
+# The AI should spend more of it's available Manuevers in a Diplomatic Play.
+# The AI should attempt to pass laws more frequently.
+# The AI should more more frequently set Return State war goals.
+# The AI should more more frequently set Dominion/Puppet/Vassal war goals.

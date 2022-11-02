@@ -11,7 +11,7 @@ ai_strategy_default = {
 	unacceptable_infamy_level = 100		
 	
 	revolution_aversion = 5 # Chance each day that the AI will stop enacting a law that is going to spark a civil war (1 aversion should translate into ~25% chance of avoiding a civil war)
-	min_law_chance_to_pass = 50 # If base chance for law to pass is below this, don't enact it
+	min_law_chance_to_pass = 20 # If base chance for law to pass is below this, don't enact it
 	max_progressiveness = 25 # How progressive is the AI willing to be when passing laws
 	max_regressiveness = 25 # How regressive is the AI willing to be when passing laws
 	
@@ -160,7 +160,7 @@ ai_strategy_default = {
 	# How many maneuvers are we OK with using up in the initial phase to add more wargoals
 	# All strategies are added together here to produce a value from 0 to 1
 	wargoal_maneuvers_fraction = {
-		value = 0.35
+		value = 1
 		
 		if = {
 			limit = { 
@@ -179,7 +179,7 @@ ai_strategy_default = {
 	# Bravery multiplies the AI's estimation of its own strength, so at bravery 2 it believes its forces to be twice as strong as they actually are
 	# The AI wants to have at least parity in what it believes its own forces to be and what the enemy forces are, so at bravery 2 it's OK with only having 50% of the enemy strength
 	bravery = {
-		value = 1
+		value = 1.5
 		
 		# Braver against pariah countries
 		if = {
@@ -289,6 +289,29 @@ ai_strategy_default = {
 	aggression = {
 		value = 0
 
+		# Go get your freaking claims
+		if = {
+			limit = {			
+				scope:target_country = {
+					any_state = {
+						has_claim_by = root
+					}
+				}				
+			}
+			add = 10000
+		}
+
+		# Go after conquer targets
+		if = {
+			limit = {
+				has_secret_goal = {
+					who = scope:target_country
+					secret_goal = conquer
+				}			
+			}
+			add = 10000
+		}
+
 		# Higher aggression against pariah countries
 		if = {
 			limit = {
@@ -379,11 +402,46 @@ ai_strategy_default = {
 							state_region = s:STATE_ARIZONA
 							state_region = s:STATE_NEW_MEXICO
 							state_region = s:STATE_TEXAS
+							state_region = s:STATE_WYOMING
+							state_region = s:STATE_OREGON
+							state_region = s:STATE_IDAHO
+							state_region = s:STATE_MONTANA
+							state_region = s:STATE_COLORADO
 						}
 					}
 				}
 			}
-			add = 100
+			add = 10000
+		}
+
+		# Italian aggression 
+		if = {
+			limit = {
+				has_journal_entry = je_italian_unification
+				scope:target_country = {
+					any_scope_state = {
+						OR = {
+							state_region = STATE_LOMBARDY
+							state_region = STATE_PIEDMONT
+							state_region = STATE_UMBRIA
+							state_region = STATE_CAMPANIA
+							state_region = STATE_CALABRIA
+							state_region = STATE_APULIA
+							state_region = STATE_ABRUZZO
+							state_region = STATE_SAVOY
+							state_region = STATE_EMILIA
+							state_region = STATE_TUSCANY
+							state_region = STATE_ROMAGNA
+							state_region = STATE_LAZIO
+							state_region = STATE_VENETIA
+							state_region = STATE_SICILY
+							state_region = STATE_SOUTH_TYROL
+							state_region = STATE_ISTRIA																											
+						}
+					}
+				}
+			}
+			add = 10000
 		}
 
 		# Extra french aggression for Haiti renouncing debt payments
@@ -470,7 +528,7 @@ ai_strategy_default = {
 					}
 				}
 			}
-			add = 25
+			add = 500
 		}
 	}
 	
@@ -969,7 +1027,7 @@ ai_strategy_default = {
 			}		
 		}	
 		befriend = {
-			value = 200
+			value = 100
 			
 			if = {
 				limit = {	
@@ -1035,7 +1093,7 @@ ai_strategy_default = {
 			}
 		}
 		reconcile = {
-			value = 0
+			value = 100
 
 			if = {
 				limit = {
@@ -1096,7 +1154,7 @@ ai_strategy_default = {
 			}					
 		}		
 		protect = {
-			value = 0
+			value = 100
 			
 			if = {
 				limit = {
@@ -1179,7 +1237,7 @@ ai_strategy_default = {
 			}				
 		}		
 		antagonize = {
-			value = 0
+			value = 100
 			
 			if = {
 				limit = {
@@ -1308,11 +1366,11 @@ ai_strategy_default = {
 			
 			if = {
 				limit = { is_still_learning = yes }
-				multiply = 0
+				multiply = 1
 			}		
 		}
 		conquer = {
-			value = 0
+			value = 100
 	
 			if = {
 				limit = {
@@ -1350,7 +1408,7 @@ ai_strategy_default = {
 						}	
 					}
 				}
-				add = 200
+				add = 10000
 			}
 			
 			if = {
@@ -1580,11 +1638,11 @@ ai_strategy_default = {
 			
 			if = {
 				limit = { is_still_learning = yes }
-				multiply = 0
+				multiply = 1
 			}
 		}		
 		dominate = {
-			value = 0		
+			value = 100		
 			
 			if = {
 				limit = {
@@ -1740,7 +1798,7 @@ ai_strategy_default = {
 			
 			if = {
 				limit = { is_still_learning = yes }
-				multiply = 0
+				multiply = 1
 			}
 		}			
 	}
@@ -1758,7 +1816,7 @@ ai_strategy_default = {
 					can_reach_target_state = yes			
 				}
 				add = {
-					value = 20
+					value = 100
 				
 					add = {
 						value = scope:target_state.state_population
@@ -1953,7 +2011,7 @@ ai_strategy_default = {
 		}
 		
 		return_state = {
-			value = 50
+			value = 200
 
 			add = {
 				value = scope:target_state.state_population
@@ -2129,12 +2187,16 @@ ai_strategy_default = {
 						has_secret_goal = {
 							who = scope:target_country
 							secret_goal = dominate
-						}						
+						}
+						has_secret_goal = {
+							who = scope:target_country
+							secret_goal = conquer
+						}							
 					}
 				}
 			
 				add = {
-					value = 50
+					value = 100
 				
 					add = {
 						value = scope:target_country.gdp
@@ -2185,6 +2247,10 @@ ai_strategy_default = {
 						has_secret_goal = {
 							who = scope:target_country
 							secret_goal = dominate
+						}						
+						has_secret_goal = {
+							who = scope:target_country
+							secret_goal = conquer
 						}			
 					}
 				}
@@ -2241,12 +2307,16 @@ ai_strategy_default = {
 						has_secret_goal = {
 							who = scope:target_country
 							secret_goal = dominate
+						}
+						has_secret_goal = {
+							who = scope:target_country
+							secret_goal = conquer
 						}				
 					}
 				}
 				
 				add = {
-					value = 50
+					value = 75
 				
 					add = {
 						value = scope:target_country.gdp
@@ -2287,7 +2357,7 @@ ai_strategy_default = {
 		}	
 
 		war_reparations = {
-			value = 0
+			value = 15
 			
 			add = {
 				value = "scope:target_country.ai_gdp_comparison(root)"
@@ -2333,7 +2403,7 @@ ai_strategy_default = {
 		}	
 
 		humiliation = {
-			value = 25
+			value = 5
 		}	
 
 		regime_change = {
@@ -2461,7 +2531,7 @@ ai_strategy_default = {
 		}	
 
 		annex_country = {
-			value = 100
+			value = 200
 		
 			add = {
 				value = scope:target_country.gdp
@@ -2488,11 +2558,11 @@ ai_strategy_default = {
 		}			
 		
 		annex_native = {
-			value = 100
+			value = 200
 		}	
 
 		unification = {
-			value = 100
+			value = 200
 		
 			add = {
 				value = scope:target_country.gdp
@@ -2617,7 +2687,7 @@ ai_strategy_default = {
 		}
 
 		force_recognition = {
-			value = 0
+			value = 100
 			
 			if = {
 				limit = {

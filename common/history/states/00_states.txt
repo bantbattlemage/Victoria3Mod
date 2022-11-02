@@ -1293,6 +1293,7 @@ STATES = {
 		}
 		
 		add_homeland = javan
+		add_claim = c:DEI		
 	}
 	s:STATE_EAST_JAVA = {
 		create_state = {
@@ -1301,6 +1302,7 @@ STATES = {
 		}
 		
 		add_homeland = javan
+		add_claim = c:DEI		
 	}
 	s:STATE_CENTRAL_JAVA = {
 		create_state = {
@@ -1317,6 +1319,7 @@ STATES = {
 		}
 		
 		add_homeland = javan
+		add_claim = c:DEI		
 	}	
 	s:STATE_CEYLON = {
 		create_state = {
@@ -2518,7 +2521,8 @@ STATES = {
 		}
 		
 		add_homeland = maghrebi
-		add_homeland = berber		
+		add_homeland = berber
+		add_claim = c:FRA				
 	}
 	s:STATE_SAHARA = {
 		create_state = {
@@ -2566,7 +2570,8 @@ STATES = {
 		}
 		
 		add_homeland = maghrebi
-		add_homeland = berber		
+		add_homeland = berber	
+		add_claim = c:FRA			
 	}
 	s:STATE_TRIPOLI = {
 		create_state = {
@@ -3650,6 +3655,7 @@ STATES = {
 		
 		add_homeland = sumatran
 		add_homeland = batak
+		add_claim = c:DEI
 	}
 	s:STATE_SOUTH_SUMATRA = {
 		create_state = {
@@ -3659,6 +3665,7 @@ STATES = {
 		
 		add_homeland = sumatran
 		add_homeland = batak
+		add_claim = c:DEI		
 	}
 	s:STATE_ACEH = {
 		create_state = {
@@ -3675,6 +3682,7 @@ STATES = {
 		}
 		
 		add_homeland = sumatran
+		add_claim = c:DEI		
 	}
 	s:STATE_WESTERN_NEW_GUINEA = {
 		create_state = {
@@ -3719,6 +3727,7 @@ STATES = {
 		}
 		
 		add_homeland = moluccan
+		add_claim = c:DEI		
 	}
 	s:STATE_WEST_BORNEO = {
 		create_state = {
@@ -3744,6 +3753,7 @@ STATES = {
 		
 		add_homeland = bornean
 		add_homeland = dayak
+		add_claim = c:DEI	
 	}	
 	s:STATE_EAST_BORNEO = {
 		create_state = {
@@ -3771,6 +3781,7 @@ STATES = {
 		
 		add_homeland = bornean
 		add_homeland = dayak
+		add_claim = c:DEI		
 	}
 	s:STATE_SUNDA_ISLANDS = {
 		create_state = {
@@ -3789,6 +3800,7 @@ STATES = {
 		
 		add_homeland = moluccan
 		add_homeland = balinese
+		add_claim = c:DEI		
 	}
 	s:STATE_MALAYA = {
 		create_state = {
@@ -3835,6 +3847,7 @@ STATES = {
 		
 		add_homeland = bornean
 		add_homeland = dayak		
+		add_claim = c:DEI		
 	}
 	s:STATE_MINDANAO = {
 		create_state = {
@@ -6023,7 +6036,8 @@ STATES = {
 		}
 		
 		add_homeland = uzbek
-		add_homeland = kazak		
+		add_homeland = kazak
+		add_claim = c:RUS				
 	}
 	s:STATE_UZBEKIA = {
 		create_state = {
@@ -6033,6 +6047,7 @@ STATES = {
 		
 		add_homeland = uzbek
 		add_homeland = kazak
+		add_claim = c:RUS			
 	}
 	s:STATE_TAJIKISTAN = {
 		create_state = {
@@ -6042,6 +6057,7 @@ STATES = {
 		
 		add_homeland = uzbek
 		add_homeland = tajik
+		add_claim = c:RUS	
 	}
 	s:STATE_KIRGHIZIA = {
 		create_state = {
@@ -6058,6 +6074,7 @@ STATES = {
 		
 		add_homeland = uzbek
 		add_homeland = kirgiz
+		add_claim = c:RUS	
 	}
 	s:STATE_URALSK = {
 		create_state = {
@@ -6083,6 +6100,7 @@ STATES = {
 		
 		add_homeland = uzbek
 		add_homeland = turkmen
+		add_claim = c:RUS		
 	}
 	s:STATE_SEMIRECHE = {
 		create_state = {
@@ -6116,6 +6134,7 @@ STATES = {
 
 		add_homeland = kazak
 		add_homeland = uzbek
+		add_claim = c:RUS	
 	}
 	s:STATE_KAMCHATKA = {
 		create_state = {
@@ -6309,6 +6328,7 @@ STATES = {
 		}
 		
 		add_homeland = north_caucasian
+		add_claim = c:RUS		
 	}
 	s:STATE_KUBAN = {
 		create_state = {
@@ -6324,6 +6344,7 @@ STATES = {
 		add_homeland = russian
 		add_homeland = ukrainian
 		add_homeland = north_caucasian
+		add_claim = c:RUS
 	}
 	s:STATE_ASTRAKHAN = {
 		create_state = {
