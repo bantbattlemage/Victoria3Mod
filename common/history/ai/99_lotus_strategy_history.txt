@@ -1,0 +1,5 @@
+AI = {
+		every_country = {
+			set_strategy = ai_strategy_lotus	
+		}
+}

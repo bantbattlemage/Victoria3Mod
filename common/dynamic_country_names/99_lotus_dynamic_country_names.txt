@@ -1,0 +1,18 @@
+# BUG FIXES ONLY - error spam from these is fixed
+
+GER = { # Germany
+	dynamic_country_name = {
+		name = dyn_c_german_empire
+		
+		is_main_tag_only = yes
+		priority = 0
+		
+		trigger = {
+			coa_def_monarchy_flag_trigger = yes
+
+			scope:actor = {
+				country_rank >= rank_value:major_power
+			}
+		}
+	}
+}

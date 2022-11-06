@@ -1,0 +1,41 @@
+﻿# giving DEI an extra general because they are incapable of realizing that they need one
+
+CHARACTERS = {
+	c:DEI = {
+		create_character = {
+			#role = politician # Remove this line
+			first_name = "Jean_Chretien"
+			last_name = "Baud"
+			ruler = yes
+			ig_leader = yes
+			culture = cu:dutch
+			age = 47
+			interest_group = ig_landowners
+			ideology = ideology_moderate
+			traits = {
+				arrogant
+			}
+		}
+
+		create_character = {
+			is_general = yes
+			first_name = Dutch
+			last_name = Guy
+			age = 40
+			hq = region_indonesia
+			commander_rank = commander_rank_1
+			culture = cu:dutch
+		}
+
+		create_character = {
+			is_general = yes
+			first_name = Dutch
+			last_name = Guy
+			age = 40
+			hq = region_indonesia
+			commander_rank = commander_rank_1
+			culture = cu:dutch
+		}
+
+	}
+}
