@@ -55,10 +55,25 @@
 			hq = region_rhine
 		}
 
+		create_character = { # Admiral
+			is_admiral = yes
+			hq = region_rhine
+		}
+
 		create_character = { # General
 			is_general = yes
 			hq = region_rhine
 		}	
+		
+		create_character = { # General
+			is_general = yes
+			hq = region_rhine
+		}
+
+		create_character = { # General
+			is_general = yes
+			hq = region_rhine
+		}
 	 } 
 		
 	#	create_character = {

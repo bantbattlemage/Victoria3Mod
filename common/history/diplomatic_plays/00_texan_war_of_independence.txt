@@ -13,7 +13,13 @@
 				holder = c:MEX
 				type = return_state
 				target_state = s:STATE_TEXAS.region_state:TEX
-			}			
+			}		
+
+			add_war_goal = {
+				holder = c:TEX
+				type = return_state
+				target_state = s:STATE_TEXAS.region_state:TEX
+			}	
 		}	
 	}
 

@@ -1,42 +1,26 @@
-### Game Start State Ownership Changes ###
-# Removed Pondicherry's treaty port status. (Beware AI France claming a new treaty port from East India Company however, lol. It happened several times in my tests; the AI knows it's busted I guess.)
-# Removed Goa's treaty port status.
-# Removed Oman's treaty port in Baluchistan.
-# Hokkaido now starts fully owned by Japan.
-# Mexican Colorado is now owned by the US, because the US absolutely refuses to take the split state in a peace deal & would rather leave a Mexican exclave inside it's borders forever.
-# The Commanche provinces in Kansas and Oklahoma given to Indian Territory to prevent Mexican colony islands forming.
-# The Blackfoot decentralized provinces have been split between Hudson Bay Company & the US to create a clean border between them.
-# Mindanao in the Phillipines now starts fully owned by Spanish Phillipines, because the AI very rarely chooses to ever colonize the last bit of the Phillipines.
-# Western Australia now starts fully owned by Western Australia, because the AI very rarely (never?) chooses to colonize this bit of Australia. Australia will actually form because of this.
-# Added French claims to Algeria and Constantine to encourage French AI to take them.
-# Added Russian claims to the central Asian states to encourage Russian AI to take them. 
-# Added Dutch East Indies claims to all of it's historical territory to encourage the AI to take them.
-
-### Game Start Building Changes ###
-# The level 40 Barracks in Lower Egypt has been reduced to level 10 to help Ottomans win the war against them.
-
-### Game Start Diplomacy Changes ###
-# Parma, Lucca, and Modena have been removed from Austria's Custom Union because Austria will very often retain a deathgrip on them even if Italy forms. This helps Italy integrate all of the minors.
-# Added a Rivalry between the USA and Mexico at game start. (They seem to drop it pretty often though.)
-
-### Specific AI Strategy Changes ###
-# Set Great Britain/East India Company AI to desire to conquer Burma and Malaya.
-# Set France AI to desire to conquer Algeria.
-# Changed Egypt AI's attitute toward Ottomans from Conquer to None. This causes them to not take territory as aggressively even if they win the war.
-# Set Netherlands & Dutch East Indies AI to desire to conquer Indonesian minors.
-# Set Dutch East Indies AI and East India Company AI to seek to befriend each other.
-# Set Russia AI to desire to conquer the central Asian minors.
-# Set Prussia AI to desure to befriend Sardinia & Sicily and vice versa.
-# Set Great Britain AI to desire to befriend Prussia & vice versa.
-# Set Italy AI to desire to conquer Italian states.
-# Expanded the states that USA cares about in it's modifiers with Mexico.
-# Russia AU no longer has a "Conquer" goal on the Ottomans. (They are still Rivals, but this will change what Russia AI takes in peace deals)
-# Sardinia and Two Sicilys AI now desire to conquer the other Italian minors.
-# Set Hedjaz AI to attempt to conquer the Arabian peninsula.
-
-### General AI Strategy Changes ###
-# The AI should in general declare more wars than it did before.
-# The AI should spend more of it's available Manuevers in a Diplomatic Play.
+### General AI Behavior Changes ###
+# The AI should in general declare wars much more often than it did before and be much better at creating the games main formable tags.
+# THe AI should be somewhat more reasonable/realistic in what it demands in war goals. Particularly, there should be less border-gore.
 # The AI should attempt to pass laws more frequently.
-# The AI should more more frequently set Return State war goals.
-# The AI should more more frequently set Dominion/Puppet/Vassal war goals.
+# The AI should be much more aggressive with it's generals, recruiting more generals and splitting armies into smaller stacks so it can both defend & attack.
+# The AI will naval invade much more frequently, and should not get stuck in wars because it has to do a naval invasion and can't figure out how.
+# The AI will seek to annex vassals that it can.
+# The AI should be less inclined to sit in a stalemated war forever without white peacing.
+# The AI should be quicker to accept peace when it has lost a war.
+
+### Game Start Changes ###
+# Removed all starting treaty ports except Macau. (They are just no longer treaty ports, the tiles are still owned by their respective overlords)
+# Hokkaido now starts fully owned by Japan.
+# The borders between the Mexico, the US and Canada have been adjusted to allow for the AI to consistently recreate clean borders. (and also allows for player USA to get everything historic Mexico in 1 or 2 wars without getting truce locked) There is less uncolonized land now, but typically the US has to spend more of it's time filling that in now less of Mexico/Canada helping. 
+# Mindanao in the Phillipines now starts fully owned by Spanish Phillipines, because the AI very rarely chooses to ever colonize the last bit of the Phillipines.
+# Western Australia now starts fully owned by Western Australia, because the AI very rarely (never?) chooses to colonize this bit of Australia.
+# Added Russian claims to the 2 central Asian states that are fully enclosed in the Caucuses. 
+# The subjects in the Dutch East Indies have all been consolidated into the Dutch East Indies tag, which has been upgraded to a puppet status under Netherlands. While British East India Company & Great Britain are large and competent enough to handle the complicated vassal situation, the Netherlands & DEI are not. The AI just could not handle the sub-vassals and naval invading and so on without implding on itself. This immensely Netherlands to actually do anything at all as an AI.
+# Additionally, some extra Barracks have been added in the Netherlands and 10 naval bases have been added to Java as DEI previously had 0 ships.
+# The level 40 Barracks in Lower Egypt has been reduced to level 10 to help Ottomans not get curbstomped quite so badly and consisetly.
+# Parma, Lucca, and Modena have been removed from Austria's Custom Union because Austria will very often retain a deathgrip on them even if Italy forms. This helps Italy integrate all of the minors more consistently.
+
+
+### Event Changes ###
+# The Heavenly Kingdom war now starts instantly after choosing a decision in the corresponding event, and Heavenly Kingdom gets an Annex wargoal on Qing. The AI *shouldn't* force Qing to release Heavenly Kingdom after it wins... but I wouldn't be surprised if this isn't fully fixed yet.
+# The Alaska Purchase & Canadian Border Treaty both now require Neutral relations instead of Cordial. This is mainly to help the AI, thoug it technically makes things easier for the player it is trivial.

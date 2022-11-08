@@ -374,6 +374,12 @@ heavenly.4 = {
 			target_country = scope:heavenly_kingdom_scope
 			type = dp_taiping_rebellion
 			war = yes
+
+			add_war_goal = {
+				holder = c:TPG
+				type = annex_country
+				target_country = c:CHI
+			}			
 		}
 	}
 	option = {
@@ -410,6 +416,12 @@ heavenly.4 = {
 			target_country = scope:heavenly_kingdom_scope
 			type = dp_taiping_rebellion
 			war = yes
+
+			add_war_goal = {
+				holder = c:TPG
+				type = annex_country
+				target_country = c:CHI
+			}			
 		}
 		play_as = scope:heavenly_kingdom_scope
 	}

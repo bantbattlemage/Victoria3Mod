@@ -1,20 +1,20 @@
-﻿  default_ai_strategy = {
+﻿  ai_strategy_lotus = {
 	icon = "gfx/interface/icons/ai_strategy_icons/placate_population.dds" # Never shown
 
 	desired_tax_level = medium
 	max_tax_level = high
 	min_tax_level = low
 	
-	undesirable_infamy_level = 75
-	unacceptable_infamy_level = 85		
+	undesirable_infamy_level = 50
+	unacceptable_infamy_level = 75
 	
 	revolution_aversion = 5 # Chance each day that the AI will stop enacting a law that is going to spark a civil war (1 aversion should translate into ~25% chance of avoiding a civil war)
 	min_law_chance_to_pass = 40 # If base chance for law to pass is below this, don't enact it
 	max_progressiveness = 25 # How progressive is the AI willing to be when passing laws
 	max_regressiveness = 25 # How regressive is the AI willing to be when passing laws
 
-	diplomatic_play_neutrality = 50 	 # Added to base neutrality in diplomatic plays	
-	diplomatic_play_boldness = 75 	# Added to base boldness in diplomatic plays
+	diplomatic_play_neutrality = 75 	 # Added to base neutrality in diplomatic plays	
+	diplomatic_play_boldness = 10 	# Added to base boldness in diplomatic plays
 
 	# How much value does the AI place on an obligation from another country?
 	obligation_value = {
@@ -157,7 +157,7 @@
 	
 	# How many maneuvers are we OK with using up in the initial phase to add more wargoals
 	# All strategies are added together here to produce a value from 0 to 1
-	wargoal_maneuvers_fraction = 1.0
+	wargoal_maneuvers_fraction = 1
 	
 	# Chance each update that the AI is willing to start changing a law (1 = 1%)
 	change_law_chance = { 
@@ -479,81 +479,6 @@
 		#### END DEFAULT AGGRESION ####
 		###	START CUSTOM AGGRESSION ###
 
-		# Go get your freaking claims
-		if = {
-			limit = {		
-
-				can_reach_target_country = yes
-
-				scope:target_country = {
-					NOT = { is_subject_of = root }
-					any_state = {
-						has_claim_by = root
-					}
-				}				
-			}
-			add = 1000
-		}
-
-		# Go after conquer targets
-		if = {
-			limit = {
-
-				scope:target_country = {
-					NOT = { is_subject_of = root }
-				}
-
-				can_reach_target_country = yes
-
-				OR = {
-						has_secret_goal = {
-						who = scope:target_country
-						secret_goal = conquer
-					}	
-						has_secret_goal = {
-						who = scope:target_country
-						secret_goal = dominate
-					}
-				}	
-			}
-
-			add = 1000
-		}
-
-		# Annex vassals
-		if = {
-			limit = {
-
-				scope:target_country = { 
-					is_subject_of = ROOT 
-				}		
-
-				#can_reach_target_country = yes
-		
-			}
-
-			add = 1000
-		}
-
-		# Go after weak countries with strategic adjacency to you
-		if = {
-			limit = {
-				
-				has_strategic_adjacency = scope:target_country
-			}
-
-			add = 500
-
-			if = {
-				limit = {
-					country_rank >= rank_value:major_power
-					scope:target_country = { country_rank < rank_value:major_power }			
-				}
-
-				multiply = 10
-			}
-		}
-
 		# Italian aggression 
 		if = {
 			limit = {
@@ -566,7 +491,11 @@
 
 				OR = {
 					has_journal_entry = je_italian_unification
-					capital.state_region = s:STATE_LAZIO
+
+					AND = {
+						exists = c:ITA
+						root = c:ITA					
+					}
 				}
 
 				can_reach_target_country = yes
@@ -598,17 +527,7 @@
 				}
 			}
 
-			add = 10000
-
-			#go get em champ
-			if = {
-				limit = {
-					exists = c:ITA
-					root = c:ITA			
-				}
-
-				multiply = 10
-			}
+			add = 1000
 		}
 
 		# German aggression 
@@ -664,51 +583,97 @@
 							state_region = s:STATE_BAVARIA
 							state_region = s:STATE_FRANCONIA
 							state_region = s:STATE_SAXONY
-							state_region = s:STATE_ALSCAE_LORRAINE
+							state_region = s:STATE_ALSACE_LORRAINE
 						}
 					}
 				}
 			}
 
-			add = 10000
-
-			#go get em champ
-			if = {
-				limit = {
-					exists = c:ITA
-					root = c:ITA			
-				}
-
-				multiply = 10
-			}
+			add = 1000
 		}		
 
-		#USA should go after hawaii if it has oregon, and if it does not it should not expand outside of its core territory
+		#USA should go after hawaii if it has the west coast, and if it does not it should not expand outside of its core territory
 		if = {
 			limit = {
 				OR = {
 					capital.state_region = s:STATE_DISTRICT_OF_COLUMBIA
 					capital.state_region = s:STATE_VIRGINIA
-				}
-
-				any_scope_state = {
-					state_region = s:STATE_OREGON
-				}
-
-				scope:target_country = {
-
-					NOT = { is_subject_of = root }
-
-					any_scope_state = {
-						state_region = s:STATE_HAWAII
+					AND = {
+						exists = c:USA
+						root = c:USA
 					}
 				}
 			}
 
-			add = 1000	
+			if = {
+				limit = {
+					any_scope_state = {
+						AND = {
+							state_region = s:STATE_OREGON
+							state_region = s:STATE_WASHINGTON
+							state_region = s:STATE_CALIFORNIA
+						}							
+					}
+
+					scope:target_country = {
+
+						NOT = { is_subject_of = root }
+
+						any_scope_state = {
+							state_region = s:STATE_HAWAIIAN_ISLANDS
+						}
+					}
+				}
+
+				add = 5000
+			}
+			else = {
+				multiply = 0.1
+			}
 		}
-		else = {
-			value = 0	
+
+		#limit russian aggression if central asia hasn't been conquered yet
+		if = {
+			limit = {
+				AND = {
+					exists = c:RUS
+					root = c:RUS
+				}
+			}
+
+			if = {	
+				limit = {
+					scope:target_country = {
+						any_scope_state = {
+							
+							OR = {
+								state_region = s:STATE_KHIVA
+								state_region = s:STATE_UZBEKIA
+								state_region = s:STATE_KIRGHIZIA
+								state_region = s:STATE_TURKMENIA
+							}								
+						}
+					}
+				}
+
+				multiply = 10
+			}
+			else_if = {
+				limit = {
+					NOT = {
+						any_scope_state = {
+							AND = {
+								state_region = s:STATE_KHIVA
+								state_region = s:STATE_UZBEKIA
+								state_region = s:STATE_KIRGHIZIA
+								state_region = s:STATE_TURKMENIA
+							}
+						}
+					}
+				}
+				
+				multiply = 0.1
+			}
 		}
 
 		#extra US aggression and expanding the states it cares about
@@ -718,6 +683,10 @@
 				OR = {
 					capital.state_region = s:STATE_DISTRICT_OF_COLUMBIA
 					capital.state_region = s:STATE_VIRGINIA
+					AND = {
+						exists = c:USA
+						root = c:USA
+					}
 				}
 
 				can_reach_target_country = yes
@@ -779,38 +748,38 @@
 				}
 			}
 
-			add = 1000
+			add = 5000
 		}
 
 		#russian central asia aggression (and sakhalin)
 		if = {
 			limit = {
-
 				exists = c:RUS
 				root = c:RUS
 				can_reach_target_country = yes
+			}
 
-				scope:target_country = {
-
-					NOT = { is_subject_of = root }
-
-					any_scope_state = {
-						OR = {
-							state_region = s:STATE_KUBAN
-							state_region = s:STATE_DAGESTAN	
-							state_region = s:STATE_AZERBAIJAN							
-							state_region = s:STATE_KHIVA
-							state_region = s:STATE_TURKMENIA
-							state_region = s:STATE_UZBEKIA
-							state_region = s:STATE_SEMIRECHE
-							state_region = s:STATE_SAKHALIN		
-							state_region = s:STATE_KIRGHIZIA													
+			if = {
+				limit = {
+					scope:target_country = {
+						any_scope_state = {
+							OR = {
+								state_region = s:STATE_KUBAN
+								state_region = s:STATE_DAGESTAN	
+								state_region = s:STATE_AZERBAIJAN							
+								state_region = s:STATE_KHIVA
+								state_region = s:STATE_TURKMENIA
+								state_region = s:STATE_UZBEKIA
+								state_region = s:STATE_SEMIRECHE
+								state_region = s:STATE_SAKHALIN		
+								state_region = s:STATE_KIRGHIZIA													
+							}
 						}
 					}
 				}
-			}
 
-			add = 100000
+				add = 5000
+			}
 		}
 
 		#Dutch & DEI aggression
@@ -818,37 +787,41 @@
 			limit = {
 
 				OR = {
-					exists = c:NET
-					exists = c:DEI				
+					AND = {
+						exists = c:NET
+						root = c:NET					
+					}
+					AND = {
+						exists = c:DEI
+						root = c:DEI
+					}
 				}
-				OR = {
-					root = c:NET
-					root = c:DEI				
-				}
 
-				#can_reach_target_country = yes
+				can_reach_target_country = yes
+			}
 
-				scope:target_country = {
-
-					NOT = { is_subject_of = root }
-					any_scope_state = {
-						OR = {
-							state_region = s:STATE_WEST_JAVA
-							state_region = s:STATE_EAST_JAVA
-							state_region = s:STATE_CENTRAL_JAVA
-							state_region = s:STATE_SOUTH_SUMATRA
-							state_region = s:STATE_NORTH_SUMATRA
-							state_region = s:STATE_ACEH
-							state_region = s:STATE_EAST_BORNEO
-							state_region = s:STATE_WEST_BORNEO
-							state_region = s:STATE_NORTH_BORNEO
-							state_region = s:STATE_CELEBES
+			if = {
+				limit = {
+					scope:target_country = {
+						any_scope_state = {
+							OR = {
+								state_region = s:STATE_WEST_JAVA
+								state_region = s:STATE_EAST_JAVA
+								state_region = s:STATE_CENTRAL_JAVA
+								state_region = s:STATE_SOUTH_SUMATRA
+								state_region = s:STATE_NORTH_SUMATRA
+								state_region = s:STATE_ACEH
+								state_region = s:STATE_EAST_BORNEO
+								state_region = s:STATE_WEST_BORNEO
+								state_region = s:STATE_NORTH_BORNEO
+								state_region = s:STATE_CELEBES
+							}
 						}
 					}
 				}
-			}
 
-			add = 100000
+				add = 5000
+			}
 		}
 
 		#French aggression
@@ -874,43 +847,18 @@
 			add = 1000
 		}
 
-		#British aggression
+		#British + Raj aggression
 		if = {
 			limit = {
-
-				exists = c:GBR
-				root = c:GBR
-				can_reach_target_country = yes
-
-				scope:target_country = {
-
-					NOT = { is_subject_of = root }
-
-					any_scope_state = {
-						OR = {
-							state_region = s:STATE_MALAYA
-							state_region = s:STATE_SINDH
-							state_region = s:STATE_BALUCHISTAN
-						}
+				OR = {
+					AND = {
+						exists = c:GBR
+						root = c:GBR	
 					}
-				}
-			}
-
-			add = 100000
-		}
-
-		#BRaj aggression
-		if = {
-			limit = {
-
-				OR = {
-					exists = c:GBR
-					exists = c:BIC				
-				}
-
-				OR = {
-					root = c:BIC
-					root = c:GBR				
+					AND = {
+						exists = c:BIC
+						root = c:BIC	
+					}
 				}
 
 				can_reach_target_country = yes
@@ -918,17 +866,15 @@
 
 			if = {
 				limit = {
-
 					scope:target_country = {
-
 						any_scope_state = {
 							OR = {
+								state_region = s:STATE_MALAYA
 								state_region = s:STATE_SINDH
 								state_region = s:STATE_BURMA
 								state_region = s:STATE_KACHIN
-								#state_region = s:STATE_SHAN_STATES
+								state_region = s:STATE_SHAN_STATES
 								state_region = s:STATE_PEGU
-								state_region = s:STATE_KALAT
 								state_region = s:STATE_PUNJAB
 								state_region = s:STATE_KASHMIR
 								state_region = s:STATE_PASHTUNISTAN
@@ -944,11 +890,9 @@
 								state_region = s:STATE_CENTRAL_INDIA
 								state_region = s:STATE_GUJARAT
 								state_region = s:STATE_HYDERABAD
-								state_region = s:STATE_KASHMIR
 								state_region = s:STATE_MADRAS
 								state_region = s:STATE_TRAVANCORE
 								state_region = s:STATE_NAGPUR
-								state_region = s:STATE_PUNJAB
 								state_region = s:STATE_CIRCARS
 								state_region = s:STATE_RAJPUTANA
 								state_region = s:STATE_ORISSA
@@ -957,24 +901,7 @@
 					}
 				}
 
-				# still add some aggression even if they are your subjects so you want to annex them
-				if = {
-					limit = {
-
-						scope:target_country = {
-
-							NOT = {
-							 	is_subject_of = root 
-						 	}		
-						}
-					}
-
-					add = 100000
-				}
-				else = {
-
-					add = 50000
-				}
+				add = 1000
 			}
 		}
 
@@ -982,10 +909,20 @@
 		if = {
 			limit = {
 
+				OR = {
+					AND = {
+						exists = c:CHI
+						root = c:CHI					
+					}
+					AND = {
+						exists = c:TPG
+						root = c:TPG					
+					}
+				}
+
 				can_reach_target_country = yes
 
 				OR = {
-					has_variable = opium_wars_target
 					capital.state_region = s:STATE_BEIJING
 					capital.state_region = s:STATE_GUANGXI
 					capital.state_region = s:STATE_SHENGJING
@@ -1071,6 +1008,80 @@
 
 			add = 1000
 		}
+		
+		# Annex vassals
+		if = {
+			limit = {
+
+				scope:target_country = { 
+					is_subject_of = ROOT 
+				}		
+
+				can_reach_target_country = yes
+			}
+
+			add = 500
+		}
+
+		# Go after weak countries with strategic adjacency to you
+		if = {
+			limit = {
+				
+				has_strategic_adjacency = scope:target_country
+			}
+
+			add = 100
+
+			if = {
+				limit = {
+					country_rank >= rank_value:major_power
+					scope:target_country = { country_rank < rank_value:major_power }			
+				}
+
+				multiply = 5
+			}
+		}
+
+		# Go get your freaking claims
+		if = {
+			limit = {		
+
+				can_reach_target_country = yes
+
+				scope:target_country = {
+					NOT = { is_subject_of = root }
+					any_state = {
+						has_claim_by = root
+					}
+				}				
+			}
+			add = 1000
+		}
+
+		# Go after conquer targets
+		if = {
+			limit = {
+
+				scope:target_country = {
+					NOT = { is_subject_of = root }
+				}
+
+				can_reach_target_country = yes
+
+				OR = {
+						has_secret_goal = {
+						who = scope:target_country
+						secret_goal = conquer
+					}	
+						has_secret_goal = {
+						who = scope:target_country
+						secret_goal = dominate
+					}
+				}	
+			}
+
+			add = 500
+		}
 
 		#limit aggression of minor AI countries
 		if = {
@@ -1086,14 +1097,13 @@
 		if = {
 
 			limit = {
-
 				scope:target_country = {
+
 					country_rank >= rank_value:insignificant_power
+
 					NOT = {
-						OR = {
-							country_rank = rank_value:unrecognized_regional_power
-							country_rank = rank_value:unrecognized_major_power						
-						}
+						country_rank = rank_value:unrecognized_regional_power
+						country_rank = rank_value:unrecognized_major_power	
 					}
 				}
 			}
@@ -1602,7 +1612,7 @@
 				}
 				add = 100
 			}			
-		}		
+		}
 	}
 	
 	secret_goal_scores = {
@@ -2264,6 +2274,80 @@
 				limit = { is_still_learning = yes }
 				multiply = 0
 			}
+
+			########### ABOVE IS DEFAULT
+
+			#britain should go after malaya & india
+			if = {
+				limit = {
+					OR = {
+						exists =c:GBR
+						root = c:GBR
+					}
+					OR = {
+						exists =c:BIC
+						root = c:BIC
+					}
+
+					OR = {
+						AND = {
+							exists = c:SEL
+							scope:target_country = c:SEL
+						}
+						AND = {
+							exists = c:JOH
+							scope:target_country = c:JOH
+						}
+						AND = {
+							exists = c:PRK
+							scope:target_country = c:PRK
+						}
+						AND = {
+							exists = c:BUR
+							scope:target_country = c:BUR
+						}
+						AND = {
+							exists = c:MAK
+							scope:target_country = c:MAK
+						}
+						AND = {
+							exists = c:KAL
+							scope:target_country = c:KAL
+						}
+						AND = {
+							exists = c:PAN
+							scope:target_country = c:PAN
+						}							
+					}
+				}
+
+				add = 1000
+			}
+
+			#russia should go after central asia
+			if = {
+				limit = {
+					exists = c:RUS
+					root = c:RUS
+
+					OR = {
+						AND = {
+							exists = c:KHI
+							scope:target_country = c:KHI
+						}
+						AND = {
+							exists = c:BUK
+							scope:target_country = c:BUK
+						}
+						AND = {
+							exists = c:KOK
+							scope:target_country = c:KOK
+						}
+					}
+				}
+
+				add = 1000
+			}
 		}		
 		dominate = {
 			value = 0		
@@ -2428,6 +2512,44 @@
 			if = {
 				limit = { is_still_learning = yes }
 				multiply = 0
+			}
+
+			#### ABOVE IS DEFAULT
+
+			#russia should go after central asia
+			if = {
+				limit = {
+					exists = c:RUS
+					root = c:RUS
+
+					OR = {
+						AND = {
+							exists = c:KHI
+							scope:target_country = c:KHI
+						}
+						AND = {
+							exists = c:BUK
+							scope:target_country = c:BUK
+						}
+						AND = {
+							exists = c:KOK
+							scope:target_country = c:KOK
+						}
+					}
+				}
+
+				add = 1000
+			}
+
+			#raj should priortize annexing vassals
+			if = {
+				limit = {
+					exists = c:BIC
+					root = c:BIC
+					scope:target_country = { is_subject_of = root }	
+				}
+
+				add = 1000
 			}
 		}			
 	}
@@ -2663,15 +2785,12 @@
 
 			#### custom checks
 
-			# dont take chunks of powerful countries that arent adjacent to you			
+			# dont take things that arent adjacent		
 			if = {
 				limit = {
 
-					scope:target_country.country_rank >= rank_value:unrecognized_regional_power
-
-					OR = {
-
-						NOT = { has_strategic_land_adjacency = scope:target_country }
+					#scope:target_country.country_rank >= rank_value:unrecognized_regional_power
+					AND = {
 						NOT = { has_strategic_land_adjacency = scope:target_country }
 						NOT = { is_adjacent = scope:target_state }
 					}
@@ -2704,15 +2823,70 @@
 							state_region = s:STATE_ZACATECAS
 							state_region = s:STATE_CHIHUAHUA
 							state_region = s:STATE_BAJA_CALIFORNIA
+							state_region = s:STATE_CHIAPAS
 						}
 					}
 				}
 			
 				multiply = 0
 			}
+
+			# Britain shouldn't take inner China (it likes to expand up from india)
+			if = {
+				limit = {
+
+					exists = c:GBR
+					root = c:GBR
+					scope:target_country = c:CHI
+
+					scope:target_state = {
+						OR = {
+							state_region = s:STATE_TIANSHAN
+							state_region = s:STATE_KIRGHIZIA
+							state_region = s:STATE_JETISY
+							state_region = s:STATE_QINGHAI
+							state_region = s:STATE_DZUNGARIA
+							state_region = s:STATE_SICHUAN
+							state_region = s:STATE_GANSU
+						}
+					}
+				}
+
+				multiply = 0
+			}
+
+			#France and Spain should not attempt to conquer each other
+			if = {
+				limit = {
+					
+					OR = {
+						AND = {
+							exists = c:FRA
+							root = c:FRA
+						}
+						AND = {
+							exists = c:SPA
+							root = c:SPA
+						}
+					}
+
+					OR = {
+						AND = {
+							scope:target_country = c:FRA
+							root = c:SPA
+						}
+						AND = {
+							scope:target_country = c:SPA
+							root = c:FRA
+						}
+					}
+				}
+
+				multiply = 0
+			}
 			
 			min = 0
-			max = 100			
+			max = 150			
 		}
 		
 		return_state = {
@@ -3162,6 +3336,7 @@
 
 			### kind of a uselesss war goal, dont take it too often
 			multiply = 0.05		
+			max = 1
 		}
 		
 		open_market = {
@@ -3177,7 +3352,7 @@
 					}
 					can_reach_target_country = yes
 				}
-				add = 50
+				add = 25
 			}
 		
 			if = {
@@ -3187,7 +3362,7 @@
 						has_variable = opium_wars_target
 					}
 				}
-				add = 75
+				add = 100
 			}
 
 			if = {
@@ -3196,8 +3371,10 @@
 					country_rank = rank_value:unrecognized_major_power
 				}
 
-				add = 200
+				add = 100
 			}
+
+			max = 100
 		}
 
 		ban_slavery = {
@@ -3238,11 +3415,8 @@
 				}				
 			}
 
-			#reduce how much the ai like taking this
-			multiply = 0.1
-
 			min = 0
-			max = 50
+			max = 10
 		}		
 
 		revoke_claim = {
@@ -3400,7 +3574,7 @@
 			}	
 
 			min = 0
-			max = 100			
+			max = 20			
 		}	
 
 		liberate_country = {
@@ -3449,7 +3623,7 @@
 			}
 
 			min = 0
-			max = 100				
+			max = 10				
 		}
 
 		force_recognition = {

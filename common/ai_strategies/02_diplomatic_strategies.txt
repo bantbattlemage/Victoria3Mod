@@ -1,0 +1,374 @@
+﻿ai_strategy_maintain_power_balance = {
+	icon = "gfx/interface/icons/ai_strategy_icons/maintain_power_balance.dds"
+	
+	type = diplomatic
+	
+	possible = {
+		always = yes
+	}
+	
+	weight = {
+		value = 10
+		
+		if = {
+			limit = { country_rank < rank_value:major_power }
+			add = 10
+		}		
+	}
+}
+
+ai_strategy_territorial_expansion = {
+	icon = "gfx/interface/icons/ai_strategy_icons/territorial_expansion.dds"
+	
+	type = diplomatic
+
+	possible = {
+		always = yes
+	}
+
+	weight = {
+		value = 10
+			
+		if = {
+			limit = { ig:ig_armed_forces = { is_powerful = yes } }
+			multiply = 1.5
+		}			
+		
+		if = {
+			limit = { country_is_in_europe = yes }
+			multiply = 0.25
+		}	
+	}
+}
+
+ai_strategy_colonial_expansion = {
+	icon = "gfx/interface/icons/ai_strategy_icons/colonial_expansion.dds"
+	
+	type = diplomatic
+
+	possible = {
+		navy_size >= 25
+		is_country_type = recognized
+		OR = {
+			has_law = law_type:law_colonial_resettlement
+			has_law = law_type:law_colonial_exploitation
+		}
+	}
+
+	weight = {
+		value = 10
+		
+		if = {
+			limit = { country_rank = rank_value:major_power }
+			add = 5
+		}	
+
+		if = {
+			limit = { country_rank = rank_value:great_power }
+			add = 5
+		}			
+		
+		if = {
+			limit = { navy_size < 50 }
+			multiply = 0.5
+		}		
+		
+		if = {
+			limit = { navy_size >= 75 }
+			multiply = 1.5
+		}	
+
+		if = {
+			limit = { has_technology_researched = civilizing_mission }
+			multiply = 1.25
+		}				
+	}
+}
+
+ai_strategy_armed_isolationism = {
+	icon = "gfx/interface/icons/ai_strategy_icons/armed_isolationism.dds"
+	
+	type = diplomatic
+	
+	possible = {
+		NOT = { country_rank = rank_value:great_power }
+	}
+	
+	weight = {
+		value = 10
+		
+		if = {
+			limit = { is_country_type = unrecognized }
+			add = 50
+		}
+		
+		if = {
+			limit = { has_law = law_type:law_national_militia }
+			add = 50
+		}
+
+		if = {
+			limit = { has_law = law_type:law_isolationism }
+			add = 100
+		}	
+
+		if = {
+			limit = { country_rank = rank_value:great_power }
+			multiply = 0.1
+		}			
+		
+		if = {
+			limit = { country_rank = rank_value:major_power }
+			multiply = 0.5
+		}			
+	}
+}
+
+ai_strategy_economic_imperialism = {
+	icon = "gfx/interface/icons/ai_strategy_icons/economic_imperialism.dds"
+	
+	type = diplomatic
+		
+	possible = {
+		navy_size >= 25
+		is_country_type = recognized
+		NOT = { has_law = law_type:law_isolationism }
+		OR = {
+			country_rank = rank_value:major_power
+			country_rank = rank_value:great_power
+		}	
+	}
+
+	weight = {
+		value = 10		
+
+		if = {
+			limit = { country_rank = rank_value:great_power }
+			add = 10
+		}
+
+		if = {
+			limit = {
+				exists = c:JAP
+				has_strategic_adjacency = c:JAP
+				c:JAP = { has_law = law_type:law_isolationism }
+			}
+			multiply = 2.0
+		}	
+
+		if = {
+			limit = { navy_size < 50 }
+			multiply = 0.5
+		}		
+		
+		if = {
+			limit = { navy_size >= 75 }
+			multiply = 1.5
+		}			
+	}
+}
+
+ai_strategy_unify_germany = {
+	icon = "gfx/interface/icons/ai_strategy_icons/unification.dds"
+	
+	type = diplomatic
+	
+	possible = {
+		is_unification_candidate = GER	
+		NOT = { country_tier = empire }
+	}
+
+	secret_goal_scores = {
+		protect = {		
+			if = {
+				limit = {
+					scope:target_country = {
+						OR = {
+							country_has_primary_culture = cu:north_german
+							country_has_primary_culture = cu:south_german
+						}
+						NOT = { is_unification_candidate = GER }
+						is_supporting_unification_candidate = { who = root country_formation = GER }
+					}
+				}
+				add = 1000
+			}		
+		}		
+		dominate = {		
+			if = {
+				limit = {
+					scope:target_country = {
+						OR = {
+							country_has_primary_culture = cu:north_german
+							country_has_primary_culture = cu:south_german
+						}					
+						NOT = { is_unification_candidate = GER }
+						NOT = { is_supporting_unification_candidate = { who = root country_formation = GER } }
+					}
+				}
+				add = 1000
+			}		
+		}		
+		conquer = {				
+			if = {
+				limit = {
+					scope:target_country = {
+						OR = {
+							country_has_primary_culture = cu:north_german
+							country_has_primary_culture = cu:south_german
+						}					
+						is_unification_candidate = GER
+						NOT = { is_supporting_unification_candidate = { who = root country_formation = GER } }
+					}
+				}
+				add = 1000
+			}			
+		}	
+		antagonize = {				
+			if = {
+				limit = {
+					scope:target_country = {
+						is_unification_candidate = GER
+					}
+				}
+				add = 1000
+			}			
+		}		
+	}
+
+	weight = {
+		value = 1000
+	}
+}
+
+ai_strategy_unify_italy = {
+	icon = "gfx/interface/icons/ai_strategy_icons/unification.dds"
+	
+	type = diplomatic
+	
+	possible = {
+		is_unification_candidate = ITA	
+		NOT = { country_tier = empire }
+	}
+
+	
+	secret_goal_scores = {
+		protect = {		
+			if = {
+				limit = {
+					scope:target_country = {
+						OR = {
+							country_has_primary_culture = cu:north_italian
+							country_has_primary_culture = cu:south_italian
+						}
+						NOT = { is_unification_candidate = ITA }
+						is_supporting_unification_candidate = { who = root country_formation = ITA }
+					}
+				}
+				add = 1000
+			}		
+		}		
+		dominate = {		
+			if = {
+				limit = {
+					scope:target_country = {
+						OR = {
+							country_has_primary_culture = cu:north_italian
+							country_has_primary_culture = cu:south_italian
+						}					
+						NOT = { is_unification_candidate = ITA }
+						NOT = { is_supporting_unification_candidate = { who = root country_formation = ITA } }
+					}
+				}
+				add = 1000
+			}		
+		}		
+		conquer = {				
+			if = {
+				limit = {
+					scope:target_country = {
+						OR = {
+							country_has_primary_culture = cu:north_italian
+							country_has_primary_culture = cu:south_italian
+						}					
+						is_unification_candidate = ITA
+						NOT = { is_supporting_unification_candidate = { who = root country_formation = ITA } }
+					}
+				}
+				add = 1000
+			}			
+		}	
+		antagonize = {				
+			if = {
+				limit = {
+					scope:target_country = {
+						is_unification_candidate = ITA
+					}
+				}
+				add = 1000
+			}			
+		}		
+	}	
+
+	weight = {
+		value = 1000	
+	}
+}
+
+ai_strategy_unify_ethiopia = {
+	icon = "gfx/interface/icons/ai_strategy_icons/unification.dds"
+	
+	possible = {
+		NOT = { exists = c:ETH }
+		can_form_nation = ETH
+	}
+
+	weight = {
+		value = 500
+		
+		if = {
+			limit = { NOT = { is_country_type = unrecognized } }
+			add = 100
+		}		
+		
+		if = {
+			limit = { country_rank = rank_value:unrecognized_regional_power }
+			add = 25
+		}
+
+		if = {
+			limit = { country_rank = rank_value:unrecognized_major_power }
+			add = 50
+		}		
+	}
+}
+
+ai_strategy_unify_china = {
+	icon = "gfx/interface/icons/ai_strategy_icons/unification.dds"
+	
+	type = diplomatic
+		
+	possible = {
+		NOT = { exists = c:CHI }
+		can_form_nation = CHI	
+	}
+
+	weight = {
+		value = 50
+		
+		if = {
+			limit = { NOT = { is_country_type = unrecognized } }
+			add = 100
+		}		
+		
+		if = {
+			limit = { country_rank = rank_value:unrecognized_regional_power }
+			add = 25
+		}
+
+		if = {
+			limit = { country_rank = rank_value:unrecognized_major_power }
+			add = 50
+		}		
+	}
+}
