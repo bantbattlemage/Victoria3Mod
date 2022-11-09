@@ -1,0 +1,704 @@
+﻿	lotus_strategy_calculation = {
+
+		value = 0
+
+		# Annex vassals
+		if = {
+			limit = {
+
+				scope:target_country = { 
+					is_subject_of = ROOT 
+				}		
+
+				can_reach_target_country = yes
+			}
+
+			add = 500
+		}
+
+		# Go after weak countries with strategic adjacency to you
+		if = {
+			limit = {
+				can_reach_target_country = yes
+				has_strategic_adjacency = scope:target_country
+			}
+
+			add = 100
+
+			if = {
+				limit = {
+					country_rank >= rank_value:major_power
+					scope:target_country = { country_rank < rank_value:minor_power }			
+				}
+
+				multiply = 5
+			}
+		}
+
+		# Go get your freaking claims
+		if = {
+			limit = {		
+
+				can_reach_target_country = yes
+
+				scope:target_country = {
+					NOT = { is_subject_of = root }
+					any_state = {
+						has_claim_by = root
+					}
+				}				
+			}
+			add = 1000
+		}
+		
+		# Italian aggression 
+		if = {
+			limit = {
+
+				OR = {
+					country_rank = rank_value:great_power
+					country_rank = rank_value:major_power
+					country_rank = rank_value:minor_power					
+				}
+
+				OR = {
+					has_journal_entry = je_italian_unification
+
+					AND = {
+						exists = c:ITA
+						root = c:ITA					
+					}
+				}
+
+				can_reach_target_country = yes
+
+				scope:target_country = {
+
+					NOT = { is_subject_of = root }
+
+					any_scope_state = {
+						OR = {
+							state_region = s:STATE_LOMBARDY
+							state_region = s:STATE_PIEDMONT
+							state_region = s:STATE_UMBRIA
+							state_region = s:STATE_CAMPANIA
+							state_region = s:STATE_CALABRIA
+							state_region = s:STATE_APULIA
+							state_region = s:STATE_ABRUZZO
+							state_region = s:STATE_SAVOY
+							state_region = s:STATE_EMILIA
+							state_region = s:STATE_TUSCANY
+							state_region = s:STATE_ROMAGNA
+							state_region = s:STATE_LAZIO
+							state_region = s:STATE_VENETIA
+							state_region = s:STATE_SICILY
+							state_region = s:STATE_SOUTH_TYROL
+							state_region = s:STATE_ISTRIA
+						}
+					}
+				}
+			}
+
+			add = 1000
+		}
+
+		# German aggression 
+		if = {
+			limit = {
+
+				OR = {
+					country_rank = rank_value:great_power
+					country_rank = rank_value:major_power
+				}
+
+				OR = {
+					AND = {
+						exists = c:PRU
+						root = c:PRU
+					}				
+					AND = {
+						exists = c:NGF
+						root = c:NGF
+					}
+					AND = {
+						exists = c:GER
+						root = c:GER
+					}
+				}
+
+				can_reach_target_country = yes
+
+				scope:target_country = {
+
+					NOT = { is_subject_of = root }
+
+					any_scope_state = {
+						OR = {
+							state_region = s:STATE_EAST_PRUSSIA
+							state_region = s:STATE_WEST_PRUSSIA
+							state_region = s:STATE_POMERANIA
+							state_region = s:STATE_MECKLENBURG
+							state_region = s:STATE_SCHLESWIG_HOLSTEIN
+							state_region = s:STATE_BRANDENBURG
+							state_region = s:STATE_POSEN
+							state_region = s:STATE_SILESIA
+							state_region = s:STATE_SAXONY
+							state_region = s:STATE_BRUNSWICK
+							state_region = s:STATE_HESSE
+							state_region = s:STATE_ELBE
+							state_region = s:STATE_HANNOVER
+							state_region = s:STATE_WESTPHALIA
+							state_region = s:STATE_NORTH_RHINE
+							state_region = s:STATE_RHINELAND
+							state_region = s:STATE_BADEN
+							state_region = s:STATE_WURTTEMBERG
+							state_region = s:STATE_BAVARIA
+							state_region = s:STATE_FRANCONIA
+							state_region = s:STATE_SAXONY
+							state_region = s:STATE_ALSACE_LORRAINE
+						}
+					}
+				}
+			}
+
+			add = 1000
+		}		
+
+		#USA should go after hawaii if it has the west coast
+		if = {
+			limit = {
+				OR = {
+					capital.state_region = s:STATE_DISTRICT_OF_COLUMBIA
+					capital.state_region = s:STATE_VIRGINIA
+					AND = {
+						exists = c:USA
+						root = c:USA
+					}
+
+					any_scope_state = {
+						OR = {
+							state_region = s:STATE_OREGON
+							state_region = s:STATE_WASHINGTON
+							state_region = s:STATE_CALIFORNIA
+						}							
+					}
+
+					scope:target_country = {
+
+						NOT = { is_subject_of = root }
+
+						any_scope_state = {
+							state_region = s:STATE_HAWAIIAN_ISLANDS
+						}
+					}
+				}
+			}
+
+			add = 5000
+		}
+
+		#extra US aggression and expanding the states it cares about
+		if = {
+			limit = {
+
+				OR = {
+					capital.state_region = s:STATE_DISTRICT_OF_COLUMBIA
+					capital.state_region = s:STATE_VIRGINIA
+					AND = {
+						exists = c:USA
+						root = c:USA
+					}
+				}
+
+				can_reach_target_country = yes
+
+				scope:target_country = {
+
+					NOT = { is_subject_of = root }
+
+					any_scope_state = {
+						OR = {
+							state_region = s:STATE_TEXAS
+							state_region = s:STATE_COLORADO	
+							state_region = s:STATE_NEVADA
+							state_region = s:STATE_ARIZONA
+							state_region = s:STATE_NEW_MEXICO
+							state_region = s:STATE_CALIFORNIA
+							state_region = s:STATE_UTAH
+							state_region = s:STATE_INDIANA
+							state_region = s:STATE_OREGON
+							state_region = s:STATE_WASHINGTON
+							state_region = s:STATE_WYOMING
+							state_region = s:STATE_IDAHO
+							state_region = s:STATE_MONTANA
+							state_region = s:STATE_OKLAHOMA
+							state_region = s:STATE_KANSAS
+							state_region = s:STATE_NEBRASKA							
+							state_region = s:STATE_SOUTH_DAKOTA
+							state_region = s:STATE_NORTH_DAKOTA							
+							state_region = s:STATE_NEBRASKA
+							state_region = s:STATE_MISSOURI
+							state_region = s:STATE_ARKANSAS
+							state_region = s:STATE_LOUISIANA
+							state_region = s:STATE_MISSISSIPPI
+							state_region = s:STATE_TENNESSEE
+							state_region = s:STATE_ILLINOIS
+							state_region = s:STATE_IOWA
+							state_region = s:STATE_WISCONSIN
+							state_region = s:STATE_MICHIGAN
+							state_region = s:STATE_OHIO
+							state_region = s:STATE_KENTUCKY
+							state_region = s:STATE_GEORGIA
+							state_region = s:STATE_FLORIDA
+							state_region = s:STATE_SOUTH_CAROLINA
+							state_region = s:STATE_NORTH_CAROLINA
+							state_region = s:STATE_VIRGINIA
+							state_region = s:STATE_WEST_VIRGINIA
+							state_region = s:STATE_MARYLAND
+							state_region = s:STATE_DELAWARE
+							state_region = s:STATE_PENNSYLVANIA
+							state_region = s:STATE_NEW_YORK
+							state_region = s:STATE_CONNECTICUT
+							state_region = s:STATE_MASSACHUSETTS
+							state_region = s:STATE_NEW_HAMPSHIRE
+							state_region = s:STATE_MAINE
+							state_region = s:STATE_VERMONT
+							state_region = s:STATE_DISTRICT_OF_COLUMBIA
+						}
+					}
+				}
+			}
+
+			add = 5000
+		}		
+
+		#russian central asia aggression (and sakhalin)
+		if = {
+			limit = {
+				exists = c:RUS
+				root = c:RUS
+				can_reach_target_country = yes
+				scope:target_country = {
+					any_scope_state = {
+						OR = {
+							state_region = s:STATE_KUBAN
+							state_region = s:STATE_DAGESTAN	
+							state_region = s:STATE_AZERBAIJAN							
+							state_region = s:STATE_KHIVA
+							state_region = s:STATE_TURKMENIA
+							state_region = s:STATE_UZBEKIA
+							state_region = s:STATE_SEMIRECHE
+							state_region = s:STATE_SAKHALIN		
+							state_region = s:STATE_KIRGHIZIA													
+						}
+					}
+				}
+			}
+
+			add = 5000
+		}
+
+		#Dutch & DEI aggression
+		if = {
+			limit = {
+
+				OR = {
+					AND = {
+						exists = c:NET
+						root = c:NET					
+					}
+					AND = {
+						exists = c:DEI
+						root = c:DEI
+					}
+				}
+
+				can_reach_target_country = yes
+			}
+
+			if = {
+				limit = {
+					scope:target_country = {
+						any_scope_state = {
+							OR = {
+								state_region = s:STATE_WEST_JAVA
+								state_region = s:STATE_EAST_JAVA
+								state_region = s:STATE_CENTRAL_JAVA
+								state_region = s:STATE_SOUTH_SUMATRA
+								state_region = s:STATE_NORTH_SUMATRA
+								state_region = s:STATE_ACEH
+								state_region = s:STATE_EAST_BORNEO
+								state_region = s:STATE_WEST_BORNEO
+								state_region = s:STATE_NORTH_BORNEO
+								state_region = s:STATE_CELEBES
+							}
+						}
+					}
+				}
+
+				add = 5000
+			}
+		}
+
+		#dutch european aggression
+		if = {
+			limit = {
+				AND = {
+					exists = c:NET
+					root = c:NET
+				}
+			}
+
+			if = {
+				limit = {
+					scope:target_country = {
+						any_scope_state = {
+							OR = {
+								state_region = s:STATE_HOLLAND
+								state_region = s:STATE_FRIESLAND
+								state_region = s:STATE_GELRE
+								state_region = s:STATE_FLANDERS
+								state_region = s:STATE_WALLONIA
+							}
+						}
+					}
+				}
+
+				add = 5000
+			}			
+		}
+
+		#French aggression
+		if = {
+			limit = {
+
+				exists = c:FRA
+				root = c:FRA
+				can_reach_target_country = yes
+
+				scope:target_country = {
+					
+					any_scope_state = {
+						OR = {
+							state_region = s:STATE_TLEMCEN
+							state_region = s:STATE_CONSTANTINE
+							state_region = s:STATE_ALGIERS
+						}
+					}
+				}
+			}
+
+			add = 1000
+		}
+
+		#British + Raj aggression
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						exists = c:GBR
+						root = c:GBR	
+					}
+					AND = {
+						exists = c:BIC
+						root = c:BIC	
+					}
+				}
+
+				can_reach_target_country = yes
+			}
+
+			if = {
+				limit = {
+					scope:target_country = {
+						any_scope_state = {
+							OR = {
+								state_region = s:STATE_MALAYA
+								state_region = s:STATE_SINDH
+								state_region = s:STATE_BURMA
+								state_region = s:STATE_KACHIN
+								state_region = s:STATE_SHAN_STATES
+								state_region = s:STATE_PEGU
+								state_region = s:STATE_PUNJAB
+								state_region = s:STATE_KASHMIR
+								state_region = s:STATE_PASHTUNISTAN
+								state_region = s:STATE_BALUCHISTAN
+								state_region = s:STATE_HIMALAYAS
+								state_region = s:STATE_BOMBAY
+								state_region = s:STATE_BIHAR
+								state_region = s:STATE_NORTH_BENGAL
+								state_region = s:STATE_ASSAM
+								state_region = s:STATE_AWADH
+								state_region = s:STATE_DELHI
+								state_region = s:STATE_TENASSERIM
+								state_region = s:STATE_CENTRAL_INDIA
+								state_region = s:STATE_GUJARAT
+								state_region = s:STATE_HYDERABAD
+								state_region = s:STATE_MADRAS
+								state_region = s:STATE_TRAVANCORE
+								state_region = s:STATE_NAGPUR
+								state_region = s:STATE_CIRCARS
+								state_region = s:STATE_RAJPUTANA
+								state_region = s:STATE_ORISSA
+							}
+						}
+					}
+				}
+
+                if = {
+                    limit = {
+                        exists = c:BIC
+                        root = c:BIC
+                        is_subject_type = subject_type_dominion
+
+                        scope:target_country = {
+                            is_subject_of = root
+                        }
+                    }
+
+                    add = 1000
+                }
+                else = {
+
+    				add = 500
+                }
+			}
+		}
+
+		# Chinese aggression 
+		if = {
+			limit = {
+
+				OR = {
+					AND = {
+						exists = c:CHI
+						root = c:CHI					
+					}
+					AND = {
+						exists = c:TPG
+						root = c:TPG					
+					}
+				}
+
+				can_reach_target_country = yes
+
+				OR = {
+					capital.state_region = s:STATE_BEIJING
+					capital.state_region = s:STATE_GUANGXI
+					capital.state_region = s:STATE_SHENGJING
+					capital.state_region = s:STATE_OUTER_MANCHURIA
+					capital.state_region = s:STATE_SOUTHERN_MANCHURIA
+					capital.state_region = s:STATE_NORTHERN_MANCHURIA
+					capital.state_region = s:STATE_SHANXI
+					capital.state_region = s:STATE_NINGXIA
+					capital.state_region = s:STATE_GANSU
+					capital.state_region = s:STATE_XIAN
+					capital.state_region = s:STATE_QINGHAI
+					capital.state_region = s:STATE_CHONGQING
+					capital.state_region = s:STATE_GUANGDONG
+					capital.state_region = s:STATE_FUJIAN
+					capital.state_region = s:STATE_ZHEJIANG
+					capital.state_region = s:STATE_NANJING
+					capital.state_region = s:STATE_JIANGSU
+					capital.state_region = s:STATE_HENAN
+					capital.state_region = s:STATE_ZHILI
+					capital.state_region = s:STATE_JIANGXI
+					capital.state_region = s:STATE_SOUTHERN_ANHUI
+					capital.state_region = s:STATE_NORTHERN_ANHUI
+					capital.state_region = s:STATE_WESTERN_HUBEI
+					capital.state_region = s:STATE_EASTERN_HUBEI
+					capital.state_region = s:STATE_HUNAN
+					capital.state_region = s:STATE_FORMOSA
+					capital.state_region = s:STATE_HINGGAN
+					capital.state_region = s:STATE_ALXA
+					capital.state_region = s:STATE_SHAOZHOU
+					capital.state_region = s:STATE_GUIZHOU
+					capital.state_region = s:STATE_YUNNAN
+					capital.state_region = s:STATE_SICHUAN
+					capital.state_region = s:STATE_TIANSHAN
+					capital.state_region = s:STATE_DZUNGARIA
+				}
+
+				scope:target_country = {
+
+					NOT = { is_subject_of = root }
+					can_reach_target_country = yes	
+
+					any_scope_state = {
+						OR = {
+							state_region = s:STATE_BEIJING
+							state_region = s:STATE_GUANGXI
+							state_region = s:STATE_SHENGJING
+							state_region = s:STATE_OUTER_MANCHURIA
+							state_region = s:STATE_SOUTHERN_MANCHURIA
+							state_region = s:STATE_NORTHERN_MANCHURIA
+							state_region = s:STATE_SHANXI
+							state_region = s:STATE_NINGXIA
+							state_region = s:STATE_GANSU
+							state_region = s:STATE_XIAN
+							state_region = s:STATE_QINGHAI
+							state_region = s:STATE_CHONGQING
+							state_region = s:STATE_GUANGDONG
+							state_region = s:STATE_FUJIAN
+							state_region = s:STATE_ZHEJIANG
+							state_region = s:STATE_NANJING
+							state_region = s:STATE_JIANGSU
+							state_region = s:STATE_HENAN
+							state_region = s:STATE_ZHILI
+							state_region = s:STATE_JIANGXI
+							state_region = s:STATE_SOUTHERN_ANHUI
+							state_region = s:STATE_NORTHERN_ANHUI
+							state_region = s:STATE_WESTERN_HUBEI
+							state_region = s:STATE_EASTERN_HUBEI
+							state_region = s:STATE_HUNAN
+							state_region = s:STATE_FORMOSA
+							state_region = s:STATE_HINGGAN
+							state_region = s:STATE_ALXA
+							state_region = s:STATE_SHAOZHOU
+							state_region = s:STATE_GUIZHOU
+							state_region = s:STATE_YUNNAN
+							state_region = s:STATE_SICHUAN
+							state_region = s:STATE_TIANSHAN
+							state_region = s:STATE_DZUNGARIA
+
+						}
+					}
+				}
+			}
+
+			add = 1000
+		}
+
+		#limit aggression of minor AI countries
+		if = {
+
+			limit = {
+				country_rank < rank_value:minor_power
+			}
+
+			multiply = 0.1
+		}
+
+		#limit aggression against "civilized countries"
+		if = {
+
+			limit = {
+				scope:target_country = {
+
+					country_rank >= rank_value:insignificant_power
+
+					NOT = {
+						OR = {
+							country_rank = rank_value:unrecognized_regional_power
+							country_rank = rank_value:unrecognized_major_power	
+						}
+					}
+				}
+			}
+
+			multiply = 0.1
+		}
+
+		#limit US aggression against everyone but mexico before manifest destiny
+		if = {
+			limit = {
+
+				AND = {
+					exists = c:USA
+					root = c:USA
+				}
+
+				OR = {
+					has_journal_entry = je_oregon
+					has_journal_entry = je_manifest_destiny_mexico				
+				}
+
+				NOT = {
+					has_journal_entry = je_conquer_oregon
+				}
+
+				scope:target_country = {
+					country_rank >= rank_value:insignificant_power				
+				}
+			}
+
+			multiply = 0
+		}
+
+		#non-chinese should not go after heavenly kingdom
+		if = {
+			limit = {
+
+				exists = c:CHI
+				exists = c:TPG
+
+				NOT = {
+					OR = {
+						root = c:TPG
+						root = c:CHI					
+					}
+				}
+
+				OR = {
+					scope:target_country = c:TPG
+					scope:target_country = c:CHI
+				}
+			}
+
+			multiply = 0
+		}
+
+		#BIC & DEI should not fight their overlord
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						root = c:BIC
+						scope:target_country = c:GBR
+						is_subject_of = c:GBR
+					}
+					AND = {
+						root = c:DEI
+						scope:target_country = c:NET
+						is_subject_of = c:NET
+					}						
+				}			
+			}
+
+			multiply = 0
+		}		
+
+        #limit european focus on the americas
+        if = {
+            limit = {
+                country_is_in_europe = yes
+                scope:target_country = {
+                    OR = {
+                        country_is_in_central_america = yes
+                        country_is_in_south_america = yes
+                        country_is_in_north_america = yes
+                    }
+                }
+            }
+
+            multiply = 0.1
+        }
+
+		#just in case, sanity check to not target yourself
+		if = {
+			limit = {
+				scope:target_country = root
+			}
+
+			multiply = 0
+		}
+
+		#just in case, sanity check for reaching the target
+		if = {
+			limit = {
+				can_reach_target_country = no
+			}
+
+			multiply = 0
+		}
+	}

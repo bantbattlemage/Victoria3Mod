@@ -20,7 +20,8 @@
 # The level 40 Barracks in Lower Egypt has been reduced to level 10 to help Ottomans not get curbstomped quite so badly and consisetly.
 # Parma, Lucca, and Modena have been removed from Austria's Custom Union because Austria will very often retain a deathgrip on them even if Italy forms. This helps Italy integrate all of the minors more consistently.
 
-
-### Event Changes ###
+### Event/Decision Changes ###
 # The Heavenly Kingdom war now starts instantly after choosing a decision in the corresponding event, and Heavenly Kingdom gets an Annex wargoal on Qing. The AI *shouldn't* force Qing to release Heavenly Kingdom after it wins... but I wouldn't be surprised if this isn't fully fixed yet.
 # The Alaska Purchase & Canadian Border Treaty both now require Neutral relations instead of Cordial. This is mainly to help the AI, thoug it technically makes things easier for the player it is trivial.
+# The American Civil war (when it starts by event) now give both sides an annex cb.
+# Great Britain now has a copy of Netherlands decision to give territory to East India Company that the AI with automatically take.

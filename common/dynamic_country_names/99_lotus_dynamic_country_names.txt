@@ -1,4 +1,4 @@
-# BUG FIXES ONLY - error spam from these is fixed
+﻿# BUG FIXES ONLY - error spam from these is fixed
 
 GER = { # Germany
 	dynamic_country_name = {
