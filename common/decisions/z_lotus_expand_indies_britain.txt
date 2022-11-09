@@ -93,13 +93,16 @@
 		
 		base = 1000
 
-		#keep coastal provinces
-		if = {
-			scope:target_state = {
-				is_coastal = yes
+		#keep coastal states
+		modifier = {
+
+			trigger = {
+				scope:target_state = {
+					is_coastal = yes
+				}
 			}
 
-			multiply = 0
+			add = -1000
 		}
 	}
 }

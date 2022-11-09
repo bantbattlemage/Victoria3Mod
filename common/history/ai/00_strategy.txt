@@ -1,26 +1,6 @@
 ﻿AI = {
 
-	c:RUS = {
-		set_strategy = ai_strategy_territorial_expansion
-	}
-
-	c:BIC = {
-		set_strategy = ai_strategy_territorial_expansion
-	}
-
-	c:DEI = {
-		set_strategy = ai_strategy_territorial_expansion
-	}
-
-	c:GBR = {
-		set_strategy = ai_strategy_colonial_expansion
-	}
-
-	c:NET = {
-		set_strategy = ai_strategy_colonial_expansion
-	}
-
-	#### DEFAULTS BELOW
+	#### DEFAULTS
 
 	c:SWE = {
 		random_list = {	
@@ -174,6 +154,28 @@
 		set_strategy = ai_strategy_armed_isolationism
 		set_strategy = ai_strategy_conservative_agenda
 	}		
+
+	#### LOTUS CUSTOM AI
+
+	c:RUS = {
+		set_strategy = ai_strategy_territorial_expansion
+	}
+
+	c:BIC = {
+		set_strategy = ai_strategy_territorial_expansion
+	}
+
+	c:DEI = {
+		set_strategy = ai_strategy_territorial_expansion
+	}
+
+	c:GBR = {
+		set_strategy = ai_strategy_colonial_expansion
+	}
+
+	c:NET = {
+		set_strategy = ai_strategy_colonial_expansion
+	}
 }	
 
 
