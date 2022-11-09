@@ -28,7 +28,7 @@ ai_strategy_default = {
 	# Bravery multiplies the AI's estimation of its own strength, so at bravery 2 it believes its forces to be twice as strong as they actually are
 	# The AI wants to have at least parity in what it believes its own forces to be and what the enemy forces are, so at bravery 2 it's OK with only having 50% of the enemy strength
 	bravery = {
-		value = 1
+		value = 1.5 
 		
 		# Braver against pariah countries
 		if = {
@@ -1511,6 +1511,15 @@ ai_strategy_default = {
 
 			#### custom checks
 
+			# take homeland takes
+			if = {
+				limit = {
+					scope:target_state = { is_homeland_of_country_cultures = root }
+				}
+				
+				add = 150
+			}
+
 			# dont take things that arent adjacent		
 			if = {
 				limit = {
@@ -1609,6 +1618,40 @@ ai_strategy_default = {
 				multiply = 0
 			}
 
+			#Portugal and Spain should not attempt to conquer each other
+			if = {
+				limit = {
+					
+					OR = {
+						AND = {
+							exists = c:POR
+							root = c:POR
+						}
+						AND = {
+							exists = c:SPA
+							root = c:SPA
+						}
+					}
+
+					OR = {
+						AND = {
+							scope:target_country = c:POR
+							root = c:SPA
+						}
+						AND = {
+							scope:target_country = c:SPA
+							root = c:POR
+						}
+					}
+
+					scope:target_state = {
+						state_is_in_europe = yes
+					}
+				}
+
+				multiply = 0
+			}
+
 			#USA should take texas from mexico
 			if = {
 				limit = {
@@ -1669,6 +1712,9 @@ ai_strategy_default = {
 				limit = {
 					scope:target_state = { is_homeland_of_country_cultures = root }
 				}
+
+				add = 50
+
 				multiply = 1.25
 			}
 

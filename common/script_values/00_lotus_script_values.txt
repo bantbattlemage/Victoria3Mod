@@ -131,37 +131,58 @@
 				scope:target_country = {
 
 					NOT = { is_subject_of = root }
-
-					any_scope_state = {
-						OR = {
-							state_region = s:STATE_EAST_PRUSSIA
-							state_region = s:STATE_WEST_PRUSSIA
-							state_region = s:STATE_POMERANIA
-							state_region = s:STATE_MECKLENBURG
-							state_region = s:STATE_SCHLESWIG_HOLSTEIN
-							state_region = s:STATE_BRANDENBURG
-							state_region = s:STATE_POSEN
-							state_region = s:STATE_SILESIA
-							state_region = s:STATE_SAXONY
-							state_region = s:STATE_BRUNSWICK
-							state_region = s:STATE_HESSE
-							state_region = s:STATE_ELBE
-							state_region = s:STATE_HANNOVER
-							state_region = s:STATE_WESTPHALIA
-							state_region = s:STATE_NORTH_RHINE
-							state_region = s:STATE_RHINELAND
-							state_region = s:STATE_BADEN
-							state_region = s:STATE_WURTTEMBERG
-							state_region = s:STATE_BAVARIA
-							state_region = s:STATE_FRANCONIA
-							state_region = s:STATE_SAXONY
-							state_region = s:STATE_ALSACE_LORRAINE
-						}
-					}
 				}
 			}
 
-			add = 1000
+			#prioritize NGF states first
+			if = {
+				limit = {
+					scope:target_country = {
+
+						any_scope_state = {
+							OR = {
+								state_region = s:STATE_EAST_PRUSSIA
+								state_region = s:STATE_WEST_PRUSSIA
+								state_region = s:STATE_POSEN
+								state_region = s:STATE_POMERANIA
+								state_region = s:STATE_MECKLENBURG
+								state_region = s:STATE_SCHLESWIG_HOLSTEIN
+								state_region = s:STATE_BRANDENBURG
+								state_region = s:STATE_ELBE
+								state_region = s:STATE_HANNOVER
+								state_region = s:STATE_BRUNSWICK
+								state_region = s:STATE_SAXONY
+								state_region = s:STATE_SILESIA
+								state_region = s:STATE_NORTH_RHINE								
+								state_region = s:STATE_HESSE																
+								state_region = s:STATE_WESTPHALIA								
+								state_region = s:STATE_RHINELAND								
+								state_region = s:STATE_BADEN
+							}
+						}
+					}
+				}
+
+				add = 1000
+			}
+			# other states
+			else_if = {
+				limit = {
+					scope:target_country = {
+
+						any_scope_state = {
+							OR = {
+								state_region = s:STATE_WURTTEMBERG
+								state_region = s:STATE_BAVARIA
+								state_region = s:STATE_FRANCONIA								
+								state_region = s:STATE_ALSACE_LORRAINE
+							}
+						}
+					}
+				}
+
+				add = 500
+			}			
 		}		
 
 		#USA should go after hawaii if it has the west coast
@@ -449,18 +470,44 @@
                     limit = {
                         exists = c:BIC
                         root = c:BIC
-                        is_subject_type = subject_type_dominion
-
-                        scope:target_country = {
-                            is_subject_of = root
-                        }
                     }
 
-                    add = 1000
-                }
-                else = {
+					#while still a dominion, priortize annexing vassals
+					if = {
+						limit = {
+							is_subject_type = subject_type_dominion
+							scope:target_country = {
+								is_subject_of = root
+							}
+						}
 
-    				add = 500
+						add = 1000
+					}
+					else = {
+						add = 500
+					}
+                }
+				# GBR should highly prioritize any independant countries in india after Raj is a puppet, and should prioritize integrating other indian vassals
+                else_if = {
+    				limit = {
+						exists = c:GBR
+						root = c:GBR
+					}
+
+					if = {
+						limit = {
+							exists = c:BIC
+							c:BIC = { 
+								is_subject_of = c:GBR
+								NOT = { is_subject_type = subject_type_dominion	}						
+							}
+						}
+
+						add = 1000
+					}
+					else = {
+						add = 750
+					}
                 }
 			}
 		}
