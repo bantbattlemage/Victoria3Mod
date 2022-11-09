@@ -1557,11 +1557,15 @@ ai_strategy_default = {
 				multiply = 0
 			}
 
-			# europeans shouldn't take inner china (they like to snake up from vassals)
+			# europeans shouldn't take inner china (they like to snake up from vassals) except for Russia
 			if = {
 				limit = {
 					country_is_in_europe = yes
 					scope:target_country = c:CHI
+					
+					NOT = {
+						root = c:RUS
+					}
 
 					scope:target_state = {
 						is_coastal = no
@@ -1762,28 +1766,6 @@ ai_strategy_default = {
 				}
 				add = 100
 			}	
-
-			# major & great powers should want ports off of unrecognized powers
-			if = {
-				limit = {
-
-					country_rank >= rank_value:major_power
-
-					scope:target_country = {
-
-						country_rank = rank_value:unrecognized_major_power
-					}
-				}
-
-				add = 100
-			}			
-
-			if = {
-				limit = {
-					has_treaty_port_in_country = scope:target_country
-				}
-				multiply = 0
-			}
 			
 			if = {
 				limit = {
@@ -1804,17 +1786,32 @@ ai_strategy_default = {
 				multiply = 0
 			}		
 
-			# only major & great powers should want ports, and shouldnt want them off of small countries
+			### default above
+
+			# major & great powers should want ports off of unrecognized powers
 			if = {
 				limit = {
-					
+
+					country_rank >= rank_value:major_power
+
+					scope:target_country = {
+
+						country_rank = rank_value:unrecognized_major_power
+					}
+				}
+
+				add = 100
+			}			
+
+			# only major & great powers should want ports, and shouldnt want them off of small countries
+			if = {
+				limit = {					
 					OR = {
 
 						country_rank < rank_value:major_power
 
-						scope:target_country = {
-
-							NOT = {
+						NOT = {
+							scope:target_country = {
 								OR = {
 									country_rank = rank_value:unrecognized_major_power
 									country_rank = rank_value:unrecognized_regional_power								
@@ -1841,6 +1838,13 @@ ai_strategy_default = {
 					}
 				}
 
+				multiply = 0
+			}
+
+			if = {
+				limit = {
+					has_treaty_port_in_country = scope:target_country
+				}
 				multiply = 0
 			}
 
@@ -2245,7 +2249,7 @@ ai_strategy_default = {
 		}
 
 		annex_country = {
-			value = 200
+			value = 1000
 		
 			add = {
 				value = scope:target_country.gdp
@@ -2268,7 +2272,7 @@ ai_strategy_default = {
 			}
 
 			min = 0
-			max = 200			
+			max = 1000			
 		}			
 		
 		annex_native = {
@@ -2347,6 +2351,24 @@ ai_strategy_default = {
 				}				
 			}	
 
+			#because it just leads to a mess and is flavorfully awful dont force release these
+			if = {
+				limit = {
+					OR = {
+						AND = {
+							exists = c:BIC
+							scope:target_country = c:BIC
+						}
+						AND = {
+							exists = c:DEI
+							scope:target_country = c:DEI						
+						}
+					}
+				}
+
+				multiply = 0
+			}
+
 			min = 0
 			max = 20			
 		}	
@@ -2396,6 +2418,24 @@ ai_strategy_default = {
 				}				
 			}
 
+			#because it just leads to a mess and is flavorfully awful dont force release these
+			if = {
+				limit = {
+					OR = {
+						AND = {
+							exists = c:BIC
+							scope:target_country = c:BIC
+						}
+						AND = {
+							exists = c:DEI
+							scope:target_country = c:DEI						
+						}
+					}
+				}
+
+				multiply = 0
+			}
+
 			min = 0
 			max = 10				
 		}
@@ -2421,6 +2461,24 @@ ai_strategy_default = {
 
 		independence = {
 			value = 200
+
+			#because it just leads to a mess and is flavorfully awful raj & dei should not want independence
+			if = {
+				limit = {
+					OR = {
+						AND = {
+							exists = c:BIC
+							root = c:BIC
+						}
+						AND = {
+							exists = c:DEI
+							root = c:DEI						
+						}
+					}
+				}
+
+				multiply = 0
+			}
 		}
 
 		secession = {
