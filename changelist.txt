@@ -11,14 +11,15 @@
 ### Game Start Changes ###
 # Removed all starting treaty ports except Macau. (They are just no longer treaty ports, the tiles are still owned by their respective overlords)
 # Parma, Lucca, and Modena have been removed from Austria's Custom Union because Austria will very often retain a deathgrip on them even if Italy forms. This helps Italy integrate all of the minors more consistently.
-# The borders between the Mexico, the US and Canada have been adjusted to allow for the AI to consistently recreate clean borders. (and also allows for player USA to get everything historic Mexico in 1 or 2 wars without getting truce locked) There is less uncolonized land now, but typically the US has to spend more of it's time filling that in now less of Mexico/Canada helping. 
-# The subjects in the Dutch East Indies have all been consolidated into the Dutch East Indies tag, which has been upgraded to a puppet status under Netherlands. While British East India Company & Great Britain are large and competent enough to handle the complicated vassal situation, the Netherlands & DEI are not. In my testing the AI just could not handle the sub-vassals and naval invading and so on without imploding on itself. This immensely helps AI Netherlands actually do anything at all. Additionally, some extra Barracks have been added in the Netherlands and 10 naval bases have been added to Java as DEI previously had 0 ships.
+# The borders between the Mexico, the US and Canada have been adjusted to allow for the AI to consistently recreate clean borders. The changes here are rather subtle but make a big difference. There is slightly less uncolonized land due to this though.
+# Mexico & the USA start at war along with Texas, with wargoals on the USA claims.
 # Mindanao in the Phillipines now starts fully owned by Spanish Phillipines, because the AI very rarely chooses to ever colonize the last bit of the Phillipines and that small tag adds nothing meaningful to the game.
 # Western Australia now starts fully owned by Western Australia, because the AI very rarely (never?) chooses to colonize this bit of Australia and that small tag adds nothing meaningful to the game.
 # Hokkaido now starts fully owned by Japan.
 # Added Russian claims to the 2 central Asian states that are fully enclosed in the Caucuses. 
 # The level 40 Barracks in Lower Egypt has been reduced to level 10 to help Ottomans not get curbstomped quite so badly and consisetly.
 # Mexico has been given two level 5 naval bases because as AI it somtiimes liked to declare war on caribeean countries without realizing it doesn't have the boats to do so. I'd prefer to fix the root issue here, but that is TBD.
+# A level 10 naval base has added to Western Java for Dutch East Indies because it had zero before.
 
 ### Event/Decision Changes ###
 # The Heavenly Kingdom war now starts instantly after choosing a decision in the corresponding event, and Heavenly Kingdom gets an Annex wargoal on Qing. The AI *shouldn't* force Qing to release Heavenly Kingdom after it wins... but I wouldn't be surprised if this isn't fully fixed yet.
