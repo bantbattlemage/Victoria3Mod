@@ -263,8 +263,6 @@
 		}
 	}
 	s:STATE_COLORADO={
-		region_state:MEX={
-		}
 		region_state:ARP={
 		}
 	}
@@ -1149,8 +1147,6 @@
 		}
 	}
 	s:STATE_UTAH={
-		region_state:MEX={
-		}
 		region_state:NVJ={
 		}
 		region_state:UTE={

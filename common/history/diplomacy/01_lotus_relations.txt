@@ -1,0 +1,46 @@
+DIPLOMACY = {
+    
+        c:GBR = {
+                set_relations = { country = c:BIC value = 100 }
+        }
+
+        c:NET = {
+                set_relations = { country = c:DEI value = 100 }
+        }
+
+        #set these low so they are annexable because annexation rules are dumb
+        c:BIC = {
+                set_relations = { country = c:GBR value = -30 }
+                set_relations = { country = c:KUT value = -30 }
+                set_relations = { country = c:BHO value = -30 }
+                set_relations = { country = c:AWA value = -30 }
+                set_relations = { country = c:BUN value = -30 }
+                set_relations = { country = c:ORI value = -30 }
+                set_relations = { country = c:NAG value = -30 }
+                set_relations = { country = c:BAS value = -30 }
+                set_relations = { country = c:HYD value = -30 }
+                set_relations = { country = c:MYS value = -30 }
+                set_relations = { country = c:TRA value = -30 }
+                set_relations = { country = c:IND value = -30 }
+                set_relations = { country = c:BER value = -30 }
+                set_relations = { country = c:GWA value = -30 }
+                set_relations = { country = c:MEW value = -30 }
+                set_relations = { country = c:JAI value = -30 }
+                set_relations = { country = c:BER value = -30 }
+                set_relations = { country = c:JOD value = -30 }
+                set_relations = { country = c:BIK value = -30 }
+                set_relations = { country = c:JAS value = -30 }
+        }
+
+        #set these low so they are annexable because annexation rules are dumb
+        c:DEI = {
+                set_relations = { country = c:NET value = -30 }
+                set_relations = { country = c:YOG value = -30 }
+                set_relations = { country = c:SRK value = -30 }
+                set_relations = { country = c:JMB value = -30 }
+                set_relations = { country = c:SMB value = -30 }
+                set_relations = { country = c:PON value = -30 }
+                set_relations = { country = c:BNJ value = -30 }
+                set_relations = { country = c:TID value = -30 } 
+        }
+}
