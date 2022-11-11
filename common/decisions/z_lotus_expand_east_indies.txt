@@ -50,6 +50,44 @@
 	}
 }
 
+annex_east_indies = {
+	is_shown = {
+		country_is_in_europe = yes
+		exists = c:DEI
+		
+		c:DEI = {
+			is_subject_of = ROOT
+		}
+	}
+	possible = {
 
+		has_technology_researched = nationalism
+		is_at_war = no
 
+		exists = c:DEI
+		c:DEI = {
+			is_subject_of = ROOT
+			is_at_war = no
+		}
+	}
+	when_taken = {
+
+		every_subject_or_below = {
+
+			if = {
+				limit = {
+					capital.state_region.region = sr:region_indonesia
+				}
+			
+				root = {
+					annex = prev
+				}			
+			}
+		}
+	}
+
+	ai_chance = {
+		base = 1000
+	}
+}
 

@@ -1095,11 +1095,13 @@ ai_strategy_default = {
 				limit = {
 					OR = {
 						AND = {
+							exists = c:BIC
 							root = c:BIC
 							scope:target_country = c:GBR
 							is_subject_of = c:GBR
 						}
 						AND = {
+							exists = c:DEI
 							root = c:DEI
 							scope:target_country = c:NET
 							is_subject_of = c:NET
@@ -1900,7 +1902,7 @@ ai_strategy_default = {
 							}
 						}
 						AND = {
-							country_is_in_europe
+							country_is_in_europe = yes
 							scope:target_state = {							
 								OR = {
 									region = sr:region_england
@@ -1931,10 +1933,12 @@ ai_strategy_default = {
 
 					OR = {
 						AND = {
+							exists = c:FRA
 							scope:target_country = c:FRA
 							root = c:SPA
 						}
 						AND = {
+							exists = c:SPA
 							scope:target_country = c:SPA
 							root = c:FRA
 						}
@@ -2358,6 +2362,14 @@ ai_strategy_default = {
 				multiply = 0.5
 			}
 
+			if = {
+				limit = {
+					can_reach_target_country = no
+				}
+
+				multiply = 0
+			}
+
 			min = 0
 			max = 200			
 		}
@@ -2412,6 +2424,14 @@ ai_strategy_default = {
 					lenient_ai_behavior_trigger = yes
 				}
 				multiply = 0.5
+			}
+
+			if = {
+				limit = {
+					can_reach_target_country = no
+				}
+
+				multiply = 0
 			}
 
 			min = 0
@@ -2470,6 +2490,14 @@ ai_strategy_default = {
 				multiply = 0.5
 			}	
 
+			if = {
+				limit = {
+					can_reach_target_country = no
+				}
+
+				multiply = 0
+			}
+
 			min = 0
 			max = 175			
 		}	
@@ -2516,12 +2544,28 @@ ai_strategy_default = {
 				add = 50
 			}
 
+			if = {
+				limit = {
+					can_reach_target_country = no
+				}
+
+				multiply = 0
+			}
+
 			min = 5
 			max = 100			
 		}	
 
 		humiliation = {
 			value = 5
+
+			if = {
+				limit = {
+					can_reach_target_country = no
+				}
+
+				multiply = 0
+			}
 		}	
 
 		regime_change = {
@@ -2559,7 +2603,7 @@ ai_strategy_default = {
 					}
 					can_reach_target_country = yes
 				}
-				add = 25
+				add = 20
 			}
 		
 			if = {
@@ -2569,7 +2613,7 @@ ai_strategy_default = {
 						has_variable = opium_wars_target
 					}
 				}
-				add = 100
+				add = 20
 			}
 
 			if = {
@@ -2578,10 +2622,10 @@ ai_strategy_default = {
 					country_rank = rank_value:unrecognized_major_power
 				}
 
-				add = 100
+				add = 20
 			}
 
-			max = 100
+			max = 20
 		}
 
 		ban_slavery = {
@@ -2620,6 +2664,14 @@ ai_strategy_default = {
 					min = 0.5
 					max = 2.0
 				}				
+			}
+
+			if = {
+				limit = {
+					can_reach_target_country = no
+				}
+
+				multiply = 0
 			}
 
 			min = 0
@@ -2673,6 +2725,14 @@ ai_strategy_default = {
 
 				multiply = 0
 			}
+
+			if = {
+				limit = {
+					can_reach_target_country = no
+				}
+
+				multiply = 0
+			}			
 		}
 
 		annex_country = {
@@ -2696,6 +2756,14 @@ ai_strategy_default = {
 					lenient_ai_behavior_trigger = yes
 				}
 				multiply = 0.0
+			}
+
+			if = {
+				limit = {
+					can_reach_target_country = no
+				}
+
+				multiply = 0
 			}
 
 			min = 0
@@ -2805,6 +2873,14 @@ ai_strategy_default = {
 				multiply = 0
 			}
 
+			if = {
+				limit = {
+					can_reach_target_country = no
+				}
+
+				multiply = 0
+			}
+
 			min = 0
 			max = 20			
 		}	
@@ -2876,6 +2952,14 @@ ai_strategy_default = {
 			if = {
 				limit = {
 					scope:target_country.top_overlord = root
+				}
+
+				multiply = 0
+			}
+
+			if = {
+				limit = {
+					can_reach_target_country = no
 				}
 
 				multiply = 0
@@ -2954,6 +3038,14 @@ ai_strategy_default = {
 				if = {
 					limit = {
 						scope:target_country.top_overlord = root
+					}
+
+					multiply = 0
+				}
+
+				if = {
+					limit = {
+						can_reach_target_country = no
 					}
 
 					multiply = 0
