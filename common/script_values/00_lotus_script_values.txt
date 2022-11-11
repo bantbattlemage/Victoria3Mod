@@ -1,6 +1,5 @@
 ﻿	lotus_strategy_calculation = {
 
-		multiply = 0
 		value = 0
 
 		if = {

@@ -1390,7 +1390,7 @@ ai_strategy_default = {
 			########### ABOVE IS DEFAULT
 			########## CUSTOM BELOW
 
-			value = lotus_strategy_calculation
+			add = lotus_strategy_calculation
 		}
 		dominate = {
 			value = 0		
@@ -1560,7 +1560,7 @@ ai_strategy_default = {
 			#### ABOVE IS DEFAULT
 			#### CUSTOM BELOW
 
-			value = lotus_strategy_calculation
+			add = lotus_strategy_calculation
 		}			
 	}
 	
