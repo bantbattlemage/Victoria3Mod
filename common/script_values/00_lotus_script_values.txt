@@ -12,7 +12,7 @@
 				# if its overseas you better have boats
 				NOT = {
 					NOT = { has_strategic_land_adjacency = scope:target_country }
-					navy_size < 10
+					navy_size < 20
 				}
 			}
 
@@ -407,21 +407,7 @@
 						}
 					}
 
-					if = {
-						limit = {
-							root = c:DEI							
-							scope:target_country = { is_direct_subject_of = root}
-						}
-
-						add = 5000
-					}
-					else_if = {
-						limit = {
-							NOT = { scope:target_country = { is_direct_subject_of = root } }
-						}
-
-						add = 1000
-					}
+					add = 5000
 				}
 			}
 
@@ -542,44 +528,40 @@
 								}
 							}
 
-							add = 1000
+							add = 2000
 						}
 						else = {
-							add = 200
+							add = 1000
 						}
 					}
 					# GBR should highly prioritize any independant countries in india after Raj is a puppet, and should prioritize integrating other indian vassals
 					else_if = {
+						
 						limit = {
 							exists = c:GBR
 							root = c:GBR
+							scope:target_country = {
+								NOT = {
+									exists = c:BIC
+									this = c:BIC
+								}
+							}
 						}
 
 						if = {
 							limit = {
-								exists = c:BIC
-
-								NOT = { 								
-									scope:target_country = { is_direct_subject_of = c:BIC }	
-								}	
-
-								NOT = { 								
-									scope:target_country = c:BIC
-								}	
-							}
-
-							add = 1000
-						}
-						else_if = {						
-							limit = {
 								scope:target_country = {
 									NOT = {
-										is_subject_of = c:BIC
+										top_overlord = c:GBR
 									}
 								}
 							}
 
-							add = 750
+							add = 2000
+						}
+						else = {
+
+							add = 500
 						}
 					}
 				}
@@ -770,29 +752,49 @@
 							exists = c:BIC
 							root = c:BIC
 							exists = c:GBR
-							scope:target_country = c:GBR
-							is_subject_of = c:GBR
+
+							scope:target_country = {
+								OR = {
+									this = c:GBR
+									top_overlord = c:GBR
+								}
+							}
 						}
 						AND = {
 							exists = c:DEI
 							root = c:DEI
 							exists = c:NET
-							scope:target_country = c:NET
-							is_subject_of = c:NET
+
+							scope:target_country = {
+								OR = {
+									this = c:DEI
+									top_overlord = c:NET
+								}
+							}
 						}		
 						AND = {
 							exists = c:GBR
 							root = c:GBR
 							exists = c:BIC
-							scope:target_country = c:BIC
-							scope:target_country = { is_subject_of = root }
+
+							scope:target_country = {
+								OR = {
+									this = c:BIC
+									top_overlord = c:GBR
+								}
+							}
 						}
 						AND = {
 							exists = c:NET
 							root = c:NET
 							exists = c:DEI
-							scope:target_country = c:DEI
-							scope:target_country = { is_subject_of = root }
+
+							scope:target_country = {
+								OR = {
+									this = c:DEI
+									top_overlord = c:NET
+								}
+							}
 						}	
 					}			
 				}
@@ -813,7 +815,7 @@
 					}
 				}
 
-				multiply = 0.01
+				multiply = 0
 			}
 
 			#limit american focus on europe
@@ -830,7 +832,7 @@
 					}
 				}
 
-				multiply = 0.05
+				multiply = 0
 			}
 
 			#limit ottoman & russian AI obsession with western europe
@@ -861,7 +863,7 @@
 					}
 				}
 
-				multiply = 0.1
+				multiply = 0
 			}
 
 			#GBR+BIC and NET+DEI shouldn't fight each other over colonies
@@ -882,11 +884,6 @@
 								root = c:GBR
 								root = c:BIC
 							}
-
-							scope:target_country = {
-								top_overlord = c:GBR 
-								is_subject_of = c:BIC
-							}	
 						}
 						AND = {
 							exists = c:NET
@@ -902,11 +899,6 @@
 								root = c:NET
 								root = c:DEI
 							}
-
-							scope:target_country = {
-								top_overlord = c:NET 
-								is_subject_of = c:DEI
-							}
 						}
 					}
 				}
@@ -914,7 +906,7 @@
 				multiply = 0
 			}
 
-			#Austria & Qing should chill out and not be aggressive and hopefully fall/get picked apart
+			#Austria & Qing & Ottomans should chill out and not be aggressive and hopefully fall/get picked apart
 			if = {
 				limit = {
 					OR = {
@@ -925,7 +917,11 @@
 						AND = {
 							exists = c:CHI
 							root = c:CHI
-						}						
+						}			
+						AND = {
+							exists = c:TUR
+							root = c:TUR
+						}		
 					}
 				}
 

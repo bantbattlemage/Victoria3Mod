@@ -50,7 +50,7 @@
 	}
 }
 
-annex_east_indies = {
+centralize_east_indies = {
 	is_shown = {
 		country_is_in_europe = yes
 		exists = c:DEI
@@ -68,6 +68,7 @@ annex_east_indies = {
 		c:DEI = {
 			is_subject_of = ROOT
 			is_at_war = no
+			is_subject_type = subject_type_dominion
 		}
 	}
 	when_taken = {
@@ -77,11 +78,27 @@ annex_east_indies = {
 			if = {
 				limit = {
 					capital.state_region.region = sr:region_indonesia
+					NOT = { this = c:DEI }
 				}
 			
-				root = {
+				c:DEI = {
 					annex = prev
 				}			
+			}
+		}
+
+		c:NET = {
+
+			hidden_effect = {
+				remove_diplomatic_pact = {
+					country = c:DEI
+					type = dominion
+				}
+			}
+
+			create_diplomatic_pact = {
+				country = c:DEI
+				type = puppet				
 			}
 		}
 	}
@@ -90,4 +107,3 @@ annex_east_indies = {
 		base = 1000
 	}
 }
-

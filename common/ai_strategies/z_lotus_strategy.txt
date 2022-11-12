@@ -14,7 +14,7 @@ ai_strategy_default = {
 	max_regressiveness = 25 # How regressive is the AI willing to be when passing laws
 
 	diplomatic_play_neutrality = 75 	 # Added to base neutrality in diplomatic plays	
-	diplomatic_play_boldness = 10 	# Added to base boldness in diplomatic plays
+	diplomatic_play_boldness = 50 	# Added to base boldness in diplomatic plays
 
 	# How many maneuvers are we OK with using up in the initial phase to add more wargoals
 	# All strategies are added together here to produce a value from 0 to 1
@@ -27,16 +27,6 @@ ai_strategy_default = {
 	
 	obligation_value = {
 		value = 15
-	
-		# Compare ranks - higher rank than us has increased value, lower rank decreased value
-		add = {
-			value = scope:target_country.country_rank
-			multiply = 2
-		}
-		subtract = {
-			value = country_rank
-			multiply = 2
-		}
 		
 		# Domineering/Protective AI wants to use the obligation to cajole the country into a subordinate relationship
 		if = {
@@ -159,6 +149,17 @@ ai_strategy_default = {
 			max = 1.5
 		}
 
+		# default was first, moved this last so for example Russia isn't defending every german minor
+		# Compare ranks - higher rank than us has increased value, lower rank decreased value
+		add = {
+			value = scope:target_country.country_rank
+			multiply = 2
+		}
+		subtract = {
+			value = country_rank
+			multiply = 4 #default 2
+		}
+
 		#GBR & NET should never back down from defending their colonies
 		if = {
 			limit = {
@@ -192,13 +193,18 @@ ai_strategy_default = {
 						OR = {
 							scope:target_country = c:GBR
 							scope:target_country = c:BIC
+							scope:target_country = { top_overlord = c:GBR }
 						}
 
-						root = {
+						OR = {
+							root = c:GBR
+							root = c:BIC
+						}
+
+						scope:target_country = {
 							top_overlord = c:GBR 
 							is_subject_of = c:BIC
-						}
-						
+						}	
 					}
 					AND = {
 						exists = c:NET
@@ -207,12 +213,19 @@ ai_strategy_default = {
 						OR = {
 							scope:target_country = c:NET
 							scope:target_country = c:DEI
+							scope:target_country = { top_overlord = c:NET }
 						}
-						root = {
+
+						OR = {
+							root = c:NET
+							root = c:DEI
+						}
+
+						scope:target_country = {
 							top_overlord = c:NET 
 							is_subject_of = c:DEI
-						}						
-					}					
+						}
+					}
 				}
 			}
 
@@ -231,6 +244,22 @@ ai_strategy_default = {
 			}
 
 			value = 30
+		}
+
+		#China should only care about asia
+		if = {
+			limit = {
+				exists = c:CHI
+				root = c:CHI
+				NOT = {
+					OR = {
+						scope:target_country = { country_is_in_east_asia = yes }
+						scope:target_country = { country_is_in_central_asia = yes }				
+					}
+				}
+			}
+
+			multiply = 0
 		}
 
 		min = 0
@@ -391,6 +420,7 @@ ai_strategy_default = {
 	
 	aggression = {
 
+		multiply = 0.1
 		value = 0
 
 		if = {
@@ -770,13 +800,16 @@ ai_strategy_default = {
 					has_journal_entry = je_oregon
 
 					NOT ={
-						has_journal_entry = je_conquer_oregon
 
-						any_scope_state = {
-							AND = {
-								state_region = s:STATE_WASHINGTON
-								state_region = s:STATE_IDAHO
-								state_region = s:STATE_OREGON
+						OR = {
+							has_journal_entry = je_conquer_oregon
+
+							any_scope_state = {
+								AND = {
+									state_region = s:STATE_WASHINGTON
+									state_region = s:STATE_IDAHO
+									state_region = s:STATE_OREGON
+								}
 							}
 						}
 					}
@@ -953,6 +986,10 @@ ai_strategy_default = {
 				}
 				multiply = 0.0	
 			}				
+
+			multiply = 0.1 # TESTING DISABLING ALL DEFAULT VALUES
+
+			add = lotus_strategy_calculation
 		}		
 		antagonize = {
 			value = 0
@@ -1392,6 +1429,8 @@ ai_strategy_default = {
 			########### ABOVE IS DEFAULT
 			########## CUSTOM BELOW
 
+			multiply = 0.1 # TESTING DISABLING ALL DEFAULT VALUES
+
 			add = lotus_strategy_calculation
 		}
 		dominate = {
@@ -1561,6 +1600,8 @@ ai_strategy_default = {
 
 			#### ABOVE IS DEFAULT
 			#### CUSTOM BELOW
+			
+			multiply = 0.1 # TESTING DISABLING ALL DEFAULT VALUES
 
 			add = lotus_strategy_calculation
 		}			
@@ -2031,42 +2072,45 @@ ai_strategy_default = {
 				add = 125
 			}			
 
-			#BIC & DEI should not fight their overlord & vice versa
+			#europeans generally should not conquer each other
 			if = {
 				limit = {
 					OR = {
+						country_is_in_europe = yes
 						AND = {
-							exists = c:BIC
-							root = c:BIC
-							exists = c:GBR
-							scope:target_country = c:GBR
-							is_subject_of = c:GBR
+							exists = c:RUS
+							root = c:RUS
 						}
 						AND = {
-							exists = c:DEI
-							root = c:DEI
-							exists = c:NET
-							scope:target_country = c:NET
-							is_subject_of = c:NET
-						}		
-						AND = {
-							exists = c:GBR
-							root = c:GBR
-							exists = c:BIC
-							scope:target_country = c:BIC
-							scope:target_country = { is_subject_of = root }
+							exists = c:TUR
+							root = c:TUR
+						}						
+					}
+
+					AND = {
+						scope:target_state = { state_is_in_europe = yes }
+						NOT = {
+							is_adjacent = scope:target_state
+							scope:target_state = { is_homeland_of_country_cultures = root }
 						}
-						AND = {
-							exists = c:NET
-							root = c:NET
-							exists = c:DEI
-							scope:target_country = c:DEI
-							scope:target_country = { is_subject_of = root }
-						}	
-					}			
+					}
 				}
 
-				multiply = 0
+				multiply = 0.0
+			}
+
+			#if someone is next to you, dont take states that arent adjacent
+			if = {
+				limit = {
+					
+					is_adjacent = scope:target_country
+
+					NOT = {
+						is_adjacent = scope:target_state
+					}
+				}
+
+				multiply = 0.0
 			}
 
 			#if you made it this far targeting a state without strategic land adjacency, reduce it's priority
@@ -2684,13 +2728,13 @@ ai_strategy_default = {
 			add = {
 				value = scope:target_state.state_population
 				divide = 200000
-				max = 10						
+				max = 50						
 			}
 			
 			add = {
 				value = scope:target_state.gdp
 				divide = 200000
-				max = 10						
+				max = 50						
 			}											
 			
 			if = {
@@ -2966,7 +3010,7 @@ ai_strategy_default = {
 			}
 
 			min = 0
-			max = 10				
+			max = 0 ### actually just try disbling this for now				
 		}
 
 		force_recognition = {
@@ -3037,7 +3081,7 @@ ai_strategy_default = {
 				#dont make your overlord transfer subjects
 				if = {
 					limit = {
-						scope:target_country.top_overlord = root
+						scope:target_country.top_overlord = root.top_overlord
 					}
 
 					multiply = 0

@@ -1,0 +1,21 @@
+﻿# Add loyalists afte winning a civil war to prevent civil war spirals
+on_civil_war_won = {
+	effect = {
+		if = {
+			limit = {
+				has_global_variable = achievement_revo_needed
+			}
+			set_global_variable = achievement_revolutionary
+
+            every_scope_state = {
+                limit = {
+                    is_incorporated = yes
+                }
+                add_loyalists = {
+                    value = 0.5
+                }
+            }
+		}
+
+	}
+}
