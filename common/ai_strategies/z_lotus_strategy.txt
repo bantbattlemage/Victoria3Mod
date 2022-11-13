@@ -279,7 +279,7 @@ ai_strategy_default = {
 	# Bravery multiplies the AI's estimation of its own strength, so at bravery 2 it believes its forces to be twice as strong as they actually are
 	# The AI wants to have at least parity in what it believes its own forces to be and what the enemy forces are, so at bravery 2 it's OK with only having 50% of the enemy strength
 	bravery = {
-		value = 1.2
+		value = 1
 		
 		# Braver against pariah countries
 		if = {
@@ -407,26 +407,23 @@ ai_strategy_default = {
 			add = 10
 		}
 
+		#mexican/texan bravery
 		if = {
 			limit = {
+				exists = c:MEX
+				exists = c:TEX
+
 				OR = {
-					AND = {
-						exists = c:MEX
-						exists = c:TEX
-						root = c:TEX
-					}
-					AND = {
-						exists = c:TEX
-						exists = c:MEX
-						root = c:MEX
-					}					
+					root = c:TEX
+					root = c:MEX				
 				}
 
 			}
 
-			add = 5
+			add = 1
 		}
 		
+		# prussia shouldnt be over-confident against austria
 		if = {
 			limit = {
 				exists = c:AUS
@@ -434,6 +431,9 @@ ai_strategy_default = {
 				root = c:PRU
 				scope:target_country = c:AUS
 			}
+			
+			multiply = 0
+			value = 1
 		}
 	}
 	
@@ -2152,7 +2152,7 @@ ai_strategy_default = {
 					}
 				}
 
-				multiply = 0.05
+				multiply = 0.2
 			}
 
 			min = 0

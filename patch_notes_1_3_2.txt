@@ -1,0 +1,11 @@
+### PATCH NOTES LotusAI release 1.3.2
+
+# Adjusted values related to capitulation further. There should no longer be "swap" peace deals where they both accept terms, or a seemingly winning side suddenly capitulating.
+
+# Expanded Centralize East Indies decisions for Britain & Netherlands, and they should be useable if DEI/Raj is your puppet. (note however that the Centralize Raj decision requires the Raj variable which is a vanilla british event/decision)
+
+# Reduced Colonial Investment level requirement of said British Raj decision from 5 to 3.
+
+# Changed Italian, NGF & Germany Unification events to fire more frequently.
+
+# Changed North German Unification journal entry to count your subjects. This makes it significantly easier to take, as currently the AI would just skip over NGF and go straight to Germany as they had basically the same requirements. The German entry is left as it is for now, as it seems like forming Germany is not too difficult as forming NGF once NGF is formed; at least if Austria isn't super strong.

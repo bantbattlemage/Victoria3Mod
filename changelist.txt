@@ -22,7 +22,7 @@ AroAI is fully compatible and recommended! https://steamcommunity.com/sharedfile
 
 ### Game Balance Changes ###
 
-# Because White Peace is fundamentally broken and unfixable in mods, AIs will now capitulate at 0 war support. Some related values have been tweaked to account for this.
+# Because White Peace is fundamentally broken and unfixable in mods, wars will now end when one side reaches 0 war support. Some related values have been tweaked to account for this. It is now predictable when a war will end due to this as well.
 
 # Some values related to the automated battle system have been adjusted.
 
@@ -46,9 +46,9 @@ AroAI is fully compatible and recommended! https://steamcommunity.com/sharedfile
 
 # Added Russian claims to the 2 central Asian states that are fully enclosed in the Caucuses. 
 
-# The level 40 Barracks in Lower Egypt has been reduced to level 10 to help Ottomans not get curbstomped quite so badly and consisetly.
+# The level 40 Barracks in Lower Egypt has been reduced to level 10 to help Ottomans not get curbstomped quite so badly and consistently.
 
-# Mexico has been given two level 5 naval bases because as AI it sometimes liked to declare war on Caribbean countries without realizing it doesn't have the boats to do so. NOTE: The root issue here has since been addressed and the AI shouldn't declare overseas wars if it doesnt' have enough boats, but I left the naval bases for Mexico for now.
+# Mexico has been given two level 5 naval bases because as AI it sometimes liked to declare war on Caribbean countries without realizing it doesn't have the boats to do so. NOTE: The root issue here has since been addressed and the AI shouldn't declare overseas wars if it doesn't' have enough boats, but I left the naval bases for Mexico for now.
 
 ### Event/Decision Changes ###
 
@@ -64,6 +64,6 @@ AroAI is fully compatible and recommended! https://steamcommunity.com/sharedfile
 
 # Added a decision to Great Britain that will annex all of British Raj subjects into British Raj. It is available once the Raj tag is activated fpr East India Company. (usually like 20-30 years into the game the AI gets it)
 
-# These new decisions I feel are necessary due to the backwards mechanics behind annexing vassals. The AI does not understand that it needs to reduce relations with its overlord in order ot be able annex its own subjects, and barely understands needing to reduce reduce relations with the subject it wants to annex. The mechanic itself is counter-intuitive, because good relations should be a good thing, and in games like EU4 you annex vassals with good relations, not poor ones.
+# These new decisions I feel are necessary due to the backwards mechanics behind annexing vassals. The AI does not understand that it needs to reduce relations with its overlord in order to be able annex its own subjects, and barely understands needing to reduce reduce relations with the subject it wants to annex. The mechanic itself is counter-intuitive, because good relations should be a good thing, and in games like EU4 you annex vassals with good relations, not poor ones.
 
-# Added a decision for Great Britian and Netherlands to automatically re-vassalize an indepdendent Raj or Dutch East Indies. IMO there is no reason these tags should ever be indepdendent if there is no mechanics or flavor for them becoming countries run by the native population, they just sit there being a nonsensical indepdendent european colony. What's worse is the reason they become independent is usally because of nested wars causing automatic peace deals.
+# Added a decision for Great Britain and Netherlands to automatically re-vassalize an indepdendent Raj or Dutch East Indies. IMO there is no reason these tags should ever be independent if there is no mechanics or flavor for them becoming countries run by the native population, they just sit there being a nonsensical independent european colony. What's worse is the reason they become independent is usually because of nested wars causing automatic peace deals.

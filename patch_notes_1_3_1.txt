@@ -1,6 +1,0 @@
-### PATCH NOTES LotusAI release 1.3.1
-# Added a decision for Great Britian and Netherlands to automatically re-vassalize an indepdendent Raj or Dutch East Indies. IMO there is no reason these tags should ever be indepdendent if there is no mechanics or flavor for them becoming countries run by the native population, they just sit there being a nonsensical indepdendent european colony. What's worse is the reason they become independent is usally because of nested wars causing automatic peace deals.
-# Fixed Russian lazyness in central asia, again.
-# Removed the poor relations modifers added to GBR & NET as they aren't needed for annexing anymore with the new decisions.
-# Tweaked some values related to war exhaustion.
-# Prussia should not take Sweden/Denmark/Norway as puppets anymore (while still PRU tag at least)

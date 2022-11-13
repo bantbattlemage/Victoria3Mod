@@ -51,6 +51,7 @@
 }
 
 centralize_east_indies = {
+	
 	is_shown = {
 		country_is_in_europe = yes
 		exists = c:DEI
@@ -59,6 +60,7 @@ centralize_east_indies = {
 			is_subject_of = ROOT
 		}
 	}
+
 	possible = {
 
 		has_technology_researched = nationalism
@@ -68,9 +70,15 @@ centralize_east_indies = {
 		c:DEI = {
 			is_subject_of = ROOT
 			is_at_war = no
-			is_subject_type = subject_type_dominion
 		}
+
+		any_subject_or_below = {
+
+			NOT = { this = c:DEI }
+			capital.state_region.region = sr:region_indonesia
+		}		
 	}
+
 	when_taken = {
 
 		every_subject_or_below = {
@@ -89,16 +97,25 @@ centralize_east_indies = {
 
 		c:NET = {
 
-			hidden_effect = {
-				remove_diplomatic_pact = {
-					country = c:DEI
-					type = dominion
+			if = {
+				limit = {
+					has_diplomatic_pact = {
+						who = c:DEI
+						type = dominion
+					}
 				}
-			}
 
-			create_diplomatic_pact = {
-				country = c:DEI
-				type = puppet				
+				hidden_effect = {
+					remove_diplomatic_pact = {
+						country = c:DEI
+						type = dominion
+					}
+				}
+	
+				create_diplomatic_pact = {
+					country = c:DEI
+					type = puppet				
+				}
 			}
 		}
 	}
@@ -117,6 +134,7 @@ net_fix_independent_dei = {
 		root = c:NET
 		
 	}
+
 	possible = {
 
 		is_at_war = no
@@ -132,6 +150,7 @@ net_fix_independent_dei = {
 			}
 		}
 	}
+
 	when_taken = {
 		
 		c:DEI = {

@@ -188,9 +188,9 @@
 						}
 					}
 
-					add = 5000
+					add = 2500
 				}			
-			}		
+			}
 
 			#extra US aggression and expanding the states it cares about
 			if = {
@@ -279,6 +279,9 @@
 					limit = {
 						NOT = {
 							scope:target_country = {
+
+								is_subject_of = root
+
 								any_scope_state = {
 									OR = {
 										state_region = s:STATE_KUBAN
@@ -289,16 +292,29 @@
 										state_region = s:STATE_KIRGHIZIA
 										state_region = s:STATE_TAJIKISTAN
 										state_region = s:STATE_UZBEKIA					
+										state_region = s:STATE_KHIVA				
+										state_region = s:STATE_KIRGHIZIA					
 									}
 								}
 							}					
 						}						
 					}
 
-					multiply = 0					
+					multiply = 0
 				}
 				else = {
-					add = 5000
+					# china owns a bit of STATE_KIRGHIZIA
+					if = {
+						limit = {
+							exists = c:CHI
+							scope:target_country = c:CHI
+						}
+
+						# do nothing
+					}
+					else = {
+						add = 5000
+					}
 				}
 			}
 
@@ -746,6 +762,9 @@
 
 					add = 5000
 				}
+				else = {
+					multiply = 0
+				}
 			}
 			
 			#USA should go after hawaii if it has the west coast
@@ -1000,7 +1019,7 @@
 				multiply = 0.05
 			}
 
-			#limit prussian desire for nordics
+			#limit prussian desire for nordics & Luxembourg
 			if = {
 				limit = {
 					exists = c:PRU
@@ -1019,6 +1038,10 @@
 							exists = c:SWE
 							scope:target_country = c:SWE
 						}
+						AND = {
+							exists = c:LUX
+							scope:target_country = c:LUX
+						}						
 					}
 				}
 

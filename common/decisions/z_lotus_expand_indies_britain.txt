@@ -180,18 +180,36 @@ bic_centralize_british_raj = {
 	is_shown = {
 
 		exists = c:BIC
-		exists = c:GBR
-		root = c:GBR
+		c:BIC = { top_overlord = root }
 		
 	}
+	
 	possible = {
 
 		is_at_war = no
+
 		exists = c:BIC
-		root = c:GBR		
+		c:BIC = { top_overlord = root }
+
 		has_technology_researched = nationalism
 		has_variable = british_raj_var
+
+		any_subject_or_below = {
+
+			NOT = { this = c:BIC }
+			NOT = { this = c:PER }
+			NOT = { this = c:AFG }
+
+			OR = {
+				capital.state_region.region = sr:region_north_india
+				capital.state_region.region = sr:region_south_india
+				capital.state_region.region = sr:region_himalayas
+				capital.state_region.region = sr:region_indochina
+				capital.state_region.region = sr:region_persia
+			}
+		}
 	}
+
 	when_taken = {
 
 		every_subject_or_below = {
@@ -200,11 +218,15 @@ bic_centralize_british_raj = {
 				limit = {
 
 					NOT = { this = c:BIC }
+					NOT = { this = c:PER }
+					NOT = { this = c:AFG }
 
 					OR = {
 						capital.state_region.region = sr:region_north_india
 						capital.state_region.region = sr:region_south_india
 						capital.state_region.region = sr:region_himalayas
+						capital.state_region.region = sr:region_indochina
+						capital.state_region.region = sr:region_persia
 					}
 				}
 			
