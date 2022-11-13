@@ -188,44 +188,9 @@
 						}
 					}
 
-					add = 1000
+					add = 5000
 				}			
 			}		
-
-			#USA should go after hawaii if it has the west coast
-			if = {
-				limit = {
-					OR = {
-						AND = {
-							capital.state_region = s:STATE_DISTRICT_OF_COLUMBIA
-							capital.state_region = s:STATE_VIRGINIA
-						}
-						AND = {
-							exists = c:USA
-							root = c:USA
-						}
-					}
-
-					any_scope_state = {
-						OR = {
-							state_region = s:STATE_OREGON
-							state_region = s:STATE_WASHINGTON
-							state_region = s:STATE_CALIFORNIA
-						}							
-					}
-
-					scope:target_country = {
-
-						NOT = { is_subject_of = root }
-
-						any_scope_state = {
-							state_region = s:STATE_HAWAIIAN_ISLANDS
-						}
-					}
-				}
-
-				add = 5000
-			}
 
 			#extra US aggression and expanding the states it cares about
 			if = {
@@ -298,27 +263,6 @@
 				}
 
 				add = 5000
-			}		
-
-			# russian aggression against manchuria
-			if = {
-				limit = {
-					exists = c:RUS
-					root = c:RUS
-
-					scope:target_country = {
-						any_scope_state = {
-							OR = {
-								state_region = s:STATE_OUTER_MANCHURIA
-								state_region = s:STATE_NORTHERN_MANCHURIA
-								state_region = s:STATE_SOUTHERN_MANCHURIA
-								state_region = s:STATE_SHENGJING								
-							}
-						}
-					}
-				}
-
-				add = 5000
 			}
 
 			#russian central asia aggression (and sakhalin) and limit aggression elsewhere if these arent held
@@ -326,6 +270,7 @@
 				limit = {
 					exists = c:RUS
 					root = c:RUS
+					scope:target_country = { NOT = { is_subject_of = c:RUS} }
 				}
 
 				if = {
@@ -352,23 +297,44 @@
 				else_if = {
 					
 					limit = {
+
 						NOT = {
 							AND = {
 								any_scope_state = { state_region = s:STATE_KUBAN }
-								any_scope_state = { state_region = s:STATE_DAGESTAN	}
-								any_scope_state = { state_region = s:STATE_AZERBAIJAN }							
-								any_scope_state = { state_region = s:STATE_KHIVA }
+								any_scope_state = { state_region = s:STATE_DAGESTAN }
+								any_scope_state = { state_region = s:STATE_AZERBAIJAN }
 								any_scope_state = { state_region = s:STATE_TURKMENIA }
 								any_scope_state = { state_region = s:STATE_UZBEKIA }
 								any_scope_state = { state_region = s:STATE_SEMIRECHE }
-								any_scope_state = { state_region = s:STATE_SAKHALIN	}	
+								#any_scope_state = { state_region = s:STATE_SAKHALIN }
 								any_scope_state = { state_region = s:STATE_KIRGHIZIA }	
 							}
 						}
 					}
 
-					multiply = 0.1
+					multiply = 0
 				}
+			}
+
+			# russian aggression against manchuria
+			if = {
+				limit = {
+					exists = c:RUS
+					root = c:RUS
+
+					scope:target_country = {
+						any_scope_state = {
+							OR = {
+								state_region = s:STATE_OUTER_MANCHURIA
+								state_region = s:STATE_NORTHERN_MANCHURIA
+								state_region = s:STATE_SOUTHERN_MANCHURIA
+								state_region = s:STATE_SHENGJING								
+							}
+						}
+					}
+				}
+
+				add = 2500
 			}
 
 			#Dutch & DEI aggression
@@ -390,6 +356,17 @@
 				if = {
 					limit = {
 						scope:target_country = {
+
+							NOT = { 
+								OR = {
+									this = c:DEI
+									AND = {
+										root = c:NET
+										overlord = c:DEI
+									}
+								}
+							}
+
 							any_scope_state = {
 								OR = {
 									state_region = s:STATE_WEST_JAVA
@@ -458,7 +435,7 @@
 					}
 				}
 
-				add = 1000
+				add = 5000
 			}
 
 			#British + Raj aggression
@@ -518,21 +495,12 @@
 						limit = {
 							exists = c:BIC
 							root = c:BIC
-						}
-
-						#while still a dominion, priortize annexing vassals
-						if = {
-							limit = {
-								scope:target_country = { 
-									is_direct_subject_of = root
-								}
+							scope:target_country = { 
+								NOT = { is_direct_subject_of = c:GBR } 
 							}
+						}
 
-							add = 2000
-						}
-						else = {
-							add = 1000
-						}
+						add = 2000
 					}
 					# GBR should highly prioritize any independant countries in india after Raj is a puppet, and should prioritize integrating other indian vassals
 					else_if = {
@@ -544,6 +512,7 @@
 								NOT = {
 									exists = c:BIC
 									this = c:BIC
+									overlord = c:BIC
 								}
 							}
 						}
@@ -552,16 +521,16 @@
 							limit = {
 								scope:target_country = {
 									NOT = {
-										top_overlord = c:GBR
+										top_overlord = c:GBR										
 									}
 								}
 							}
 
-							add = 2000
+							add = 5000
 						}
 						else = {
 
-							add = 500
+							add = 1000
 						}
 					}
 				}
@@ -665,7 +634,7 @@
 					}
 				}
 
-				add = 1000
+				add = 5000
 			}
 
 			#limit aggression of minor AI countries
@@ -690,7 +659,7 @@
 				multiply = 0.05
 			}
 
-			#limit US aggression against everyone but mexico before manifest destiny
+			#limit US aggression against everyone but mexico/texas before manifest destiny
 			if = {
 				limit = {
 
@@ -699,26 +668,92 @@
 						root = c:USA
 					}
 
-					OR = {
-						has_journal_entry = je_manifest_destiny_mexico
-						has_journal_entry = je_oregon
-					}
-
 					NOT = {
-						OR = {
-							AND = {
-								exists = c:MEX
-								scope:target_country = c:MEX
+						scope:target_country = {
+							any_scope_state = {
+								OR = {
+									#state_region = s:STATE_OREGON
+									#state_region = s:STATE_WASHINGTON
+									#state_region = s:STATE_IDAHO
+									state_region = s:STATE_TEXAS
+									state_region = s:STATE_COLORADO	
+									state_region = s:STATE_NEVADA
+									state_region = s:STATE_ARIZONA
+									state_region = s:STATE_NEW_MEXICO
+									state_region = s:STATE_CALIFORNIA
+									state_region = s:STATE_UTAH
+									state_region = s:STATE_INDIANA
+									state_region = s:STATE_WYOMING
+									state_region = s:STATE_MONTANA
+									state_region = s:STATE_OKLAHOMA
+									state_region = s:STATE_KANSAS
+									state_region = s:STATE_NEBRASKA							
+									state_region = s:STATE_SOUTH_DAKOTA
+									state_region = s:STATE_NORTH_DAKOTA							
+									state_region = s:STATE_NEBRASKA
+									state_region = s:STATE_MISSOURI
+									state_region = s:STATE_ARKANSAS
+									state_region = s:STATE_LOUISIANA
+									state_region = s:STATE_MISSISSIPPI
+									state_region = s:STATE_TENNESSEE
+									state_region = s:STATE_ILLINOIS
+									state_region = s:STATE_IOWA
+									state_region = s:STATE_WISCONSIN
+									state_region = s:STATE_MICHIGAN
+									state_region = s:STATE_OHIO
+									state_region = s:STATE_KENTUCKY
+									state_region = s:STATE_GEORGIA
+									state_region = s:STATE_FLORIDA
+									state_region = s:STATE_SOUTH_CAROLINA
+									state_region = s:STATE_NORTH_CAROLINA
+									state_region = s:STATE_VIRGINIA
+									state_region = s:STATE_WEST_VIRGINIA
+									state_region = s:STATE_MARYLAND
+									state_region = s:STATE_DELAWARE
+									state_region = s:STATE_PENNSYLVANIA
+									state_region = s:STATE_NEW_YORK
+									state_region = s:STATE_CONNECTICUT
+									state_region = s:STATE_MASSACHUSETTS
+									state_region = s:STATE_NEW_HAMPSHIRE
+									state_region = s:STATE_MAINE
+									state_region = s:STATE_VERMONT
+									state_region = s:STATE_DISTRICT_OF_COLUMBIA
+								}
 							}
-							AND = {
-								exists = c:TEX
-								scope:target_country = c:TEX
-							}
-						}							
+						}					
 					}
 				}
 
-				multiply = 0.05
+				multiply = 0
+			}
+			
+			#USA should go after hawaii if it has the west coast
+			if = {
+				limit = {
+					AND = {
+						exists = c:USA
+						root = c:USA
+					}
+
+					any_scope_state = {
+						OR = {
+							state_region = s:STATE_OREGON
+							state_region = s:STATE_WASHINGTON
+							state_region = s:STATE_CALIFORNIA
+						}							
+					}
+
+					scope:target_country = {
+
+						NOT = { is_subject_of = root }
+
+						any_scope_state = {
+							state_region = s:STATE_HAWAIIAN_ISLANDS
+						}
+					}
+				}
+
+				add = 5000
 			}
 
 			#non-chinese should not go after heavenly kingdom
@@ -835,6 +870,28 @@
 				multiply = 0
 			}
 
+			#limit french & british aggression in europe
+			if = {
+				limit = {
+					OR = {
+						AND = {
+							exists = c:GBR
+							root = c:GBR
+						}
+						AND = {
+							exists = c:FRA
+							root = c:FRA
+						}						
+					}
+
+					scope:target_country = {
+						country_is_in_europe = yes
+					}
+				}
+
+				multiply = 0
+			}
+
 			#limit ottoman & russian AI obsession with western europe
 			if = {
 				limit = {
@@ -866,7 +923,7 @@
 				multiply = 0
 			}
 
-			#GBR+BIC and NET+DEI shouldn't fight each other over colonies
+			#colonizers shouldn't fight their own colonies
 			if = {
 				limit = {
 					OR = {
@@ -906,6 +963,47 @@
 				multiply = 0
 			}
 
+			#reduce prussia's desire to gun straight for austria
+			if = {
+				limit = {
+					exists = c:PRU
+					root = c:PRU
+					exists = c:AUS
+
+					OR = {
+						scope:target_country = c:AUS
+						scope:target_country = { top_overlord = c:AUS }
+					}
+				}
+
+				multiply = 0.05
+			}
+
+			#limit prussian desire for nordics
+			if = {
+				limit = {
+					exists = c:PRU
+					root = c:PRU
+					
+					OR = {
+						AND = {
+							exists = c:DEN
+							scope:target_country = c:DEN
+						}
+						AND = {
+							exists = c:NOR
+							scope:target_country = c:NOR
+						}
+						AND = {
+							exists = c:SWE
+							scope:target_country = c:SWE
+						}
+					}
+				}
+
+				multiply = 0
+			}
+
 			#Austria & Qing & Ottomans should chill out and not be aggressive and hopefully fall/get picked apart
 			if = {
 				limit = {
@@ -925,7 +1023,7 @@
 					}
 				}
 
-				multiply = 0.1
+				multiply = 0
 			}
 		}
 	}

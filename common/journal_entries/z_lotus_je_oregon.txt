@@ -41,6 +41,9 @@
 	}
 
 	complete = {
+		
+		is_at_war = no
+
 		OR = {
 			AND = {
 				custom_tooltip = {
@@ -49,9 +52,6 @@
 				}
 				owns_entire_state_region = STATE_MONTANA
 				owns_entire_state_region = STATE_WYOMING
-				c:GBR = {
-					relations:ROOT >= relations_threshold:neutral
-				}
 			}
 			AND = {
 				owns_entire_state_region = STATE_WASHINGTON

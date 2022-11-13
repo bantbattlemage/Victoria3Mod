@@ -14,7 +14,7 @@ ai_strategy_default = {
 	max_regressiveness = 25 # How regressive is the AI willing to be when passing laws
 
 	diplomatic_play_neutrality = 75 	 # Added to base neutrality in diplomatic plays	
-	diplomatic_play_boldness = 50 	# Added to base boldness in diplomatic plays
+	diplomatic_play_boldness = 50
 
 	# How many maneuvers are we OK with using up in the initial phase to add more wargoals
 	# All strategies are added together here to produce a value from 0 to 1
@@ -160,6 +160,11 @@ ai_strategy_default = {
 			multiply = 4 #default 2
 		}
 
+		min = 0
+		max = 30
+
+		#### custom
+
 		#GBR & NET should never back down from defending their colonies
 		if = {
 			limit = {
@@ -179,7 +184,7 @@ ai_strategy_default = {
 				}
 			}
 
-			value = 30
+			value = 1000
 		}
 
 		#GBR/NET should not take obligations against BIC/DEI
@@ -243,7 +248,7 @@ ai_strategy_default = {
 				}
 			}
 
-			value = 30
+			value = 1000
 		}
 
 		#China should only care about asia
@@ -262,8 +267,16 @@ ai_strategy_default = {
 			multiply = 0
 		}
 
-		min = 0
-		max = 30
+		# support uprisings of your culture
+		if = {
+			limit = {
+				country_rank >=  rank_value:major_power
+				scope:target_country = { any_scope_state = { is_homeland_of_country_cultures = root } }
+				can_reach_target_country = yes
+			}
+
+			value = 1000
+		}
 	}
 
 	# Bravery multiplies the AI's estimation of its own strength, so at bravery 2 it believes its forces to be twice as strong as they actually are
@@ -416,11 +429,19 @@ ai_strategy_default = {
 
 			add = 5
 		}
+		
+		if = {
+			limit = {
+				exists = c:AUS
+				exists = c:PRU
+				root = c:PRU
+				scope:target_country = c:AUS
+			}
+		}
 	}
 	
 	aggression = {
 
-		multiply = 0.1
 		value = 0
 
 		if = {
@@ -456,6 +477,15 @@ ai_strategy_default = {
 						is_subject_of = scope:target_country
 						scope:target_country = { is_subject_of = root }
 					}				
+
+					NOT = {
+						exists = c:BIC
+
+						OR = {
+							root = c:BIC
+							scope:target_country = c:BIC
+						}
+					}
 				}
 				add = 5
 			}		
@@ -800,17 +830,10 @@ ai_strategy_default = {
 					has_journal_entry = je_oregon
 
 					NOT ={
-
-						OR = {
-							has_journal_entry = je_conquer_oregon
-
-							any_scope_state = {
-								AND = {
-									state_region = s:STATE_WASHINGTON
-									state_region = s:STATE_IDAHO
-									state_region = s:STATE_OREGON
-								}
-							}
+						AND = {
+							any_scope_state = { state_region = s:STATE_WASHINGTON }
+							any_scope_state = { state_region = s:STATE_IDAHO }
+							any_scope_state = { state_region = s:STATE_OREGON }
 						}
 					}
 				}
@@ -889,14 +912,10 @@ ai_strategy_default = {
 					has_journal_entry = je_oregon
 
 					NOT ={
-						has_journal_entry = je_conquer_oregon
-
-						any_scope_state = {
-							AND = {
-								state_region = s:STATE_WASHINGTON
-								state_region = s:STATE_IDAHO
-								state_region = s:STATE_OREGON
-							}
+						AND = {
+							any_scope_state = { state_region = s:STATE_WASHINGTON }
+							any_scope_state = { state_region = s:STATE_IDAHO }
+							any_scope_state = { state_region = s:STATE_OREGON }
 						}
 					}
 				}
@@ -987,9 +1006,9 @@ ai_strategy_default = {
 				multiply = 0.0	
 			}				
 
-			multiply = 0.1 # TESTING DISABLING ALL DEFAULT VALUES
+			#multiply = 0.1 # TESTING DISABLING ALL DEFAULT VALUES
 
-			add = lotus_strategy_calculation
+			#add = lotus_strategy_calculation
 		}		
 		antagonize = {
 			value = 0
@@ -1297,17 +1316,29 @@ ai_strategy_default = {
 			
 			if = {
 				limit = {
-					has_journal_entry = je_conquer_oregon
-					scope:target_country = {
-						any_scope_state = {
-							OR = {
-								state_region = s:STATE_WASHINGTON
-								state_region = s:STATE_IDAHO
-								state_region = s:STATE_OREGON
+
+					OR = {
+						has_journal_entry = je_conquer_oregon
+						
+						AND = {
+							
+							NOT = { has_journal_entry = je_conquer_oregon }
+
+							scope:target_country = {
+								any_scope_state = {
+									OR = {
+										state_region = s:STATE_WASHINGTON
+										state_region = s:STATE_IDAHO
+										state_region = s:STATE_OREGON
+									}
+
+									owner.top_overlord = c:GBR
+								}
 							}
 						}
 					}
 				}
+
 				add = 1000
 			}
 			
@@ -1429,7 +1460,7 @@ ai_strategy_default = {
 			########### ABOVE IS DEFAULT
 			########## CUSTOM BELOW
 
-			multiply = 0.1 # TESTING DISABLING ALL DEFAULT VALUES
+			multiply = 0.0 # TESTING DISABLING ALL DEFAULT VALUES
 
 			add = lotus_strategy_calculation
 		}
@@ -1601,7 +1632,7 @@ ai_strategy_default = {
 			#### ABOVE IS DEFAULT
 			#### CUSTOM BELOW
 			
-			multiply = 0.1 # TESTING DISABLING ALL DEFAULT VALUES
+			multiply = 0.0 # TESTING DISABLING ALL DEFAULT VALUES
 
 			add = lotus_strategy_calculation
 		}			
@@ -1831,6 +1862,9 @@ ai_strategy_default = {
 			if = {
 				limit = {
 					has_journal_entry = je_opium_wars
+					
+					NOT = { root = c:RUS}
+
 					scope:target_country = {
 						has_variable = opium_wars_target
 					}
@@ -2129,7 +2163,7 @@ ai_strategy_default = {
 		}
 		
 		return_state = {
-			value = 50
+			value = 100
 
 			add = {
 				value = scope:target_state.state_population
@@ -2153,14 +2187,7 @@ ai_strategy_default = {
 				}
 				add = 50
 			}
-			
-			if = {
-				limit = {
-					has_strategic_adjacency = scope:target_state
-				}
-				multiply = 1.5
-			}
-		
+					
 			if = {
 				limit = {
 					scope:target_state = { is_homeland_of_country_cultures = root }
@@ -2169,6 +2196,16 @@ ai_strategy_default = {
 				add = 50
 
 				multiply = 1.25
+			}
+
+			if = {
+				limit = {
+					has_strategic_adjacency = scope:target_state
+				}
+				multiply = 1.5
+			}
+			else = {
+				multiply = 0.25
 			}
 
 			if = {
@@ -2547,7 +2584,7 @@ ai_strategy_default = {
 		}	
 
 		war_reparations = {
-			value = 5
+			value = 25
 			
 			add = {
 				value = "scope:target_country.ai_gdp_comparison(root)"
@@ -2630,7 +2667,7 @@ ai_strategy_default = {
 			}			
 
 			### kind of a uselesss war goal, dont take it too often
-			multiply = 0.05		
+			#multiply = 0.05		
 			max = 1
 		}
 		
@@ -2719,8 +2756,8 @@ ai_strategy_default = {
 			}
 
 			min = 0
-			max = 10
-		}		
+			max = 5
+		}
 
 		revoke_claim = {
 			value = 10
@@ -3060,6 +3097,8 @@ ai_strategy_default = {
 
 		transfer_subject = {
 
+			value = 0
+
 			if = {
 				limit = {
 					can_reach_target_country = yes
@@ -3078,23 +3117,6 @@ ai_strategy_default = {
 					}
 				}
 
-				#dont make your overlord transfer subjects
-				if = {
-					limit = {
-						scope:target_country.top_overlord = root.top_overlord
-					}
-
-					multiply = 0
-				}
-
-				if = {
-					limit = {
-						can_reach_target_country = no
-					}
-
-					multiply = 0
-				}
-
 				value = 100
 			}
 			else = {
@@ -3102,7 +3124,318 @@ ai_strategy_default = {
 			}
 		}
 
+		if = {
+			limit = {
+				can_reach_target_country = no
+			}
+
+			multiply = 0
+		}
+
 		max = 100
+	}
+
+	#### largely default values in here currently. mainly to get USA to look at hawaii
+	strategic_region_scores = {
+		region_japan = {	
+			if = {
+				limit = { # Great Powers should try to open Japan
+					exists = c:JAP
+					c:JAP = { has_law = law_type:law_isolationism }
+					has_technology_researched = civilizing_mission	
+					country_rank = rank_value:great_power
+					navy_size >= 50
+				}
+				add = 1000
+			}
+			if = {
+				limit = {
+					exists = c:JAP
+					c:JAP = { has_law = law_type:law_isolationism }
+					NOT = { country_rank = rank_value:great_power }
+				}
+				add = -50
+			}				
+		}				
+		region_nile_basin = {
+			if = {
+				limit = {
+					OR = {
+						AND = {
+							country_rank = rank_value:great_power
+							has_technology_researched = malaria_prevention
+						}
+						has_journal_entry = scramble_for_africa
+					}						
+				}
+				add = 200
+			}		
+		}
+		region_north_africa = {
+			if = {
+				limit = {
+					OR = {
+						AND = {
+							country_rank = rank_value:great_power
+							has_technology_researched = malaria_prevention
+						}
+						has_journal_entry = scramble_for_africa
+					}		
+				}
+				add = 200
+			}		
+		}
+		region_senegal = {
+			if = {
+				limit = {
+					OR = {
+						AND = {
+							country_rank = rank_value:great_power
+							has_technology_researched = malaria_prevention
+						}
+						has_journal_entry = scramble_for_africa
+					}		
+				}
+				add = 200
+			}		
+		}
+		region_niger = {
+			if = {
+				limit = {
+					OR = {
+						AND = {
+							country_rank = rank_value:great_power
+							has_technology_researched = malaria_prevention
+						}
+						has_journal_entry = scramble_for_africa
+					}		
+				}
+				add = 200
+			}		
+		}
+		region_congo = {
+			if = {
+				limit = {
+					OR = {
+						AND = {
+							country_rank = rank_value:great_power
+							has_technology_researched = malaria_prevention
+						}
+						has_journal_entry = scramble_for_africa
+					}		
+				}
+				add = 200
+			}		
+		}
+		region_southern_africa = {
+			if = {
+				limit = {
+					OR = {
+						AND = {
+							country_rank = rank_value:great_power
+							has_technology_researched = malaria_prevention
+						}
+						has_journal_entry = scramble_for_africa
+					}		
+				}
+				add = 200
+			}		
+		}
+		region_zanj = {
+			if = {
+				limit = {
+					OR = {
+						AND = {
+							country_rank = rank_value:great_power
+							has_technology_researched = malaria_prevention
+						}
+						has_journal_entry = scramble_for_africa
+					}		
+				}
+				add = 200
+			}		
+		}
+		region_north_germany = {
+			if = {
+				limit = {
+					country_is_in_europe = yes
+					country_rank >= rank_value:great_power
+				}
+				add = 100
+			}
+			if = {
+				limit = {
+					has_journal_entry = je_german_unification
+				}
+				add = 1000
+			}			
+		}
+		region_south_germany = {
+			if = {
+				limit = {
+					country_is_in_europe = yes
+					country_rank >= rank_value:great_power
+				}
+				add = 100
+			}
+			if = {
+				limit = {
+					has_journal_entry = je_german_unification
+				}
+				add = 1000
+			}				
+		}		
+		region_italy = {
+			if = {
+				limit = {
+					country_is_in_europe = yes
+					country_rank >= rank_value:great_power
+				}
+				add = 100
+			}
+		}
+		region_balkans = {
+			if = {
+				limit = {
+					country_is_in_europe = yes
+					country_rank >= rank_value:great_power
+				}
+				add = 50
+			}
+		}
+		region_england = {
+			if = {
+				limit = {
+					country_is_in_europe = yes
+					country_rank >= rank_value:great_power
+				}
+				add = 50
+			}
+		}	
+		region_iberia = {
+			if = {
+				limit = {
+					country_is_in_europe = yes
+					country_rank >= rank_value:great_power
+				}
+				add = 50
+			}
+		}
+		region_rhine = {
+			if = {
+				limit = {
+					country_is_in_europe = yes
+					country_rank >= rank_value:great_power
+				}
+				add = 50
+			}
+		}			
+		region_south_china = {
+			if = {
+				limit = {
+					has_journal_entry = je_opium_wars	
+				}
+				add = 1000
+			}			
+		}
+		region_pacific_coast = {
+			if = {
+				limit = {
+					has_variable = monroe_doctrine	
+				}
+				add = 100
+			}			
+		}
+		region_great_plains = {
+			if = {
+				limit = {
+					has_variable = monroe_doctrine	
+				}
+				add = 100
+			}			
+		}
+		region_dixie = {
+			if = {
+				limit = {
+					has_variable = monroe_doctrine	
+				}
+				add = 100
+			}			
+		}		
+		region_new_england = {
+			if = {
+				limit = {
+					has_variable = monroe_doctrine	
+				}
+				add = 100
+			}			
+		}
+		region_canada = {
+			if = {
+				limit = {
+					has_variable = monroe_doctrine	
+				}
+				add = 100
+			}			
+		}	
+		region_the_midwest = {
+			if = {
+				limit = {
+					has_variable = monroe_doctrine	
+				}
+				add = 100
+			}			
+		}	
+		region_central_america = {
+			if = {
+				limit = {
+					has_variable = monroe_doctrine	
+				}
+				add = 100
+			}			
+		}
+		region_brazil = {
+			if = {
+				limit = {
+					has_variable = monroe_doctrine	
+				}
+				add = 100
+			}			
+		}	
+		region_andes = {
+			if = {
+				limit = {
+					has_variable = monroe_doctrine	
+				}
+				add = 100
+			}			
+		}
+		region_la_plata = {
+			if = {
+				limit = {
+					has_variable = monroe_doctrine	
+				}
+				add = 100
+			}			
+		}
+		region_gran_colombia = {
+			if = {
+				limit = {
+					has_variable = monroe_doctrine	
+				}
+				add = 100
+			}			
+		}		
+		#usa needs to add a focus to oceania to get hawaii
+		region_oceania = {
+			if = {
+				limit = {
+					exists = c:USA
+					root = c:USA
+				}
+				add = 1000
+			}			
+		}				
 	}
 
 	possible = {
