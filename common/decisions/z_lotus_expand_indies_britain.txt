@@ -107,9 +107,9 @@ gbr_fix_independent_raj = {
 	}
 	possible = {
 
-		#is_at_war = no
+		is_at_war = no
 		exists = c:BIC
-		root = c:GBR		
+		root = c:GBR
 
 		c:BIC = {
 			
@@ -122,10 +122,50 @@ gbr_fix_independent_raj = {
 	}
 	when_taken = {
 		
+		c:BIC = {
+
+			if = {
+				limit = {
+					has_diplomatic_pact = {
+						who = c:GBR
+						type = rivalry
+					}
+				}
+
+				remove_diplomatic_pact = {
+					country = c:GBR
+					type = rivalry
+				}
+			}
+
+			set_relations = {
+				country = c:GBR
+				value = 100
+			}			
+		}
+
 		c:GBR = {
-			create_diplomatic_pact = {
+
+			set_relations = { 
 				country = c:BIC
-				type = puppet				
+				value = 100
+			}
+
+			if = {
+				limit = {
+					c:BIC = { has_variable = british_raj_var }			
+				}
+
+				create_diplomatic_pact = {
+					country = c:BIC
+					type = puppet				
+				}
+			}
+			else = {
+				create_diplomatic_pact = {
+					country = c:BIC
+					type = dominion				
+				}	
 			}
 		}
 	}

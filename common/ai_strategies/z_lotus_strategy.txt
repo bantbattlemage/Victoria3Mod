@@ -257,10 +257,7 @@ ai_strategy_default = {
 				exists = c:CHI
 				root = c:CHI
 				NOT = {
-					OR = {
-						scope:target_country = { country_is_in_east_asia = yes }
-						scope:target_country = { country_is_in_central_asia = yes }				
-					}
+					scope:target_country = { country_is_in_east_asia = yes }
 				}
 			}
 
@@ -3122,14 +3119,36 @@ ai_strategy_default = {
 			else = {
 				value = 0
 			}
-		}
 
-		if = {
-			limit = {
-				can_reach_target_country = no
+			#stop prussia taking these off denmark when its going for schleswig
+			if = {
+				limit = {
+					
+					exists = c:PRU
+					root = c:PRU
+
+					OR = {
+						AND = {
+							exists = c:DEN
+							scope:target_country = c:DEN
+						}
+						AND = {
+							exists = c:NOR
+							scope:target_country = c:NOR
+						}
+						AND = {
+							exists = c:SWE
+							scope:target_country = c:SWE
+						}
+						AND = {
+							exists = c:FIN
+							scope:target_country = c:FIN
+						}										
+					}
+				}
+
+				multiply = 0
 			}
-
-			multiply = 0
 		}
 
 		max = 100

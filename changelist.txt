@@ -20,9 +20,8 @@ AroAI is fully compatible and recommended! https://steamcommunity.com/sharedfile
 
 # The AI should be quicker to accept peace when it has lost a war.
 
-
-
 ### Game Balance Changes ###
+
 # Because White Peace is fundamentally broken and unfixable in mods, AIs will now capitulate at 0 war support. Some related values have been tweaked to account for this.
 
 # Some values related to the automated battle system have been adjusted.
@@ -36,6 +35,8 @@ AroAI is fully compatible and recommended! https://steamcommunity.com/sharedfile
 # Parma, Lucca, and Modena have been removed from Austria's Custom Union because Austria will very often retain a deathgrip on them even if Italy forms. This helps Italy integrate all of the minors more consistently.
 
 # The borders between the Mexico, the US and Canada have been adjusted to allow for the AI to consistently recreate clean borders. (and also allows for player USA to get everything historic Mexico in 1 or 2 wars without getting truce locked) There is slightly less uncolonized land now, but typically the US has to spend more of it's time filling that in now with less of Mexico/Canada helping. 
+
+# Mexico & the USA now start at war along with Texas to help with the border situation & issue of Mexico backing down & trucelocking.
 
 # Hokkaido now starts fully owned by Japan.
 
@@ -63,4 +64,6 @@ AroAI is fully compatible and recommended! https://steamcommunity.com/sharedfile
 
 # Added a decision to Great Britain that will annex all of British Raj subjects into British Raj. It is available once the Raj tag is activated fpr East India Company. (usually like 20-30 years into the game the AI gets it)
 
-# These new decisions I feel are necessary due to the backwards mechanics behind annexing vassals. The AI does not understand that it needs to reduce relations with its overlord in order ot be able annex its own subjects, and barely understands needing to reduce reduce relations with the subject it wants to annex. The mechanic itself is counter-intuitive, because good relations should be a good thing, and in games like EU4 you annex vassals with good relations, not poor ones. This is why Britain likes to annex Quebec at the game start in LotusAI, for example. (I haven't specifically blocked this yet because it doesnt' block Canada from forming and anything that buffs Britain is good imo) A small bonus to performance from removing something like 20-30 tags from the game after the early game as well.
+# These new decisions I feel are necessary due to the backwards mechanics behind annexing vassals. The AI does not understand that it needs to reduce relations with its overlord in order ot be able annex its own subjects, and barely understands needing to reduce reduce relations with the subject it wants to annex. The mechanic itself is counter-intuitive, because good relations should be a good thing, and in games like EU4 you annex vassals with good relations, not poor ones.
+
+# Added a decision for Great Britian and Netherlands to automatically re-vassalize an indepdendent Raj or Dutch East Indies. IMO there is no reason these tags should ever be indepdendent if there is no mechanics or flavor for them becoming countries run by the native population, they just sit there being a nonsensical indepdendent european colony. What's worse is the reason they become independent is usally because of nested wars causing automatic peace deals.
