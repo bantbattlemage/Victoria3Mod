@@ -115,9 +115,10 @@ gbr_fix_independent_raj = {
 			
 			is_at_war = no
 			is_player = no
+			top_overlord = { is_player = no }
 
 			NOT = { 
-				top_overlord = c:GBR		
+				top_overlord = c:GBR	
 			}
 		}
 	}

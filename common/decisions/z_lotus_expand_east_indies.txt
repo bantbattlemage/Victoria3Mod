@@ -144,7 +144,8 @@ net_fix_independent_dei = {
 		c:DEI = {
 			
 			is_at_war = no
-			is_player = no
+			is_player = no			
+			top_overlord = { is_player = no }
 
 			NOT = { 
 				top_overlord = root
