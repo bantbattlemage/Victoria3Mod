@@ -165,6 +165,7 @@
 									state_region = s:STATE_WESTPHALIA								
 									state_region = s:STATE_RHINELAND								
 									state_region = s:STATE_BADEN
+									state_region = s:STATE_MECKLENBURG
 								}
 							}
 						}
@@ -277,27 +278,31 @@
 
 				if = {
 					limit = {
-						NOT = {
+
+						OR = {
+
+							scope:target_country = { is_subject_of = root }
 							scope:target_country = {
-
-								is_subject_of = root
-
-								any_scope_state = {
-									OR = {
-										state_region = s:STATE_KUBAN
-										state_region = s:STATE_DAGESTAN	
-										state_region = s:STATE_AZERBAIJAN
-										state_region = s:STATE_TURKMENIA
-										state_region = s:STATE_SEMIRECHE
-										state_region = s:STATE_KIRGHIZIA
-										state_region = s:STATE_TAJIKISTAN
-										state_region = s:STATE_UZBEKIA					
-										state_region = s:STATE_KHIVA				
-										state_region = s:STATE_KIRGHIZIA					
-									}
-								}
-							}					
-						}						
+								NOT = {							
+									any_scope_state = {
+										OR = {
+											state_region = s:STATE_KUBAN
+											state_region = s:STATE_DAGESTAN	
+											state_region = s:STATE_AZERBAIJAN
+											state_region = s:STATE_TURKMENIA
+											state_region = s:STATE_SEMIRECHE
+											state_region = s:STATE_KIRGHIZIA
+											state_region = s:STATE_TAJIKISTAN
+											state_region = s:STATE_UZBEKIA					
+											state_region = s:STATE_KHIVA				
+											state_region = s:STATE_KIRGHIZIA	
+											state_region = s:STATE_WESTERN_AFGHANISTAN
+											state_region = s:STATE_EASTERN_AFGHANISTAN
+										}
+									}			
+								}		
+							}	
+						}
 					}
 
 					multiply = 0
@@ -498,7 +503,7 @@
 							exists = c:BIC
 							root = c:BIC
 							scope:target_country = { 
-								NOT = { is_direct_subject_of = c:GBR } 
+								NOT = { top_overlord = c:GBR } 
 							}
 						}
 
@@ -510,8 +515,8 @@
 						limit = {
 							exists = c:GBR
 							root = c:GBR
-							scope:target_country = {
-								NOT = {
+							NOT = {
+								scope:target_country = {
 									exists = c:BIC
 									this = c:BIC
 									overlord = c:BIC
@@ -521,18 +526,14 @@
 
 						if = {
 							limit = {
-								scope:target_country = {
-									NOT = {
-										top_overlord = c:GBR										
-									}
-								}
+								NOT = {
+									scope:target_country = {
+										top_overlord = c:GBR
+									}																				
+								}	
 							}
 
 							add = 5000
-						}
-						else = {
-
-							add = 1000
 						}
 					}
 				}
@@ -658,7 +659,7 @@
 					}
 				}
 
-				multiply = 0.05
+				multiply = 0.5
 			}
 
 			#limit US aggression to historic claims
@@ -738,11 +739,11 @@
 
 						OR = {
 							has_journal_entry = je_conquer_oregon
-							scope:target_country = {
-								NOT = { top_overlord = c:GBR }
+							NOT = {
+								scope:target_country = { top_overlord = c:GBR }
 							}
-						}				
-					}				
+						}
+					}
 
 					add = 5000
 				}
@@ -761,9 +762,6 @@
 					}
 
 					add = 5000
-				}
-				else = {
-					multiply = 0
 				}
 			}
 			
@@ -1016,16 +1014,28 @@
 					}
 				}
 
-				multiply = 0.05
+				multiply = 0.1
 			}
 
 			#limit prussian desire for nordics & Luxembourg
 			if = {
 				limit = {
-					exists = c:PRU
-					root = c:PRU
+					OR = {
+						AND = {
+							exists = c:PRU
+							root = c:PRU
+						}
+						AND = {
+							exists = c:NGF
+							root = c:NGF
+						}
+					}
 					
 					OR = {
+						AND = {
+							exists = c:DEN
+							scope:target_country = c:DEN
+						}
 						AND = {
 							exists = c:DEN
 							scope:target_country = c:DEN
@@ -1048,7 +1058,32 @@
 				multiply = 0
 			}
 
-			#Austria & Qing & Ottomans should chill out and not be aggressive and hopefully fall/get picked apart
+			#limit ottomans to historic areas
+			if = {
+				limit = {
+					exists = c:TUR
+					root = c:TUR
+				}
+
+				if = {
+					limit = {
+						target_country = {
+							OR = {
+								capital.state_region.region = sr:region_anatolia
+								capital.state_region.region = sr:region_arabia
+								capital.state_region.region = sr:region_nile							
+							}
+						}						
+					}
+
+					add = 500
+				}
+				else = {
+					multiply = 0
+				}
+			}
+
+			#Austria & Qing should chill out and not be aggressive and hopefully fall/get picked apart
 			if = {
 				limit = {
 					OR = {
@@ -1059,11 +1094,7 @@
 						AND = {
 							exists = c:CHI
 							root = c:CHI
-						}			
-						AND = {
-							exists = c:TUR
-							root = c:TUR
-						}		
+						}				
 					}
 				}
 

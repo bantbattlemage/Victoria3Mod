@@ -50,7 +50,7 @@ AroAI is fully compatible and recommended! https://steamcommunity.com/sharedfile
 
 # Mexico has been given two level 5 naval bases because as AI it sometimes liked to declare war on Caribbean countries without realizing it doesn't have the boats to do so. NOTE: The root issue here has since been addressed and the AI shouldn't declare overseas wars if it doesn't' have enough boats, but I left the naval bases for Mexico for now.
 
-### Event/Decision Changes ###
+### Journal/Event/Decision Changes ###
 
 # The Heavenly Kingdom war now starts instantly after choosing a decision in the corresponding event, and Heavenly Kingdom gets an Annex wargoal on Qing.
 
@@ -67,3 +67,9 @@ AroAI is fully compatible and recommended! https://steamcommunity.com/sharedfile
 # These new decisions I feel are necessary due to the backwards mechanics behind annexing vassals. The AI does not understand that it needs to reduce relations with its overlord in order to be able annex its own subjects, and barely understands needing to reduce reduce relations with the subject it wants to annex. The mechanic itself is counter-intuitive, because good relations should be a good thing, and in games like EU4 you annex vassals with good relations, not poor ones.
 
 # Added a decision for Great Britain and Netherlands to automatically re-vassalize an indepdendent Raj or Dutch East Indies. IMO there is no reason these tags should ever be independent if there is no mechanics or flavor for them becoming countries run by the native population, they just sit there being a nonsensical independent european colony. What's worse is the reason they become independent is usually because of nested wars causing automatic peace deals.
+
+# Reduced Colonial Investment level requirement of said British Raj decision from 5 to 3.
+
+# Changed Italian, NGF & Germany Unification events to fire more frequently.
+
+# Changed North German Unification journal entry to count your subjects. This makes it significantly easier to take, as currently the AI would just skip over NGF and go straight to Germany as they had basically the same requirements. The German entry is left as it is for now, as it seems like forming Germany is not too difficult as forming NGF once NGF is formed; at least if Austria isn't super strong.

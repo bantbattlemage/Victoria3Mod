@@ -114,6 +114,7 @@ gbr_fix_independent_raj = {
 		c:BIC = {
 			
 			is_at_war = no
+			is_player = no
 
 			NOT = { 
 				top_overlord = c:GBR		
@@ -196,9 +197,18 @@ bic_centralize_british_raj = {
 
 		any_subject_or_below = {
 
-			NOT = { this = c:BIC }
-			NOT = { this = c:PER }
-			NOT = { this = c:AFG }
+			NOT = { 
+				exists = c:BIC
+				this = c:BIC 
+			}
+			NOT = { 
+				exists = c:PER
+				this = c:PER 
+			}
+			NOT = { 
+				exists = c:AFG
+				this = c:AFG 
+			}
 
 			OR = {
 				capital.state_region.region = sr:region_north_india

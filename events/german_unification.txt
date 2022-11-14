@@ -44,6 +44,24 @@ german_unification.1 = {
 	option = {
 		name = german_unification.1.a
 		default_option = yes
+		
+		every_subject_or_below = {
+
+			if = {
+				limit = {
+					OR = {
+						capital.state_region.region = sr:region_north_germany
+						capital.state_region.region = sr:region_south_germany
+						capital.state_region.region = sr:region_rhine
+					}
+				}
+			
+				root = {
+					annex = prev
+				}			
+			}
+		}
+
 		every_interest_group = {
 			limit = {
 				is_in_government = yes
@@ -133,10 +151,10 @@ german_unification.2 = {
 
 	duration = 3
 
-	cooldown = { months = 1 }
+	cooldown = { months = 4 }
 
 	trigger = {
-		#root.infamy < infamy_threshold:infamous
+		root.infamy < infamy_threshold:infamous
 		OR = {
 			country_tier = kingdom
 			country_tier = principality
@@ -248,7 +266,7 @@ german_unification.2 = {
 		scope:german_annex_country = {
 			set_variable = {
 				name = german_minor_dont_annex
-				days = 7
+				days = 1825
 			}
 		}
 		ai_chance = {

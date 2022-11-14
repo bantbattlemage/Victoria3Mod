@@ -16,101 +16,104 @@
 	}
 
 	complete = {
+
+		is_at_war = no
+
 		calc_true_if = {
 			OR = {
 				owns_entire_state_region = STATE_POMERANIA
 				any_subject_or_below = {
-					any_scope_state = { state_region = s:STATE_POMERANIA }
+					capital.state_region = s:STATE_POMERANIA
 				}
 			}
 			OR = {
 				owns_entire_state_region = STATE_ELBE
 				any_subject_or_below = {
-					any_scope_state = { state_region = s:STATE_ELBE }
+					capital.state_region = s:STATE_ELBE
 				}
 			}
 			OR = {
 				owns_entire_state_region = STATE_WESTPHALIA
 				any_subject_or_below = {
-					any_scope_state = { state_region = s:STATE_WESTPHALIA }
+					capital.state_region = s:STATE_WESTPHALIA
 				}
 			}
 			OR = {
 				owns_entire_state_region = STATE_ANHALT
 				any_subject_or_below = {
-					any_scope_state = { state_region = s:STATE_ANHALT }
+					capital.state_region = s:STATE_ANHALT
 				}
-			}	
+			}
 			OR = {
 				owns_entire_state_region = STATE_RHINELAND
 				any_subject_or_below = {
-					any_scope_state = { state_region = s:STATE_RHINELAND }
+					capital.state_region = s:STATE_RHINELAND
 				}
-			}	
+			}
 			OR = {
 				owns_entire_state_region = STATE_NORTH_RHINE
 				any_subject_or_below = {
-					any_scope_state = { state_region = s:STATE_NORTH_RHINE }
+					capital.state_region = s:STATE_NORTH_RHINE
 				}
-			}	
+			}
 			OR = {
 				owns_entire_state_region = STATE_SCHLESWIG_HOLSTEIN
 				any_subject_or_below = {
-					any_scope_state = { state_region = s:STATE_SCHLESWIG_HOLSTEIN }
+					capital.state_region = s:STATE_SCHLESWIG_HOLSTEIN
 				}
-			}	
+			}
 			OR = {
 				owns_entire_state_region = STATE_HANNOVER
 				any_subject_or_below = {
-					any_scope_state = { state_region = s:STATE_HANNOVER }
+					capital.state_region = s:STATE_HANNOVER
 				}
-			}	
+			}
 			OR = {
 				owns_entire_state_region = STATE_BRUNSWICK
 				any_subject_or_below = {
-					any_scope_state = { state_region = s:STATE_BRUNSWICK }
+					capital.state_region = s:STATE_BRUNSWICK
 				}
-			}	
+			}
 			OR = {
 				owns_entire_state_region = STATE_SAXONY
 				any_subject_or_below = {
-					any_scope_state = { state_region = s:STATE_SAXONY }
+					capital.state_region = s:STATE_SAXONY
 				}
-			}	
+			}
 			OR = {
 				owns_entire_state_region = STATE_HESSE
 				any_subject_or_below = {
-					any_scope_state = { state_region = s:STATE_HESSE }
+					capital.state_region = s:STATE_HESSE
 				}
-			}	
+			}
 			OR = {
 				owns_entire_state_region = STATE_MECKLENBURG
 				any_subject_or_below = {
-					any_scope_state = { state_region = s:STATE_MECKLENBURG }
+					capital.state_region = s:STATE_MECKLENBURG
 				}
 			}
 			OR = {
 				owns_entire_state_region = STATE_SILESIA
 				any_subject_or_below = {
-					any_scope_state = { state_region = s:STATE_SILESIA }
+					capital.state_region = s:STATE_SILESIA
 				}
 			}
 			OR = {
 				owns_entire_state_region = STATE_WEST_PRUSSIA
 				any_subject_or_below = {
-					any_scope_state = { state_region = s:STATE_WEST_PRUSSIA }
+					capital.state_region = s:STATE_WEST_PRUSSIA
 				}
 			}
 			OR = {
 				owns_entire_state_region = STATE_EAST_PRUSSIA
 				any_subject_or_below = {
-					any_scope_state = { state_region = s:STATE_EAST_PRUSSIA }
+					capital.state_region = s:STATE_EAST_PRUSSIA
 				}
 			}
 			OR = {
 				owns_entire_state_region = STATE_POSEN
 				any_subject_or_below = {
-					any_scope_state = { state_region = s:STATE_POSEN }
+					capital.state_region = s:STATE_POSEN
 				}
 			}
 
@@ -119,13 +122,6 @@
 	}
 
 	on_weekly_pulse = {
-		events = {
-			german_unification.2 # confederation
-			german_unification.3 # Bismarck
-		}
-	}
-
-	on_monthly_pulse = {
 		events = {
 			german_unification.2 # confederation
 			german_unification.3 # Bismarck
@@ -165,6 +161,9 @@ je_german_unification = {
 	}
 
 	complete = {
+
+		is_at_war = no
+
 		calc_true_if = {
 			amount >= 17
 			owns_entire_state_region = STATE_POMERANIA

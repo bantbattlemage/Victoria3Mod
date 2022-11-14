@@ -1,0 +1,5 @@
+### PATCH NOTES LotusAI release 1.3.3
+
+# NGF/Germany events fixed. Not exactly sure how I broke it, but tested and they are working now.
+# The auto-puppet decisions for BIC & DEI will no longer be taken by the AI if BIC/DEI is a player.
+# Further reduced base war exhaustion to account for how war is being balanced in mod. I plan to go back to trying to make the intended war mechanics function later, but might be better waiting until Paradox patch for this.
