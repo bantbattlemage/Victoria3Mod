@@ -199,16 +199,22 @@ bic_centralize_british_raj = {
 		any_subject_or_below = {
 
 			NOT = { 
-				exists = c:BIC
-				this = c:BIC 
+				AND = {
+					exists = c:BIC
+					this = c:BIC 
+				}
 			}
 			NOT = { 
-				exists = c:PER
-				this = c:PER 
+				AND = {
+					exists = c:PER
+					this = c:PER 
+				}
 			}
 			NOT = { 
-				exists = c:AFG
-				this = c:AFG 
+				AND = {
+					exists = c:AFG
+					this = c:AFG 
+				}
 			}
 
 			OR = {
