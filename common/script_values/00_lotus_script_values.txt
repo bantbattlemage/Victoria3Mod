@@ -1067,11 +1067,11 @@
 
 				if = {
 					limit = {
-						target_country = {
+						scope:target_country = {
 							OR = {
 								capital.state_region.region = sr:region_anatolia
-								capital.state_region.region = sr:region_arabia
-								capital.state_region.region = sr:region_nile							
+								capital.state_region.region = sr:region_arabic
+								capital.state_region.region = sr:region_nile_basin					
 							}
 						}						
 					}
