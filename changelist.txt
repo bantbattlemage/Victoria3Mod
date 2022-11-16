@@ -55,7 +55,7 @@ AroAI is fully compatible and recommended! https://steamcommunity.com/sharedfile
 
 # Mexico has been given two level 5 naval bases because as AI it sometimes liked to declare war on Caribbean countries without realizing it doesn't have the boats to do so. NOTE: The root issue here has since been addressed and the AI shouldn't declare overseas wars if it doesn't' have enough boats, but I left the naval bases for Mexico for now.
 
-# Liberia is no longer a protectorate of the USA; This is the only way I could figure out how to stop USA from colonizing in West Africa & getting involved in African colonial wars.
+# Liberia is no longer a protectorate of the USA; This is the only way I could figure out how to stop USA from colonizing in West Africa & getting involved in African colonial wars. (they are forced to have an interest in that region because of the protectorate)
 
 ### Journal/Event/Decision Changes ###
 

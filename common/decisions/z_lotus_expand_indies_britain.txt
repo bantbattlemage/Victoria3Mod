@@ -16,7 +16,7 @@
 
 		c:BIC = {
 			
-			is_at_war = no
+			#is_at_war = no
 			is_player = no
 			overlord = { is_player = no }
 			NOT = { overlord = c:GBR }
@@ -44,7 +44,15 @@
 			set_relations = {
 				country = c:GBR
 				value = 100
-			}	
+			}
+		}
+
+		c:GBR = {
+
+			set_relations = { 
+				country = c:BIC
+				value = 100
+			}
 
 			if = {
 				limit = {
@@ -61,14 +69,6 @@
 					country = c:BIC
 					type = dominion				
 				}
-			}
-		}
-
-		c:GBR = {
-
-			set_relations = { 
-				country = c:BIC
-				value = 100
 			}
 		}
 	}

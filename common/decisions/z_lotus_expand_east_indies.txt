@@ -154,7 +154,7 @@ net_fix_independent_dei = {
 
 		c:DEI = {
 			
-			is_at_war = no
+			#is_at_war = no
 			is_player = no
 			overlord = { is_player = no }
 			NOT = { overlord = c:NET }
@@ -183,17 +183,17 @@ net_fix_independent_dei = {
 				country = c:NET
 				value = 100
 			}
-
-			create_diplomatic_pact = {
-				country = c:NET
-				type = dominion	
-			}
 		}
 
 		c:NET = {
 			set_relations = {
 				country = c:DEI
 				value = 100
+			}
+
+			create_diplomatic_pact = {
+				country = c:DEI
+				type = dominion	
 			}
 		}
 	}

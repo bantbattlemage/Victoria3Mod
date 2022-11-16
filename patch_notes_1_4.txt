@@ -1,12 +1,14 @@
 ### PATCH NOTES LotusAI release 1.4
 
+# Integrated misc bug fixes from this mod: https://steamcommunity.com/sharedfiles/filedetails/?id=2885704665
+
+# Fixed an issue in previous version where AI was undervalueing & rarely taking "conquer state" CBs, instead vastly prefering to vassalize any conquest even if they were a single state minor. This was a big issue for Prussia who was rarely every actually gaining any territory directly because of this. Discovering this and working through everything that followed after has led to a pretty major overhaul in the structure of the mod's AI processing. Overall aggression should be lower than previous version, but smarter.
+
 # Added a hidden decision that only the AI can take that will prevent a new civil war from firing while already at war. These nested civil wars are the primary cause of indepedent revolter tags throughout the course of the game, and are the primary cause of late-game bordergore with tiny weird indepdendent countries popping up everywhere. The game simply does not handle these nested wars well; I think as a player however they are more managable, and it is super cheesy to be able to use this button as a player, so it is restricted to just the AI.
 
-# Set define for Minimum War Support from -100 to 0 in accordance with how the mod is overhauling capitulation. There was an issue where wars with multiple combatants would have the current warleader peace-out, but then the new war leader is already below 0 war support because they couldn't capitulate before, and now they never hit 0 support and wont' capitualte. (great use of equals rather than less-than-or-equals, Paradox) This change should fix this issue.
+# Set define for Minimum War Support from -100 to 0 in accordance with how the mod is overhauling capitulation. There was an issue where wars with multiple combatants would have the current warleader peace-out, but then the new war leader is already below 0 war support because they couldn't capitulate before, and now they never hit 0 support and wont' capitualte. (great use of "equals" rather than "less-than-or-equals", Paradox) This change should fix this issue.
 
-# Fixed an issue in previous version where AI was undervalueing & rarely taking "conquer state" CBs, instead vastly prefering to vassalize any conquest even if they were a single state minor. This was a big issue for Prussia who was rarely every actually gaining any territory directly because of this.
-
-# Reverted all changes to North German unification journal & events. It still seems to be buggy, I don't know what's wrong with it. It feels like the NGF tag itself is buggy somehow.
+# Reverted all changes to North German unification journal & events. It still seems to be buggy, I don't know what's wrong with it. It feels like the NGF tag itself is buggy somehow. The event & journal entry are reverted vanilla in the mod as of this patch, but I still see giant Prussia skip NGF to Germany. Will be a priority in the next update. What's weird is NGF does definitely trigger sometimes, but not that often.
 
 # Adjusted the decisions added to Britain & Netherlands related to expanding their colonies. Britain's will no longer expand Raj outside of India/Burma. Neither should ever annex a player country.
 
@@ -20,6 +22,8 @@
 
 # Egypt will no longer conquer down into Ethiopia at the start of the game.
 
-# Integrated bug fixes from this mod: https://steamcommunity.com/sharedfiles/filedetails/?id=2885704665
-
 # Liberia is no longer a protectorate of the USA; This is the only way I could figure out how to stop USA from colonizing in West Africa & getting involved in African colonial wars.
+
+# Fixed non-Russian colonizers fascination with Sakhalin. Russia should end up with it every time barring a player getting it. New Zealand should always always be colonized by Britain before any other AI.
+
+# Some values related to when AI decides to naval invade have been adjusted.
