@@ -214,13 +214,14 @@ expedition_events.511 = { #Successful expedition
     duration = 3
 
 	immediate = {
-		#set_variable = {
-			#name = on_expedition
-			#value = no
-		#}
+		set_variable = {
+			name = on_expedition
+			value = no
+		}
 		set_global_variable = central_africa_explored
 		random_scope_character = {
 			limit = { has_variable = expedition_leader_var }
+			remove_variable = expedition_leader_var
 			save_scope_as = expedition_leader
 		}
 		if = {
@@ -229,7 +230,6 @@ expedition_events.511 = { #Successful expedition
 			}
 			trigger_event = { id = expedition_events.696 days = 30 }
 		}
-		remove_variable = on_expedition
 		remove_expedition_events_effect = yes
 	}
 
@@ -239,7 +239,6 @@ expedition_events.511 = { #Successful expedition
 		scope:expedition_leader = {
 			add_trait = explorer
 			set_character_busy = no
-			remove_variable = expedition_leader_var 
 		}
 		add_modifier = {
 			name = modifier_central_africa_expedition_complete
@@ -274,6 +273,7 @@ expedition_events.512 = { #Failed expedition
 			limit = { has_variable = expedition_leader_var }
 			save_scope_as = expedition_leader
 			set_variable = failed_expedition_leader_var
+			remove_variable = expedition_leader_var
 		}
 	}
 
@@ -326,7 +326,7 @@ expedition_events.520 = { #Pay Tax
 		add_modifier = {
 			name = expedition_taxes_modifier
 			multiplier = money_amount_multiplier_small
-			#months = normal_modifier_time
+			months = normal_modifier_time
 		}
 	}
 

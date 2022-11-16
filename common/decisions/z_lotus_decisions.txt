@@ -1,0 +1,199 @@
+﻿### this decision is used by the AI to prevent civil wars from spawning when it already in a war; when these wars happen it causes automatic peace deals and broken wars with no participants or goals.
+
+decision_stop_nested_civil_war = {
+
+    is_shown = {
+        
+        is_player = no
+        is_at_war = yes
+    }
+
+    possible = {
+
+        is_player = no
+        is_at_war = yes
+
+        any_civil_war = {
+			civil_war_progress > 0
+		}
+    }
+
+    when_taken = {
+
+        every_civil_war = {
+
+            limit = {
+                civil_war_progress < 1
+            }
+
+            add_civil_war_progress = -1
+        }
+    }
+
+    ai_chance = {
+        base = 1000
+    }
+}
+
+### this decision lets france annex algeria right after conquering it, because of French Algiers starting state & historical colony there & ugly borders if anyone else gets it
+
+decision_conquer_algeria = {
+
+    is_shown = {
+        
+		AND = {
+			exists = c:FRA
+			root = c:FRA
+			exists = c:ALD
+		}
+    }
+
+    possible = {
+
+		AND = {
+			exists = c:FRA
+			root = c:FRA
+			exists = c:ALD
+            c:ALD = { is_player = no }
+		}
+
+        OR = {
+            owns_entire_state_region = STATE_CONSTANTINE
+            any_subject_or_below = {
+                owns_entire_state_region = STATE_CONSTANTINE
+            }
+        }
+        OR = {
+            owns_entire_state_region = STATE_TLEMCEN
+            any_subject_or_below = {
+                owns_entire_state_region = STATE_TLEMCEN
+            }
+        }
+        OR = {
+            owns_entire_state_region = STATE_ALGIERS
+            any_subject_or_below = {
+                owns_entire_state_region = STATE_ALGIERS
+            }
+        }
+    }
+
+    when_taken = {
+
+		every_subject_or_below = {
+			every_scope_state = {
+				limit = {
+					OR = {
+						state_region = s:STATE_CONSTANTINE
+						state_region = s:STATE_TLEMCEN
+						state_region = s:STATE_ALGIERS
+					}
+				}
+
+				set_state_owner = c:FRA
+				set_state_type = unincorporated
+			}
+		}
+    }
+
+    ai_chance = {
+        base = 1000
+    }
+}
+
+
+decision_subjugate_the_steppes = {
+
+    is_shown = {
+        
+		AND = {
+			exists = c:RUS
+			root = c:RUS
+
+            OR = {
+    			exists = c:KHI
+    			exists = c:BUK
+     			exists = c:KOK                               
+            }
+		}
+    }
+
+    possible = {
+
+        exists = c:RUS
+        root = c:RUS
+
+        OR = {
+            exists = c:KHI
+            exists = c:BUK
+            exists = c:KOK                               
+        }
+
+        OR = {
+            owns_entire_state_region = STATE_KHIVA
+            any_subject_or_below = {
+                is_player = no
+                owns_entire_state_region = STATE_KHIVA
+            }
+        }
+        OR = {
+            owns_entire_state_region = STATE_TURKMENIA
+            any_subject_or_below = {
+                is_player = no
+                owns_entire_state_region = STATE_TURKMENIA
+            }
+        }
+        OR = {
+            owns_entire_state_region = STATE_UZBEKIA
+            any_subject_or_below = {
+                is_player = no
+                owns_entire_state_region = STATE_UZBEKIA
+            }
+        }
+        OR = {
+            any_scope_state = {
+                state_region = s:STATE_KIRGHIZIA 
+            }
+            any_subject_or_below = {
+                is_player = no
+                any_scope_state = { 
+                    state_region = s:STATE_KIRGHIZIA 
+                }
+            }
+        }
+        OR = {
+            any_scope_state = {
+                state_region = s:STATE_TAJIKISTAN 
+            }
+            any_subject_or_below = {
+                is_player = no
+                any_scope_state = { 
+                    state_region = s:STATE_TAJIKISTAN 
+                }
+            }
+        }
+    }
+
+    when_taken = {
+
+		every_subject_or_below = {
+			every_scope_state = {
+				limit = {
+					OR = {
+						state_region = s:STATE_KHIVA
+						state_region = s:STATE_TURKMENIA
+						state_region = s:STATE_UZBEKIA
+						state_region = s:STATE_KIRGHIZIA
+                        state_region = s:STATE_TAJIKISTAN
+					}
+				}
+
+				set_state_owner = root
+				set_state_type = unincorporated
+			}
+		}
+    }
+
+    ai_chance = {
+        base = 1000
+    }
+}

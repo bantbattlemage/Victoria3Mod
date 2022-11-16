@@ -1,0 +1,4 @@
+﻿l_simp_chinese:
+ je_lca_gold_reserves_limit:0 "潜在的[concept_gold_reserves]上限溢出"
+ je_lca_gold_reserves_limit_reason:0 "修复潜在的[concept_gold_reserves]上限溢出"
+ lca_gold_reserves_limit_modifier:0 "$concept_gold_reserves$上限溢出修复"

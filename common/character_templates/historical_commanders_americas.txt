@@ -120,6 +120,7 @@ mex_general_diaz = {
 	}
 	commander_usage = {
 		country_trigger = {
+			exists = c:MEX
 			this = c:MEX
 		}
 		role = general
@@ -145,6 +146,7 @@ mex_general_zaragoza = {
 	}
 	commander_usage = {
 		country_trigger = {
+			exists = c:MEX
 			this = c:MEX
 		}
 		role = general

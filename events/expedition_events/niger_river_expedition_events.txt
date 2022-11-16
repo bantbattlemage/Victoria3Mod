@@ -226,6 +226,7 @@ expedition_events.11 = { #Successful expedition
 		remove_expedition_events_effect = yes
 		random_scope_character = {
 			limit = { has_variable = expedition_leader_var }
+			remove_variable = expedition_leader_var
 			save_scope_as = expedition_leader
 		}
 	}
@@ -236,7 +237,6 @@ expedition_events.11 = { #Successful expedition
 		scope:expedition_leader = {
 			add_trait = explorer
 			set_character_busy = no
-			remove_variable = expedition_leader_var 
 		}
 		add_modifier = {
 			name = modifier_niger_river_expedition_complete
@@ -271,6 +271,7 @@ expedition_events.12 = { #Failed expedition
 			limit = { has_variable = expedition_leader_var }
 			save_scope_as = expedition_leader
 			set_variable = failed_expedition_leader_var
+			remove_variable = expedition_leader_var
 			place_character_in_void = 24
 		}
 	}
@@ -1018,7 +1019,7 @@ expedition_events.100 = { #Kidnapped
 		name = expedition_events.100.a
 		add_modifier = {
 			name = expedition_leader_kidnap_modifier
-			#months = short_modifier_time
+			months = short_modifier_time
 			multiplier = money_amount_multiplier_small
 		}
 		trigger_event = { id = expedition_events.101 days = 3 }

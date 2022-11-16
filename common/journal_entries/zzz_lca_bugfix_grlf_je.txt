@@ -1,0 +1,60 @@
+je_lca_gold_reserves_limit = {
+	icon = "gfx/interface/icons/event_icons/event_trade.dds"
+
+	is_shown_when_inactive = {
+		gdp > 2000000000
+	}
+
+	possible = {
+		gdp > 3000000000
+	}
+
+	immediate = {
+		if  = {
+			limit = {
+				NOT = { has_modifier = lca_gold_reserves_limit_modifier }
+			}
+			add_modifier = {
+				name = lca_gold_reserves_limit_modifier
+				days = -1
+			}
+		}
+		if = {
+			limit = {
+				has_modifier = ig_national_dividends
+			}
+			remove_modifier = ig_national_dividends
+		}
+	}
+
+	on_weekly_pulse = {
+		effect = {
+			if  = {
+				limit = {
+					NOT = { has_modifier = lca_gold_reserves_limit_modifier }
+				}
+				add_modifier = {
+					name = lca_gold_reserves_limit_modifier
+					days = -1
+				}
+			}
+			if = {
+				limit = {
+					has_modifier = ig_national_dividends
+				}
+				remove_modifier = ig_national_dividends
+			}
+		}
+	}
+
+	complete = {
+		gdp < 1000000000
+	}
+
+	on_complete = {
+		if = {
+			limit = { has_modifier = lca_gold_reserves_limit_modifier }
+			remove_modifier = lca_gold_reserves_limit_modifier
+		}
+	}
+}

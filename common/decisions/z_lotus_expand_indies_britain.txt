@@ -1,102 +1,4 @@
-﻿gbr_expand_east_indies = {
-	is_shown = {
-		root = c:GBR
-		exists = c:BIC
-		c:BIC = {
-			is_subject_of = ROOT
-			#is_subject_type = subject_type_dominion
-		}
-		any_state = {
-			owner = ROOT
-
-			OR = {
-				region = sr:region_north_india
-				region = sr:region_south_india
-				region = sr:region_himalayas
-				region = sr:region_indochina
-				region = sr:region_persia											
-			}
-		}
-	}
-
-	possible = {
-		OR = { 
-			any_state = {
-				owner = ROOT
-
-				OR = {
-					region = sr:region_north_india
-					region = sr:region_south_india
-					region = sr:region_himalayas
-					region = sr:region_indochina
-					region = sr:region_persia											
-				}
-			}
-
-			any_subject_or_below = {
-				
-				OR = {
-					capital.region = sr:region_north_india
-					capital.region = sr:region_south_india
-					capital.region = sr:region_himalayas
-					capital.region = sr:region_indochina
-					capital.region = sr:region_persia											
-				}
-
-				NOT = { 
-					THIS = c:BIC
-					is_subject_of = c:BIC
-				}
-			}
-		}
-	}
-
-	when_taken = {
-
-		custom_tooltip = expand_east_indies_tt
-
-		if = {
-
-			limit= {
-				any_state = {
-					owner = ROOT
-
-					OR = {
-						region = sr:region_north_india
-						region = sr:region_south_india
-						region = sr:region_himalayas
-						region = sr:region_indochina
-						region = sr:region_persia											
-					}
-				}
-			}
-			every_scope_state = {
-				limit = {
-					owner = ROOT
-
-					OR = {
-						region = sr:region_north_india
-						region = sr:region_south_india
-						region = sr:region_himalayas
-						region = sr:region_indochina
-						region = sr:region_persia											
-					}
-				}
-
-				set_state_owner = c:BIC
-				set_state_type = unincorporated
-			}
-		}
-	}
-
-	ai_chance = {
-		
-		base = 1000
-	}
-}
-
-
-gbr_fix_independent_raj = {
+﻿gbr_fix_independent_raj = {
 
 	is_shown = {
 
@@ -105,9 +7,10 @@ gbr_fix_independent_raj = {
 		root = c:GBR
 		
 	}
+
 	possible = {
 
-		is_at_war = no
+		#is_at_war = no
 		exists = c:BIC
 		root = c:GBR
 
@@ -115,13 +18,11 @@ gbr_fix_independent_raj = {
 			
 			is_at_war = no
 			is_player = no
-			top_overlord = { is_player = no }
-
-			NOT = { 
-				top_overlord = c:GBR	
-			}
+			overlord = { is_player = no }
+			NOT = { overlord = c:GBR }
 		}
 	}
+
 	when_taken = {
 		
 		c:BIC = {
@@ -143,19 +44,11 @@ gbr_fix_independent_raj = {
 			set_relations = {
 				country = c:GBR
 				value = 100
-			}			
-		}
-
-		c:GBR = {
-
-			set_relations = { 
-				country = c:BIC
-				value = 100
-			}
+			}	
 
 			if = {
 				limit = {
-					c:BIC = { has_variable = british_raj_var }			
+					c:BIC = { has_variable = british_raj_var }		
 				}
 
 				create_diplomatic_pact = {
@@ -167,7 +60,15 @@ gbr_fix_independent_raj = {
 				create_diplomatic_pact = {
 					country = c:BIC
 					type = dominion				
-				}	
+				}
+			}
+		}
+
+		c:GBR = {
+
+			set_relations = { 
+				country = c:BIC
+				value = 100
 			}
 		}
 	}
@@ -198,6 +99,8 @@ bic_centralize_british_raj = {
 
 		any_subject_or_below = {
 
+			is_player = no
+
 			NOT = { 
 				AND = {
 					exists = c:BIC
@@ -216,13 +119,24 @@ bic_centralize_british_raj = {
 					this = c:AFG 
 				}
 			}
+			NOT = { 
+				AND = {
+					exists = c:TIB
+					this = c:TIB 
+				}
+			}
 
 			OR = {
 				capital.state_region.region = sr:region_north_india
 				capital.state_region.region = sr:region_south_india
 				capital.state_region.region = sr:region_himalayas
-				capital.state_region.region = sr:region_indochina
+				#capital.state_region.region = sr:region_indochina
 				capital.state_region.region = sr:region_persia
+
+				AND = {
+					exists = c:BUR
+					this = c:BUR
+				}
 			}
 		}
 	}
@@ -233,17 +147,45 @@ bic_centralize_british_raj = {
 
 			if = {
 				limit = {
+					
+					is_player = no
 
-					NOT = { this = c:BIC }
-					NOT = { this = c:PER }
-					NOT = { this = c:AFG }
+					NOT = { 
+						AND = {
+							exists = c:BIC
+							this = c:BIC 
+						}
+					}
+					NOT = { 
+						AND = {
+							exists = c:PER
+							this = c:PER 
+						}
+					}
+					NOT = { 
+						AND = {
+							exists = c:AFG
+							this = c:AFG 
+						}
+					}
+					NOT = { 
+						AND = {
+							exists = c:TIB
+							this = c:TIB 
+						}
+					}
 
 					OR = {
 						capital.state_region.region = sr:region_north_india
 						capital.state_region.region = sr:region_south_india
 						capital.state_region.region = sr:region_himalayas
-						capital.state_region.region = sr:region_indochina
+						#capital.state_region.region = sr:region_indochina
 						capital.state_region.region = sr:region_persia
+
+						AND = {
+							exists = c:BUR
+							this = c:BUR
+						}
 					}
 				}
 			
@@ -254,6 +196,147 @@ bic_centralize_british_raj = {
 		}
 	}
 
+	ai_chance = {
+		base = 1000
+	}
+}
+
+gbr_expand_east_indies = {
+
+	is_shown = {
+		country_is_in_europe = yes
+		exists = c:BIC
+		c:BIC = {
+			is_subject_of = ROOT
+		}
+		any_state = {
+			owner = ROOT
+			OR = {
+				state_region.region = sr:region_north_india
+				state_region.region = sr:region_south_india
+				state_region.region = sr:region_himalayas
+				state_region.region = sr:region_indochina
+				state_region.region = sr:region_persia
+			}
+			NOT = {
+				state_region = s:STATE_MALAYA			
+			}
+		}
+	}
+
+	possible = {
+		OR = { 
+
+			any_state = {
+				owner = ROOT
+				OR = {
+					state_region.region = sr:region_north_india
+					state_region.region = sr:region_south_india
+					state_region.region = sr:region_himalayas
+					state_region.region = sr:region_indochina
+					state_region.region = sr:region_persia
+				}
+				NOT = {
+					state_region = s:STATE_MALAYA			
+				}
+			}
+			
+			any_subject_or_below = {
+				OR = {
+					capital.state_region.region = sr:region_north_india
+					capital.state_region.region = sr:region_south_india
+					capital.state_region.region = sr:region_himalayas
+					capital.state_region.region = sr:region_indochina
+					capital.state_region.region = sr:region_persia
+				}
+				NOT = { 
+					THIS = c:BIC
+					is_subject_of = c:BIC
+				}
+			}
+		}
+	}
+
+	when_taken = {
+
+		if = {
+			limit= {
+				any_state = {
+					owner = ROOT
+					OR = {
+						state_region.region = sr:region_north_india
+						state_region.region = sr:region_south_india
+						state_region.region = sr:region_himalayas
+						state_region.region = sr:region_indochina
+						state_region.region = sr:region_persia
+					}
+					NOT = {
+						state_region = s:STATE_MALAYA			
+					}
+				}
+			}
+			
+			every_scope_state = {
+				limit = {
+					owner = ROOT
+					OR = {
+						state_region.region = sr:region_north_india
+						state_region.region = sr:region_south_india
+						state_region.region = sr:region_himalayas
+						state_region.region = sr:region_indochina
+						state_region.region = sr:region_persia
+					}
+					NOT = {
+						state_region = s:STATE_MALAYA			
+					}
+				}
+				set_state_owner = c:BIC
+				set_state_type = unincorporated
+			}
+		}
+	}
+
+	ai_chance = {
+		base = 1000
+	}
+}
+
+gbr_centralize_malaya = {
+	is_shown = {
+
+		exists = c:GBR
+		root = c:GBR		
+	}
+	possible = {
+
+		institution_investment_level = {
+			institution = institution_colonial_affairs
+			value >= 3
+		}
+
+		any_subject_or_below = {
+
+			any_scope_state = {
+				state_region = s:STATE_MALAYA
+			}			
+		}
+
+	}
+
+	when_taken = {
+
+		every_subject_or_below = {
+
+			every_scope_state = {
+				
+				limit = {
+					state_region = s:STATE_MALAYA
+				}
+
+				set_state_owner = root
+			}			
+		}
+	}
 	ai_chance = {
 		base = 1000
 	}

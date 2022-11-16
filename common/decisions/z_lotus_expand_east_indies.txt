@@ -1,16 +1,17 @@
 ﻿net_expand_east_indies = {
+
 	is_shown = {
 		country_is_in_europe = yes
 		exists = c:DEI
 		c:DEI = {
 			is_subject_of = ROOT
-			#is_subject_type = subject_type_dominion
 		}
 		any_state = {
 			owner = ROOT
 			region = sr:region_indonesia
 		}
 	}
+
 	possible = {
 		OR = { 
 			any_state = {
@@ -26,6 +27,7 @@
 			}
 		}
 	}
+
 	when_taken = {
 		custom_tooltip = expand_east_indies_tt
 		if = {
@@ -72,19 +74,28 @@ centralize_east_indies = {
 			is_at_war = no
 		}
 
-		any_subject_or_below = {
+		any_subject_or_below = {			
 
-			NOT = { this = c:DEI }
+			is_player = no
 			capital.state_region.region = sr:region_indonesia
-		}		
+
+			OR = {						
+				NOT = { this = c:DEI }
+				AND = {
+					this = c:DEI
+					is_subject_type = subject_type_dominion
+				}
+			}
+		}
 	}
 
 	when_taken = {
 
 		every_subject_or_below = {
-
+			
 			if = {
 				limit = {
+					is_player = no
 					capital.state_region.region = sr:region_indonesia
 					NOT = { this = c:DEI }
 				}
@@ -95,7 +106,7 @@ centralize_east_indies = {
 			}
 		}
 
-		c:NET = {
+		root = {
 
 			if = {
 				limit = {
@@ -137,19 +148,16 @@ net_fix_independent_dei = {
 
 	possible = {
 
-		is_at_war = no
+		#is_at_war = no
 		exists = c:DEI
 		root = c:NET		
 
 		c:DEI = {
 			
 			is_at_war = no
-			is_player = no			
-			top_overlord = { is_player = no }
-
-			NOT = { 
-				top_overlord = root
-			}
+			is_player = no
+			overlord = { is_player = no }
+			NOT = { overlord = c:NET }
 		}
 	}
 
@@ -175,14 +183,14 @@ net_fix_independent_dei = {
 				country = c:NET
 				value = 100
 			}
+
+			create_diplomatic_pact = {
+				country = c:NET
+				type = dominion	
+			}
 		}
 
 		c:NET = {
-			create_diplomatic_pact = {
-				country = c:DEI
-				type = dominion	
-			}
-
 			set_relations = {
 				country = c:DEI
 				value = 100

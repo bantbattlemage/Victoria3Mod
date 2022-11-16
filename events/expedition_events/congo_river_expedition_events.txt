@@ -244,6 +244,7 @@ expedition_events.611 = { #Successful expedition
 		random_scope_character = {
 			limit = { has_variable = expedition_leader_var }
 			save_scope_as = expedition_leader
+			remove_variable = expedition_leader_var
 		}
 		if = {
 			limit = {
@@ -264,7 +265,6 @@ expedition_events.611 = { #Successful expedition
 		scope:expedition_leader = {
 			add_trait = explorer
 			set_character_busy = no
-			remove_variable = expedition_leader_var 
 			add_modifier = {
 				name = congo_expedition_modifier
 				months = normal_modifier_time
@@ -313,6 +313,7 @@ expedition_events.612 = { #Failed expedition
 		random_scope_character = {
 			limit = { has_variable = expedition_leader_var }
 			save_scope_as = expedition_leader
+			remove_variable = expedition_leader_var
 			set_variable = failed_expedition_leader_var
 		}
 	}
@@ -324,7 +325,6 @@ expedition_events.612 = { #Failed expedition
 		}
 		scope:expedition_leader = {
 			place_character_in_void = 24
-			set_character_busy = no
 		}
 		add_modifier = {
 			name = modifier_failed_expedition
@@ -351,7 +351,6 @@ expedition_events.612 = { #Failed expedition
 				months = normal_modifier_time
 			}
 			add_trait = explorer
-			set_character_busy = no
 		}
 	}
 }

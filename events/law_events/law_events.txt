@@ -139,7 +139,6 @@ law_events.5 = { #Landowners in state request you turn a blind eye to their work
 	duration = 3
 
 	trigger = {
-		enacting_any_law = yes #new
 		ig:ig_landowners = {
 			is_marginal = no
 		}
@@ -176,7 +175,7 @@ law_events.5 = { #Landowners in state request you turn a blind eye to their work
 			days = 1825 # five years
 		}
 		currently_enacting_law = {
-			save_scope_as = enacting_law_scope
+			save_scope_as = current_law_scope
 		}
 	}
 
@@ -250,7 +249,7 @@ law_events.6 = { #Intelligentsia disapprove of religious schools
 			months = normal_modifier_time
 		}
 		currently_enacting_law = {
-			save_scope_as = enacting_law_scope
+			save_scope_as = current_law_scope
 		}
 	}
 

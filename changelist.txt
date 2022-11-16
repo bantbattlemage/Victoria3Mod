@@ -1,3 +1,5 @@
+GitHub: https://github.com/bantbattlemage/Victoria3Mod
+
 AroAI is fully compatible and recommended! https://steamcommunity.com/sharedfiles/filedetails/?id=2880152075
 
 ****** Make sure you load LotusAI AFTER ARoAI in mod load order in Paradox launcher! ******
@@ -22,11 +24,14 @@ AroAI is fully compatible and recommended! https://steamcommunity.com/sharedfile
 
 ### Game Balance Changes ###
 
-# Because White Peace is fundamentally broken and unfixable in mods, wars will now end when one side reaches 0 war support. Some related values have been tweaked to account for this. It is now predictable when a war will end due to this as well.
+!>Major Balance Change<!
+# Because White Peace is fundamentally broken and unfixable in mods, wars will now end when one side reaches 0 war support. Some related values have been tweaked to account for this. It is now predictable when a war will end: whoever reaches 0 War Support first will capitulate.
 
 # Some values related to the automated battle system have been adjusted.
 
-# Dominions no longer break when they lose a civil war. This is the primary cause of independent Dutch East Indies or East India Company, which imo is flavorfully awful and should be extremely rare in this mod.
+# Dominions no longer break when their overlord does not defend them. (This included civil wars) This is the primary cause of independent Dutch East Indies or East India Company, which imo is flavorfully awful and should be extremely rare in this mod.
+
+# Added a hidden decision that only the AI can take that will prevent a new civil war from firing while already at war. These nested civil wars are the primary cause of indepedent revolter tags throughout the course of the game, and are the primary cause of late-game bordergore with tiny weird indepdendent countries popping up everywhere. The game simply does not handle these nested wars well; I think as a player however they are more managable, and it is super cheesy to be able to use this button as a player, so it is restricted to just the AI.
 
 ### Game Start Changes ###
 
@@ -50,6 +55,8 @@ AroAI is fully compatible and recommended! https://steamcommunity.com/sharedfile
 
 # Mexico has been given two level 5 naval bases because as AI it sometimes liked to declare war on Caribbean countries without realizing it doesn't have the boats to do so. NOTE: The root issue here has since been addressed and the AI shouldn't declare overseas wars if it doesn't' have enough boats, but I left the naval bases for Mexico for now.
 
+# Liberia is no longer a protectorate of the USA; This is the only way I could figure out how to stop USA from colonizing in West Africa & getting involved in African colonial wars.
+
 ### Journal/Event/Decision Changes ###
 
 # The Heavenly Kingdom war now starts instantly after choosing a decision in the corresponding event, and Heavenly Kingdom gets an Annex wargoal on Qing.
@@ -68,8 +75,11 @@ AroAI is fully compatible and recommended! https://steamcommunity.com/sharedfile
 
 # Added a decision for Great Britain and Netherlands to automatically re-vassalize an indepdendent Raj or Dutch East Indies. IMO there is no reason these tags should ever be independent if there is no mechanics or flavor for them becoming countries run by the native population, they just sit there being a nonsensical independent european colony. What's worse is the reason they become independent is usually because of nested wars causing automatic peace deals.
 
-# Reduced Colonial Investment level requirement of said British Raj decision from 5 to 3.
+# Reduced Colonial Investment level requirement of British Raj decision from 5 to 3.
 
-# Changed Italian, NGF & Germany Unification events to fire more frequently.
+# Britian now has an additional decision to directly annex vassals in Malaya, unlockable by the same requirements as it's Raj decisions.
 
-# Changed North German Unification journal entry to count your subjects. This makes it significantly easier to take, as currently the AI would just skip over NGF and go straight to Germany as they had basically the same requirements. The German entry is left as it is for now, as it seems like forming Germany is not too difficult as forming NGF once NGF is formed; at least if Austria isn't super strong.
+# France now has a decision to annex Algeria if it is France's puppet, again for the same reasons & because France starts with the Algiers state they are clearly intended to take Algeria & did historically (maybe not in 1836, oh well). The issue was Britain/Spain like to Transfer Vassal CB Algeria away from France and then it become a really ugly border due to Algiers state still belonging to France.
+
+# Russia now has a decision to annex the 3 central asian minors if they are vassals of Russia. This is for the same reason as the others; the AI doesn't actually understand how to annex vassals, and just pushes the normal "annex vassal" button on the very rare occasion that the conditions for it have been met by chance. NOTE: I added this before fixing the Conquer State issues, and now Russia typically will take them directly instead of puppeting them, but left this there in case. 
+

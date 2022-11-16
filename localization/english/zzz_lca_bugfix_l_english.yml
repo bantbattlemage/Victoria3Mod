@@ -1,0 +1,4 @@
+﻿l_english:
+ je_lca_gold_reserves_limit:0 "Potential [concept_gold_reserves] Limit Overflow"
+ je_lca_gold_reserves_limit_reason:0 "Fixing [concept_gold_reserves] Limit Overflow"
+ lca_gold_reserves_limit_modifier:0 "$concept_gold_reserves$ Overflow Bugfix"
