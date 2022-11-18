@@ -1,29 +1,9 @@
-### PATCH NOTES LotusAI release 1.4
+### PATCH NOTES LotusAI release 1.5
 
-# Integrated misc bug fixes from this mod: https://steamcommunity.com/sharedfiles/filedetails/?id=2885704665
+# Removed the rework to war exhaustion and attempted to rebalance peace deal values to work as intended in vanilla. Capitulation no longer happens at 0 War Support. I have it set to -25% instead of the default -100% now. In my testing the AI should now actually accept peace deals without the other side needing to capitulate and most wars that don't involve an occupied capital will actually end without one side needing to hit the capitulation threshold. They can still be stubborn though, and this will definitely need furthe refinement. (Or a Paradox patch to make peace deals not suck, please) I think this solution is better and is much closer to vanilla, though I miss knowing exactly when someone would capitulate.
 
-# Fixed an issue in previous version where AI was undervalueing & rarely taking "conquer state" CBs, instead vastly prefering to vassalize any conquest even if they were a single state minor. This was a big issue for Prussia who was rarely every actually gaining any territory directly because of this. Discovering this and working through everything that followed after has led to a pretty major overhaul in the structure of the mod's AI processing. Overall aggression should be lower than previous version, but smarter.
+# Further general refining of AI wargoal logic. There is a lot fine-tuning going on at this stage & working on solving later-game scenarios mainly now.
 
-# Added a hidden decision that only the AI can take that will prevent a new civil war from firing while already at war. These nested civil wars are the primary cause of indepedent revolter tags throughout the course of the game, and are the primary cause of late-game bordergore with tiny weird indepdendent countries popping up everywhere. The game simply does not handle these nested wars well; I think as a player however they are more managable, and it is super cheesy to be able to use this button as a player, so it is restricted to just the AI.
+# The AI will now use Liberate Country CB against Ottomans, Austria & Egypt but no one else. I forgot that I had disabled AI use of this CB in an earier update of the mod; it definitely is nicer not having the AI use this against most countries imo. While it doesn't line up with how it happened historically, this causes Ottomans & Austria to end up breaking up over the course of the game as they lose wars with liberate country CBs on them.
 
-# Set define for Minimum War Support from -100 to 0 in accordance with how the mod is overhauling capitulation. There was an issue where wars with multiple combatants would have the current warleader peace-out, but then the new war leader is already below 0 war support because they couldn't capitulate before, and now they never hit 0 support and wont' capitualte. (great use of "equals" rather than "less-than-or-equals", Paradox) This change should fix this issue.
-
-# Reverted all changes to North German unification journal & events. It still seems to be buggy, I don't know what's wrong with it. It feels like the NGF tag itself is buggy somehow. The event & journal entry are reverted vanilla in the mod as of this patch, but I still see giant Prussia skip NGF to Germany. Will be a priority in the next update. What's weird is NGF does definitely trigger sometimes, but not that often.
-
-# Adjusted the decisions added to Britain & Netherlands related to expanding their colonies. Britain's will no longer expand Raj outside of India/Burma. Neither should ever annex a player country.
-
-# Fixed the "fix indepdent raj/DEI" decisions that were not functioning properly previously, & the AI should never steal vassals from you with these decisions now.
-
-# Britian now has an additional decision to directly annex vassals in Malaya, unlockable by the same requirements as it's Raj decisions.
-
-# Russia now has a decision to annex the 3 central asian minors if they are vassals of Russia. This is for the same reason as the others; the AI doesn't actually understand how to annex vassals, and just pushes the normal "annex vassal" button on the very rare occasion that the conditions for it have been met by chance. NOTE: I added this before fixing the Conquer State issues, and now Russia typically will take them directly instead of puppeting them, but left this there in case. 
-
-# France now has a decision to annex Algeria if it is France's puppet, again for the same reasons & because France starts with the Algiers state they are clearly intended to take Algeria & did historically (maybe not in 1836, oh well). The issue was Britain/Spain like to Transfer Vassal CB Algeria away from France and then it become a really ugly border due to Algiers state still belonging to France.
-
-# Egypt will no longer conquer down into Ethiopia at the start of the game.
-
-# Liberia is no longer a protectorate of the USA; This is the only way I could figure out how to stop USA from colonizing in West Africa & getting involved in African colonial wars.
-
-# Fixed non-Russian colonizers fascination with Sakhalin. Russia should end up with it every time barring a player getting it. New Zealand should always always be colonized by Britain before any other AI.
-
-# Some values related to when AI decides to naval invade have been adjusted.
+# Removed Nationalism requirement from the mod's "Centralize Dutch East Indies" decision. This means it is useable right away and DEI will instantly annex it's starting vassals. The reason for this change is that in perhaps 50% of test games, Dutch East Indies loses it's starting vassals, and the reason is that it's power ranking drops to a Insignificant Power and that causes its puppets to automatically release. I don't think this is moddable, and it happens in vanilla too, so I am just unrestricting this as a workaround.

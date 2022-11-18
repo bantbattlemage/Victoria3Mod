@@ -6,7 +6,7 @@ ai_strategy_default = {
 	icon = "gfx/interface/icons/ai_strategy_icons/placate_population.dds" # Never shown
 
 	undesirable_infamy_level = 75
-	unacceptable_infamy_level = 95
+	unacceptable_infamy_level = 90
 	
 	revolution_aversion = 5 # Chance each day that the AI will stop enacting a law that is going to spark a civil war (1 aversion should translate into ~25% chance of avoiding a civil war)
 	min_law_chance_to_pass = 40 # If base chance for law to pass is below this, don't enact it
@@ -752,6 +752,9 @@ ai_strategy_default = {
 				}
 				multiply = 0.5
 			}		
+
+			min = 0
+			max = 1000
 		}	
 		befriend = {
 			value = 200
@@ -839,8 +842,11 @@ ai_strategy_default = {
 					}
 				}
 
-				value = 200
+				add = 500
 			}
+
+			min = 0
+			max = 500
 		}
 		reconcile = {
 			value = 0
@@ -922,7 +928,10 @@ ai_strategy_default = {
 				}
 
 				value = 200
-			}				
+			}			
+
+			min = 0
+			max = 500
 		}		
 		protect = {
 			value = 0
@@ -1006,6 +1015,9 @@ ai_strategy_default = {
 				}
 				multiply = 0.0	
 			}
+
+			min = 0
+			max = 500
 		}		
 		antagonize = {
 			value = 0
@@ -1164,6 +1176,9 @@ ai_strategy_default = {
 
 				multiply = 0
 			}
+
+			min = 0
+			max = 1000
 		}
 		conquer = {
 			value = 0
@@ -1172,6 +1187,9 @@ ai_strategy_default = {
 			multiply = { 
 				value = lotus_strategy_block_checks
 			}
+
+			min = 0
+			max = 1000
 		}
 		dominate = {
 			value = 0
@@ -1180,6 +1198,9 @@ ai_strategy_default = {
 			multiply = { 
 				value = lotus_strategy_block_checks
 			}
+
+			min = 0
+			max = 1000
 		}			
 	}
 	
@@ -1419,6 +1440,8 @@ ai_strategy_default = {
 
 			#### custom checks
 
+			add = lotus_strategy_calculation
+
 			# take homeland states
 			if = {
 				limit = {
@@ -1477,19 +1500,27 @@ ai_strategy_default = {
 				multiply = 0
 			}
 
-			# europeans shouldn't take inner china (they like to snake up from vassals) except for Russia
+			# europeans shouldn't take states from china except russia
 			if = {
 				limit = {
-					country_is_in_europe = yes
-					exists = c:CHI
-					scope:target_country = c:CHI
-					
-					NOT = {
-						root = c:RUS
+					OR = {
+						country_is_in_europe = yes
+						AND = {
+							exists = c:GBR
+							root = c:GBR
+						}
 					}
 
-					scope:target_state = {
-						is_coastal = no
+					AND = {
+						exists = c:CHI
+						scope:target_country = c:CHI
+					}
+					
+					NOT = {
+						AND = {
+							exists = c:RUS
+							root = c:RUS
+						}
 					}
                 }
 
@@ -1627,8 +1658,11 @@ ai_strategy_default = {
 			#Russia should take manchuria & central asia
 			if = {
 				limit = {
-					exists = c:RUS
-					root = c:RUS
+
+					AND = {
+						exists = c:RUS
+						root = c:RUS
+					}
 
 					scope:target_state = {
 						OR = {
@@ -1640,7 +1674,6 @@ ai_strategy_default = {
 							state_region = s:STATE_TAJIKISTAN
 							state_region = s:STATE_UZBEKIA
 							state_region = s:STATE_KHIVA
-							state_region = s:STATE_OUTER_MANCHURIA
 							state_region = s:STATE_SAKHALIN
 							state_region = s:STATE_KIRGHIZIA
 						}
@@ -1659,6 +1692,55 @@ ai_strategy_default = {
 
 				add = 125
 			}
+			
+			# state borders in asia are messy, too complicated for AI to make sense of
+			if = {
+				limit = {
+					exists = c:RUS
+					root = c:RUS
+					exists = c:CHI
+					scope:target_country = c:CHI			
+				}
+				
+				if = {
+					limit = {
+						scope:target_state = {
+							state_region = s:STATE_NORTHERN_MANCHURIA
+						}
+					}
+
+					add = 125
+				}
+				else_if = {
+					limit = {
+						scope:target_state = {
+							
+							NOT = {
+								scope:target_state = { state_region = s:STATE_OUTER_MANCHURIA }
+							}
+
+							OR = {
+								state_region = s:STATE_NORTHERN_MANCHURIA
+								state_region = s:STATE_TUVA
+								state_region = s:STATE_TOMSK
+								state_region = s:STATE_JETISY
+								state_region = s:STATE_KIRGHIZIA						
+							}
+						}
+					}
+
+					add = 20
+				}
+				else_if = {
+					limit = {
+						NOT = {
+							scope:target_state = { state_region = s:STATE_OUTER_MANCHURIA }
+						}
+					}
+
+					multiply = 0
+				}
+			}
 
 			#europeans generally should not conquer each other
 			if = {
@@ -1675,49 +1757,272 @@ ai_strategy_default = {
 						}						
 					}
 
-					AND = {
-						scope:target_state = { state_is_in_europe = yes }
-						NOT = {
-							is_adjacent = scope:target_state
-							scope:target_state = { is_homeland_of_country_cultures = root }
+					scope:target_state = { 
+						OR = {
+							state_is_in_europe = yes 
+							region = sr:region_england
+							region = sr:region_north_sea_coast
 						}
+					}
+					
+					# do take homeland states
+					NOT = {						
+						scope:target_state = { is_homeland_of_country_cultures = root }
+					}
+					
+					# germans
+					NOT = {
+						AND = {
+							OR = {
+								scope:target_state = { state_region = { is_homeland = cu:north_german } }	
+								scope:target_state = { state_region = { is_homeland = cu:south_german } }										
+							}
+							OR = {
+								scope:target_state = { state_region = { is_homeland = cu:north_german } }	
+								scope:target_state = { state_region = { is_homeland = cu:south_german } }								
+							}
+						}
+					}
+
+					# italians
+					NOT = {
+						AND = {
+							OR = {
+								scope:target_state = { state_region = { is_homeland = cu:north_italian } }	
+								scope:target_state = { state_region = { is_homeland = cu:south_italian } }								
+							}
+							OR = {
+								scope:target_state = { state_region = { is_homeland = cu:north_italian } }	
+								scope:target_state = { state_region = { is_homeland = cu:south_italian } }							
+							}							
+						}
+					}
+
+					# balkan thunderdome
+					NOT = {
+						AND = {
+							capital.region = sr:region_balkans
+							scope:target_country = {
+								AND = {
+									exists = c:TUR
+									this = c:TUR
+								}
+							}
+							scope:target_state = {
+								NOT = { state_region = s:STATE_EASTERN_THRACE }
+							}
+						}
+					}
+
+					# eastern europe
+					NOT = {
+						AND = {
+							capital.region = sr:region_danubia
+							NOT = { 
+								AND = {
+									exists = c:AUS
+									root = c:AUS
+								}
+							}
+						}
+					}
+
+					# russia/germany in eastern europe
+					NOT = {
+						AND = {
+							OR = {
+								AND = {
+									exists = c:RUS
+									root = c:RUS
+								}
+								AND = {
+									exists = c:GER
+									root = c:GER
+								}
+							}
+
+							scope:target_state = {
+								OR = {
+									region = sr:region_danubia
+									region = sr:region_poland
+								}
+							}
+						}
+					}
+				}
+				
+				multiply = 0.0
+			}
+
+			#BIC & DEI shouldnt take european territory
+			if = {
+				limit = {
+					
+					OR = {
+						AND = {
+							exists = c:BIC
+							root = c:BIC
+						}
+						AND = {
+							exists = c:DEI
+							root = c:DEI
+						}					
+					}
+
+					scope:target_state = {
+						state_is_in_europe = yes
 					}
 				}
 
 				multiply = 0.0
 			}
-
-			#prioritize puppeting larger countries over taking states
+			
+			#europeans shouldnt conquer egypt or ottomans directly
 			if = {
 				limit = {
-					scope:target_country = {
-						
-						country_rank > rank_value:insignificant_power
-
-						OR = {
-							country_rank = rank_value:unrecognized_major_power
-							country_rank = rank_value:unrecognized_regional_power
+					country_is_in_europe = yes
+					NOT = {
+						AND = {
+							exists = c:TUR
+							root = c:TUR
 						}
+					}
 
-						NOT = {
-							AND = {
-								exists = c:RUS
-								root = c:RUS
-								exists = c:CHI
-								scope:target_country = c:CHI
-								scope:target_state = { state_region = s:STATE_OUTER_MANCHURIA }
+					OR = {
+						AND = {
+							exists = c:EGY
+							scope:target_country = c:EGY
+						}
+						AND = {
+							exists = c:TUR
+							scope:target_country = c:TUR
+						}						
+					}
+				}
+
+				multiply = 0
+			}
+
+			#britain shouldnt take things like kamchakta off of russia
+			if = {
+				limit = {
+					AND  = {
+						exists = c:GBR
+						root = c:GBR
+					}
+					AND = {
+						exists = c:RUS
+						scope:target_country = c:RUS						
+					}
+
+					NOT = {
+						scope:target_state = {
+							OR = {
+								region = sr:region_persia
+								region = sr:region_north_india
+								region = sr:region_south_india
+								region = sr:region_himalayas							
 							}
 						}
 					}
 				}
 
-				multiply = 0.5
+				multiply = 0
+			}
+
+			#prioritize puppeting larger countries over taking states
+			if = {
+				limit = {
+
+					NOT = {
+						OR = {
+							AND = {
+								exists = c:CHI
+								scope:target_country = c:CHI
+							}
+							AND = {
+								exists = c:TUR
+								root = c:TUR
+								exists = c:EGY
+								scope:target_country = c:EGY
+							}
+						}
+					}
+
+					scope:target_country = {
+						
+						OR = {
+							country_rank = rank_value:unrecognized_major_power
+							country_rank = rank_value:unrecognized_regional_power
+							num_states > 3
+
+							AND = {
+								exists = c:DAI
+								this = c:DAI
+							}
+							AND = {
+								exists = c:PHI
+								this = c:PHI
+							}
+							AND = {
+								exists = c:ALD
+								this = c:ALD
+							}
+							AND = {
+								exists = c:MOR
+								this = c:MOR
+							}
+							AND = {
+								exists = c:TRI
+								this = c:TRI
+							}
+							AND = {
+								exists = c:PAN
+								this = c:PAN
+							}
+							AND = {
+								exists = c:AFG
+								this = c:AFG
+							}	
+							AND = {
+								exists = c:KHI
+								this = c:KHI
+							}			
+							AND = {
+								exists = c:BAV
+								this = c:BAV
+							}											
+						}
+					}
+				}
+
+				multiply = 0
 			}
 
 			# dont take stuff you cant reach
 			if = {
 				limit = {
-					can_reach_target_state = no
+					
+					OR = {
+
+						can_reach_target_state = no
+
+						AND = {
+							scope:target_state = { is_coastal = no }
+							NOT = {
+								is_adjacent = scope:target_country
+							}
+
+							NOT = {
+								any_subject_or_below = {
+									AND = {
+										is_subject_type = subject_type_puppet
+										is_adjacent = scope:target_country
+									}
+								}
+							}
+						}
+					}
 				}
 
 				multiply = 0
@@ -1732,7 +2037,7 @@ ai_strategy_default = {
 		}
 		
 		return_state = {
-			value = 100
+			value = 200
 
 			add = {
 				value = scope:target_state.state_population
@@ -1941,17 +2246,17 @@ ai_strategy_default = {
 						scope:target_state = { state_region = s:STATE_SHENGJING }
 					}
 
-					add = 100
+					#add = 100
 				}
 				else_if = {
 					limit = {
 						scope:target_state = { state_region = s:STATE_OUTER_MANCHURIA }
 					}
 
-					multiply = 0
+					#multiply = 0
 				}
 				else = {
-					multiply = 0.75
+					#multiply = 0
 				}
 			}
 
@@ -1972,6 +2277,25 @@ ai_strategy_default = {
 				multiply = 0
 			}
 
+			# dont take treaty ports from egypt or ottomans
+			if = {
+				limit = {
+					OR = {
+						AND = {
+							exists = c:TUR
+							scope:target_country = c:TUR
+						}
+						AND = {
+							exists = c:EGY
+							scope:target_country = c:EGY
+						}
+					}
+				}
+
+				multiply = 0
+			}
+
+			# dont take port if you have one already
 			if = {
 				limit = {
 					has_treaty_port_in_country = scope:target_country
@@ -2046,12 +2370,18 @@ ai_strategy_default = {
 				multiply = 0
 			}
 
+			add = lotus_strategy_calculation
+
 			multiply = { 
 				value = lotus_strategy_block_checks
 			}
 
+			multiply = {
+				value = lotus_small_nation_puppet_check
+			}
+
 			min = 0
-			max = 200			
+			max = 175			
 		}
 		
 		make_dominion = {
@@ -2114,8 +2444,14 @@ ai_strategy_default = {
 				multiply = 0
 			}
 
+			add = lotus_strategy_calculation
+
 			multiply = { 
 				value = lotus_strategy_block_checks
+			}
+
+			multiply = {
+				value = lotus_small_nation_puppet_check
 			}
 
 			min = 0
@@ -2182,8 +2518,14 @@ ai_strategy_default = {
 				multiply = 0
 			}
 
+			add = lotus_strategy_calculation
+
 			multiply = { 
 				value = lotus_strategy_block_checks
+			}
+
+			multiply = {
+				value = lotus_small_nation_puppet_check
 			}
 
 			min = 0
@@ -2561,6 +2903,16 @@ ai_strategy_default = {
 				multiply = 0
 			}
 
+			#dont make britian release subjects its a mess
+			if = {
+				limit = {
+					exists = c:GBR
+					scope:target_country = c:GBR
+				}
+
+				multiply = 0
+			}
+
 			if = {
 				limit = {
 					can_reach_target_country = no
@@ -2575,48 +2927,6 @@ ai_strategy_default = {
 
 		liberate_country = {
 			value = 0
-		
-			if = {
-				limit = {
-					scope:target_country.infamy >= infamy_threshold:notorious
-				}
-				add = 25
-				
-				if = {
-					limit = {
-						has_diplomatic_pact = {
-							who = scope:target_country
-							type = rivalry
-						}			
-					}
-					add = 25
-				}
-
-				if = {
-					limit = {
-						scope:target_country.infamy >= infamy_threshold:pariah
-					}
-					add = 25
-				}
-
-				# Relations with target
-				multiply = {
-					value = "scope:target_country.relations:root"
-					multiply = -0.01
-					add = 1
-					min = 0.5
-					max = 2.0				
-				}
-				
-				# Ideological opinion of target
-				multiply = {
-					value = "ai_ideological_opinion(scope:target_country)"
-					multiply = -0.05
-					add = 1
-					min = 0.5
-					max = 2.0
-				}				
-			}
 
 			#because it just leads to a mess and is flavorfully awful dont force release these
 			if = {
@@ -2652,9 +2962,36 @@ ai_strategy_default = {
 
 				multiply = 0
 			}
+			
+			# only use this on specific countries
+			if = {
+				limit = {
+					scope:target_country = {
+						OR = {
+							AND = {
+								exists = c:AUS
+								this = c:AUS
+							}
+							AND = {
+								exists = c:TUR
+								this = c:TUR
+							}	
+							AND = {
+								exists = c:EGY
+								this = c:EGY
+							}							
+						}
+					}
+				}
+
+				add = 20
+			}
+			else = {
+				multiply = 0
+			}
 
 			min = 0
-			max = 0 ### actually just try disbling this for now				
+			max = 20				
 		}
 
 		force_recognition = {
@@ -3106,33 +3443,30 @@ ai_strategy_default = {
 			if = {
 				limit = {
 
-					OR = {
-						AND = {
-							exists = c:USA
-							root = c:USA
+					AND = {
+						exists = c:USA
+						root = c:USA
 
-							root = {
-								calc_true_if = {
-									amount >= 3
-									any_scope_state = {
-										OR = {
-											state_region = s:STATE_OREGON
-											state_region = s:STATE_WASHINGTON
-											state_region = s:STATE_CALIFORNIA
-										}
-									}	
-								}							
+						root = {
+							calc_true_if = {
+								amount >= 3
+								owns_entire_state_region = STATE_OREGON
+								owns_entire_state_region = STATE_WASHINGTON
+								owns_entire_state_region = STATE_CALIFORNIA	
 							}
 						}
-
-						AND = {
-							exists = c:GBR
-							root = c:GBR
-						}
 					}
-
 				}
+
 				add = 1000
+			}
+			else_if = {
+				limit = {
+					exists = c:GBR
+					root = c:GBR				
+				}
+
+				add = 5000
 			}
 			else = {
 				add = -100

@@ -137,6 +137,21 @@ bic_centralize_british_raj = {
 					exists = c:BUR
 					this = c:BUR
 				}
+
+				AND = {
+					exists = c:CMI
+					this = c:CMI
+				}
+
+				AND = {
+					exists = c:CHP
+					this = c:CHP
+				}
+
+				AND = {
+					exists = c:LUA
+					this = c:LUA
+				}
 			}
 		}
 	}
@@ -186,6 +201,26 @@ bic_centralize_british_raj = {
 							exists = c:BUR
 							this = c:BUR
 						}
+
+						AND = {
+							exists = c:BUR
+							this = c:BUR
+						}
+
+						AND = {
+							exists = c:CMI
+							this = c:CMI
+						}
+
+						AND = {
+							exists = c:CHP
+							this = c:CHP
+						}
+
+						AND = {
+							exists = c:LUA
+							this = c:LUA
+						}
 					}
 				}
 			
@@ -219,7 +254,8 @@ gbr_expand_east_indies = {
 				state_region.region = sr:region_persia
 			}
 			NOT = {
-				state_region = s:STATE_MALAYA			
+				state_region = s:STATE_MALAYA		
+				is_treaty_port = yes
 			}
 		}
 	}
@@ -287,7 +323,8 @@ gbr_expand_east_indies = {
 						state_region.region = sr:region_persia
 					}
 					NOT = {
-						state_region = s:STATE_MALAYA			
+						state_region = s:STATE_MALAYA	
+						is_treaty_port = yes
 					}
 				}
 				set_state_owner = c:BIC

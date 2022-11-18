@@ -35,8 +35,7 @@ decision_stop_nested_civil_war = {
     }
 }
 
-### this decision lets france annex algeria right after conquering it, because of French Algiers starting state & historical colony there & ugly borders if anyone else gets it
-
+# this decision lets france annex algeria right after conquering it, because of French Algiers starting state & historical colony there & ugly borders if anyone else gets it
 decision_conquer_algeria = {
 
     is_shown = {
@@ -100,7 +99,7 @@ decision_conquer_algeria = {
     }
 }
 
-
+# this decision lets russia annex the 3 central asian minors if they are subjects
 decision_subjugate_the_steppes = {
 
     is_shown = {
@@ -191,6 +190,44 @@ decision_subjugate_the_steppes = {
 				set_state_type = unincorporated
 			}
 		}
+    }
+
+    ai_chance = {
+        base = 1000
+    }
+}
+
+# this hidden decision will auto-end 0v0 civil wars
+decision_auto_capitulate_zero_troop_war = {
+
+    is_shown = {
+        
+        is_player = no
+        is_at_war = yes
+    }
+
+    possible = {
+
+        is_player = no
+        is_at_war = yes
+        
+        any_civil_war = {
+			civil_war_progress >= 1
+		}
+
+        army_size = 0
+    }
+
+    when_taken = {
+        
+        root = {
+            random_scope_war = {
+                add_war_war_support = {
+                    target = root
+                    value = -100
+                }
+            }
+        }
     }
 
     ai_chance = {

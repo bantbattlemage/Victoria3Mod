@@ -27,7 +27,7 @@
 				}		
 			}
 
-			add = 50
+			add = 500
 		}
 
 		# Go after weak countries with strategic adjacency to you
@@ -36,7 +36,7 @@
 				has_strategic_adjacency = scope:target_country
 			}
 
-			add = 100
+			add = 1000
 
 			if = {
 				limit = {
@@ -61,19 +61,7 @@
 					}
 				}				
 			}
-			add = 100
-		}
-
-		#limit aggression against "civilized countries"
-		if = {
-			limit = {
-				scope:target_country = {
-
-					is_country_type = recognized
-				}
-			}
-
-			multiply = 0.1
+			add = 1000
 		}
 		
 		# Italian aggression 
@@ -122,7 +110,7 @@
 				}
 			}
 
-			add = 500
+			add = 5000
 		}
 
 		# German aggression 
@@ -184,7 +172,7 @@
 					}
 				}
 
-				add = 500
+				add = 5000
 			}
 			# other states
 			else_if = {
@@ -202,7 +190,7 @@
 					}
 				}
 
-				add = 250
+				add = 5000
 			}			
 		}
 
@@ -229,26 +217,31 @@
 								state_region = s:STATE_TAJIKISTAN
 								state_region = s:STATE_UZBEKIA
 								state_region = s:STATE_KHIVA
-								state_region = s:STATE_WESTERN_AFGHANISTAN
-								state_region = s:STATE_EASTERN_AFGHANISTAN
 								state_region = s:STATE_SAKHALIN
 							}
 						}
 					}	
 				}
 
-				add = 500
+				add = 5000
 			}
 			else_if = {
 				limit = {
 					scope:target_country = {
 						any_scope_state = {
-							state_region = s:STATE_OUTER_MANCHURIA
+							OR = {
+								state_region = s:STATE_OUTER_MANCHURIA
+								state_region = s:STATE_NORTHERN_MANCHURIA
+								state_region = s:STATE_TUVA
+								state_region = s:STATE_TOMSK
+								state_region = s:STATE_JETISY
+								state_region = s:STATE_KIRGHIZIA						
+							}
 						}
 					}
 				}
 
-				add = 250
+				add = 500
 			}
 			else_if = {
 
@@ -310,7 +303,7 @@
 				}
 			}
 
-			add = 500
+			add = 5000
 		}
 
 		#dutch european aggression
@@ -337,7 +330,7 @@
 					}
 				}
 
-				add = 500
+				add = 5000
 			}			
 		}
 
@@ -419,7 +412,31 @@
 				}
 			}
 
-			add = 500
+			add = 5000
+		}
+
+		if = {
+			limit = {
+				exists = c:GBR
+				root = c:GBR
+
+				OR = {
+					scope:target_country = {
+						any_scope_state = {
+							OR = {
+								state_region = s:STATE_NORTH_ISLAND
+								state_region = s:STATE_SOUTH_ISLAND 
+							}
+						}
+
+						NOT = {
+							is_subject_of = root
+						}
+					}
+				}
+			}
+
+			add = 5000
 		}
 
 		# Chinese aggression 
@@ -519,7 +536,7 @@
 				}
 			}
 
-			add = 500
+			add = 5000
 		}
 
 		#limit US aggression to historic claims
@@ -608,7 +625,7 @@
 					}
 				}
 
-				add = 500
+				add = 5000
 			}
 			else_if = {
 				limit = {
@@ -624,7 +641,7 @@
 					}
 				}
 
-				add = 500
+				add = 5000
 			}
 
 		}
@@ -650,7 +667,7 @@
 						state_region = s:STATE_OREGON
 						state_region = s:STATE_WASHINGTON
 						state_region = s:STATE_CALIFORNIA
-					}			
+					}		
 				}
 
 				scope:target_country = {
@@ -663,7 +680,7 @@
 				}
 			}
 
-			add = 500
+			add = 5000
 		}
 
 		# ethiopia thunderdome
@@ -675,10 +692,10 @@
 				}
 			}
 
-			add = 500
+			add = 5000
 		}
 
-		#limit ottomans to historic areas
+		# limit ottomans to historic areas
 		if = {
 			limit = {
 				exists = c:TUR
@@ -696,14 +713,14 @@
 					}						
 				}
 
-				add = 500
+				add = 5000
 			}
 			else = {
 				multiply = 0
 			}
 		}
 
-		#reduce prussia's desire to gun straight for austria
+		# reduce prussia's desire to gun straight for austria
 		if = {
 			limit = {
 				exists = c:PRU
@@ -734,18 +751,41 @@ lotus_strategy_block_checks = {
 			AND = {
 
 				OR = {
-					country_rank < rank_value:major_power
+					AND = {
+						country_rank < rank_value:major_power
+						NOT = { 
+							AND = {
+								exists = c:GBR
+								top_overlord = c:GBR 
+								NOT = { 
+									OR = {
+										scope:target_country = c:USA
+										scope:target_country = { top_overlord = c:GBR }
+									}
+								}
+							}
+						}
+					}
+
 					is_country_type = unrecognized
 				}
 
 				NOT = {
 					capital.region = sr:region_ethiopia
+					#capital.region = sr:region_arabic
+					capital.region = sr:region_balkans
+					capital.region = sr:region_danubia
+					capital.region = sr:region_poland
 				}
 
 				NOT = {
 					AND = {
 						exists = c:NEJ
 						root = c:NEJ
+					}
+					AND = {
+						exists = c:SIC
+						root = c:SIC
 					}
 					AND = {
 						exists = c:SAR
@@ -755,11 +795,32 @@ lotus_strategy_block_checks = {
 						exists = c:GRE
 						root = c:GRE
 					}
+					AND = {
+						exists = c:DEI
+						root = c:DEI
+					}
 				}
 			}
 		}
 
 		multiply = 0
+	}
+
+	#prioritize aggression against unrecongized countries
+	if = {
+		limit ={
+			scope:target_country = { is_country_type = recognized }
+
+			NOT = {
+				AND = {
+					exists = c:ITA
+					root = c:ITA
+					scope:target_country = c:AUS
+				}
+			}
+		}
+
+		multiply = 0.5
 	}
 
 	#non-chinese should not go after heavenly kingdom
@@ -869,7 +930,17 @@ lotus_strategy_block_checks = {
 			}
 
 			scope:target_country = {
-				country_is_in_europe = yes
+				OR = {
+					country_is_in_europe = yes
+					scope:target_country = {
+						top_overlord = { country_is_in_europe = yes }
+					}					
+				}
+				NOT = {
+					any_scope_state = {
+						has_claim_by = root
+					}
+				}
 			}
 		}
 
@@ -895,7 +966,7 @@ lotus_strategy_block_checks = {
 			}
 		}
 
-		multiply = 0
+		#multiply = 0 #think this is unnecessary now
 	}
 
 	#limit ottoman & russian AI obsession with western europe
@@ -1027,7 +1098,7 @@ lotus_strategy_block_checks = {
 		multiply = 0
 	}
 
-	#Austria & Qing should chill out and not be aggressive and hopefully fall/get picked apart
+	#Austria & Qing & ottomans should chill out and not be aggressive and hopefully fall/get picked apart
 	if = {
 		limit = {
 			OR = {
@@ -1038,7 +1109,17 @@ lotus_strategy_block_checks = {
 				AND = {
 					exists = c:CHI
 					root = c:CHI
-				}				
+				}		
+				AND = {
+					exists = c:TUR
+					root = c:TUR
+					NOT = {
+						AND = {
+							exists = c:EGY
+							scope:target_country = c:EGY
+						}
+					}
+				}
 			}
 		}
 
@@ -1105,8 +1186,8 @@ lotus_strategy_block_checks = {
 		limit = {
 			scope:target_country = { 
 				OR = {
-					country_rank > rank_value:major_power
-					top_overlord = { country_rank > rank_value:major_power }
+					country_rank >= rank_value:major_power
+					top_overlord = { country_rank >= rank_value:major_power }
 				}
 
 				NOT = {
@@ -1116,5 +1197,204 @@ lotus_strategy_block_checks = {
 		}
 
 		multiply = 0.5
+	}
+
+	# remove french desire for india; just leads to too much gore & france spending too much time there
+	if = {
+		limit = {
+			exists = c:FRA
+			root = c:FRA
+			scope:target_country = { country_is_in_india = yes }
+		}
+
+		multiply = 0
+	}
+
+	# remove spanish desire for indonesia; the fighting is nice but they cant keep it clean
+	# also reduce british desire, but not completely remove
+	if = {
+		limit = {
+			scope:target_country = { 
+				OR = {
+					capital.region = sr:region_indonesia 
+					AND = {
+						exists = c:NET
+						this = c:NET
+					}
+				}
+			}
+		}
+
+		if = {
+			limit = {
+				AND = {
+					exists = c:SPA
+					root = c:SPA					
+				}
+				NOT = { 
+					exists = c:PHI
+					scope:target_country = c:PHI
+				}
+			}
+
+			multiply = 0
+		}
+		else_if = {
+			limit = {
+				exists = c:GBR
+				root = c:GBR
+			}
+
+			multiply = 0.1
+		}
+	}
+
+	# remove dutch desire for phillipines
+	if = {
+		limit = {
+			OR = {
+				AND = {
+					exists = c:DEI
+					root = c:DEI
+				}
+				AND = {
+					exists = c:NET
+					root = c:NET
+				}				
+			}
+			scope:target_country = { 
+				exists = c:PHI
+				this = c:PHI
+			}
+		}
+
+		multiply = 0
+	}
+
+	# reduce british focus on middle east
+	if = {
+		limit = {
+			exists = c:GBR
+			root = c:GBR
+			scope:target_country = { 
+				capital.region = sr:region_arabic 
+			}
+		}
+
+		multiply = 0.1
+	}
+
+	# no one conquers tibet
+	if = {
+		limit = {
+			exists = c:TIB
+			scope:target_country = c:TIB
+		}
+
+		multiply = 0
+	}
+
+	# dont suicidally attack someone bigger than you
+	if = {
+		limit = {
+			NOT = {
+				AND = {
+					exists = c:EGY
+					root = c:EGY
+				}
+				AND = {
+					exists = c:CHI
+					scope:target_country = c:CHI
+				}	
+			}
+			scope:target_country = {
+				army_size >= root.army_size
+			}
+		}
+
+		multiply = 0.5
+	}
+}
+
+# generally prioritize conquering small countries over subjecting them
+#this has to be repeated 3 times so making it a function
+lotus_small_nation_puppet_check = {
+
+	value = 1
+
+	if = {
+		limit = {
+			scope:target_country = {
+
+				num_states <= 3
+
+				# exception for a few countries we prefer to puppet anyways
+				NOT = {
+					AND = {
+						exists = c:DAI
+						this = c:DAI
+					}
+					AND = {
+						exists = c:PHI
+						this = c:PHI
+					}
+					AND = {
+						exists = c:ALD
+						this = c:ALD
+					}
+					AND = {
+						exists = c:MOR
+						this = c:MOR
+					}
+					AND = {
+						exists = c:TRI
+						this = c:TRI
+					}
+					AND = {
+						exists = c:PAN
+						this = c:PAN
+					}	
+					AND = {
+						exists = c:KHI
+						this = c:KHI
+					}	
+					AND = {
+						exists = c:AFG
+						this = c:AFG
+					}	
+					AND = {
+						exists = c:BAV
+						this = c:BAV
+					}									
+				}
+			}
+		}
+
+		multiply = 0
+	}
+
+	# extra check to not add puppet CB if you want states from them, because probably they will back down and you wont get your state (common example: US trying to get Texas from Mexico, but puppet CB is higher priority normally,
+	# it does add both but puppet is the primary CB and if they back down it puppets and you dont get the state )
+	if = {
+		limit = {
+			scope:target_country = {
+
+				any_scope_state = {
+					has_claim_by = root
+				}
+			}
+		}
+
+		multiply = 0
+	}
+
+	# dont puppet netherlands as it breaks DEI
+	if = {
+		limit = {
+			exists = c:NET
+			scope:target_country = c:NET
+		}
+
+		multiply = 0
 	}
 }

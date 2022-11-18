@@ -190,6 +190,19 @@
 					desc = "DIPLOMATIC_ACCEPTANCE_SUPPORT_UNIFICATION"
 					value = 25
 				}
+				if = {
+					limit = {
+						AND = {
+							exists = c:GER
+							root = c:GER
+						}
+					}
+
+					add = {
+						desc = "DIPLOMATIC_ACCEPTANCE_SUPPORT_UNIFICATION"
+						value = 75
+					}
+				}
 			}
 			
 			if = {
@@ -207,7 +220,21 @@
 				}
 				add = {
 					desc = "DIPLOMATIC_ACCEPTANCE_SUPPORT_UNIFICATION"
-					value = 25
+					value = 100
+				}
+
+				if = {
+					limit = {
+						AND = {
+							exists = c:ITA
+							root = c:ITA
+						}
+					}
+
+					add = {
+						desc = "DIPLOMATIC_ACCEPTANCE_SUPPORT_UNIFICATION"
+						value = 100
+					}
 				}
 			}
 			
@@ -429,9 +456,20 @@
 					desc = "DIPLOMATIC_ACCEPTANCE_UNIFICATION"
 					value = 25
 				}
-			}
-			
+				if = {
+					limit = {
+						AND = {
+							exists = c:ITA
+							root = c:ITA
+						}
+					}
 
+					add = {
+						desc = "DIPLOMATIC_ACCEPTANCE_SUPPORT_UNIFICATION"
+						value = 75
+					}
+				}
+			}
 			
 			if = {
 				limit = {
@@ -446,9 +484,24 @@
 					NOT = { is_unification_candidate = ITA }
 					is_supporting_unification_candidate = { who = root country_formation = ITA }
 				}
+				
 				add = {
 					desc = "DIPLOMATIC_ACCEPTANCE_UNIFICATION"
-					value = 25
+					value = 100
+				}
+
+				if = {
+					limit = {
+						AND = {
+							exists = c:ITA
+							root = c:ITA
+						}
+					}
+
+					add = {
+						desc = "DIPLOMATIC_ACCEPTANCE_SUPPORT_UNIFICATION"
+						value = 100
+					}
 				}
 			}
 			

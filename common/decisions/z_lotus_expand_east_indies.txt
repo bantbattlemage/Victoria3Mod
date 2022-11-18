@@ -65,7 +65,7 @@ centralize_east_indies = {
 
 	possible = {
 
-		has_technology_researched = nationalism
+		#has_technology_researched = nationalism
 		is_at_war = no
 
 		exists = c:DEI
@@ -193,7 +193,7 @@ net_fix_independent_dei = {
 
 			create_diplomatic_pact = {
 				country = c:DEI
-				type = dominion	
+				type = puppet	
 			}
 		}
 	}
