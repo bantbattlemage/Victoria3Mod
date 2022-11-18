@@ -424,17 +424,22 @@ ai_strategy_default = {
 			add = 1
 		}
 		
-		# prussia shouldnt be over-confident against austria
+		# prussia shouldnt be over-confident against austria or france
 		if = {
 			limit = {
 				exists = c:AUS
 				exists = c:PRU
 				root = c:PRU
-				scope:target_country = c:AUS
+
+				OR = {
+					scope:target_country = c:AUS
+					scope:target_country = c:FRA	
+				}
+
 			}
 			
 			multiply = 0
-			value = 1
+			value = 0.75
 		}
 	}
 	
@@ -1451,22 +1456,6 @@ ai_strategy_default = {
 				add = 150
 			}
 
-			# dont take things that arent adjacent		
-			if = {
-				limit = {
-					AND = {
-						NOT = { has_strategic_land_adjacency = scope:target_country }
-						NOT = { is_adjacent = scope:target_state }
-						NOT = { 
-							scope:target_state = { is_coastal = yes }
-							#scope:target_country = { is_country_type = unrecognized }
-						}	
-					}
-				}
-
-				multiply = 0
-			} 
-
 			# USA should not expand into core mexico
 			if = {
 				limit = {
@@ -1774,8 +1763,8 @@ ai_strategy_default = {
 					NOT = {
 						AND = {
 							OR = {
-								scope:target_state = { state_region = { is_homeland = cu:north_german } }	
-								scope:target_state = { state_region = { is_homeland = cu:south_german } }										
+								country_has_primary_culture = cu:north_german
+								country_has_primary_culture = cu:south_german									
 							}
 							OR = {
 								scope:target_state = { state_region = { is_homeland = cu:north_german } }	
@@ -1788,8 +1777,8 @@ ai_strategy_default = {
 					NOT = {
 						AND = {
 							OR = {
-								scope:target_state = { state_region = { is_homeland = cu:north_italian } }	
-								scope:target_state = { state_region = { is_homeland = cu:south_italian } }								
+								country_has_primary_culture = cu:north_italian
+								country_has_primary_culture = cu:south_italian								
 							}
 							OR = {
 								scope:target_state = { state_region = { is_homeland = cu:north_italian } }	
@@ -1881,12 +1870,6 @@ ai_strategy_default = {
 			if = {
 				limit = {
 					country_is_in_europe = yes
-					NOT = {
-						AND = {
-							exists = c:TUR
-							root = c:TUR
-						}
-					}
 
 					OR = {
 						AND = {
@@ -1929,10 +1912,30 @@ ai_strategy_default = {
 
 				multiply = 0
 			}
+			#no one else should relaly be taking states from russia
+			else_if = {
+				limit = {
+					AND = {
+						exists = c:RUS
+						scope:target_country = c:RUS						
+					}					
+				}
+
+				multiply = 0
+			}
 
 			#prioritize puppeting larger countries over taking states
 			if = {
 				limit = {
+
+					NOT = {
+						scope:target_country = {
+							OR = {
+								country_rank = rank_value:great_power
+								country_rank = rank_value:major_power							
+							}
+						}
+					}
 
 					NOT = {
 						OR = {
@@ -1998,28 +2001,34 @@ ai_strategy_default = {
 
 				multiply = 0
 			}
-
+			
 			# dont take stuff you cant reach
 			if = {
 				limit = {
-					
-					OR = {
-
-						can_reach_target_state = no
-
-						AND = {
-							scope:target_state = { is_coastal = no }
-							NOT = {
+					can_reach_target_state = no
+					NOT = {
+						any_subject_or_below = {
+							AND = {
+								is_subject_type = subject_type_puppet
 								is_adjacent = scope:target_country
 							}
+						}
+					}
+				}
 
-							NOT = {
-								any_subject_or_below = {
-									AND = {
-										is_subject_type = subject_type_puppet
-										is_adjacent = scope:target_country
-									}
-								}
+				multiply = 0
+			}
+			else_if = {
+				limit = {
+					scope:target_state = { is_coastal = no }
+					NOT = {
+						is_adjacent = scope:target_country
+					}
+					NOT = {
+						any_subject_or_below = {
+							AND = {
+								is_subject_type = subject_type_puppet
+								is_adjacent = scope:target_country
 							}
 						}
 					}
@@ -2300,6 +2309,16 @@ ai_strategy_default = {
 				limit = {
 					has_treaty_port_in_country = scope:target_country
 				}
+				multiply = 0
+			}
+
+			if = {
+				limit = {
+					scope:target_country = {
+						market = root.market
+					}
+				}
+				
 				multiply = 0
 			}
 
@@ -3466,7 +3485,7 @@ ai_strategy_default = {
 					root = c:GBR				
 				}
 
-				add = 5000
+				add = 10000
 			}
 			else = {
 				add = -100

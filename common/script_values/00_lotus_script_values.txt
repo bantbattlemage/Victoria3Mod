@@ -708,9 +708,9 @@
 						OR = {
 							capital.region = sr:region_anatolia
 							capital.region = sr:region_arabic
-							capital.region = sr:region_nile_basin					
+							capital.region = sr:region_nile_basin
 						}
-					}						
+					}
 				}
 
 				add = 5000
@@ -720,20 +720,26 @@
 			}
 		}
 
-		# reduce prussia's desire to gun straight for austria
+		# reduce prussia's desire to gun straight for austria or frnace
 		if = {
 			limit = {
 				exists = c:PRU
 				root = c:PRU
-				exists = c:AUS
 
 				OR = {
-					scope:target_country = c:AUS
+					AND = {
+						exists = c:FRA
+						scope:target_country = c:FRA
+					}
+					AND = {
+						exists = c:AUS
+						scope:target_country = c:AUS
+					}
 					scope:target_country = { top_overlord = c:AUS }
 				}
 			}
 
-			multiply = 0.1
+			multiply = 0.5
 		}
 	}
 }
@@ -743,7 +749,7 @@ lotus_strategy_block_checks = {
 
 	value = 1
 
-	#limit aggression of minor AI countries with a few exceptions
+	#limit aggression of minor AI countries with a few exceptions. essentially all nations that aren't major or great powers that aren't excluded in these checks will be disabled from attacking
 	if = {
 
 		limit = {
@@ -772,10 +778,16 @@ lotus_strategy_block_checks = {
 
 				NOT = {
 					capital.region = sr:region_ethiopia
-					#capital.region = sr:region_arabic
 					capital.region = sr:region_balkans
 					capital.region = sr:region_danubia
 					capital.region = sr:region_poland
+				}
+
+				NOT = {
+					AND = {
+						capital.region = sr:region_arabic
+						has_technology_researched = nationalism
+					}
 				}
 
 				NOT = {
@@ -815,6 +827,21 @@ lotus_strategy_block_checks = {
 				AND = {
 					exists = c:ITA
 					root = c:ITA
+					scope:target_country = c:AUS
+				}
+			}
+			NOT = {
+				AND = {
+					OR = {
+						AND = {
+							exists = c:NGF
+							root = c:NGF							
+						}
+						AND = {
+							exists = c:GER
+							root = c:GER							
+						}						
+					}
 					scope:target_country = c:AUS
 				}
 			}
@@ -993,6 +1020,31 @@ lotus_strategy_block_checks = {
 					any_scope_state = { region = sr:region_france } 
 					any_scope_state = { region = sr:region_occitania } 
 					any_scope_state = { region = sr:region_rhine } 
+				}
+			}
+		}
+
+		multiply = 0
+	}
+
+	#dont let russia push too far into india
+	if = {
+		limit = {
+			exists = c:RUS
+			root = c:RUS
+
+			OR = {
+				AND = {
+					exists = c:KAL
+					scope:target_country = c:KAL
+				}
+				AND = {
+					exists = c:MAK
+					scope:target_country = c:MAK
+				}
+				AND = {
+					exists = c:PAN
+					scope:target_country = c:PAN
 				}
 			}
 		}
