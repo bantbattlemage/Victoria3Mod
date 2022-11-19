@@ -144,11 +144,6 @@ bic_centralize_british_raj = {
 				}
 
 				AND = {
-					exists = c:CHP
-					this = c:CHP
-				}
-
-				AND = {
 					exists = c:LUA
 					this = c:LUA
 				}
@@ -210,11 +205,6 @@ bic_centralize_british_raj = {
 						AND = {
 							exists = c:CMI
 							this = c:CMI
-						}
-
-						AND = {
-							exists = c:CHP
-							this = c:CHP
 						}
 
 						AND = {

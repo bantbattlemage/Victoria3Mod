@@ -6,7 +6,6 @@
 		#sanity checks
 		limit = {
 			exists = scope:target_country
-			can_reach_target_country = yes
 			NOT = { scope:target_country = root }
 
 			# if its overseas you better have boats
@@ -27,7 +26,7 @@
 				}		
 			}
 
-			add = 500
+			add = 10
 		}
 
 		# Go after weak countries with strategic adjacency to you
@@ -36,12 +35,17 @@
 				has_strategic_adjacency = scope:target_country
 			}
 
-			add = 1000
+			add = 50
 
 			if = {
 				limit = {
 					country_rank >= rank_value:major_power
-					scope:target_country = { country_rank < rank_value:minor_power }			
+					scope:target_country = { 
+						OR = {
+							country_rank < rank_value:major_power 
+							is_country_type = unrecognized
+						}
+					}			
 				}
 
 				multiply = 5
@@ -61,7 +65,7 @@
 					}
 				}				
 			}
-			add = 1000
+			add = 100
 		}
 		
 		# Italian aggression 
@@ -232,6 +236,7 @@
 							OR = {
 								state_region = s:STATE_OUTER_MANCHURIA
 								state_region = s:STATE_NORTHERN_MANCHURIA
+								state_region = s:STATE_SOUTHERN_MANCHURIA
 								state_region = s:STATE_TUVA
 								state_region = s:STATE_TOMSK
 								state_region = s:STATE_JETISY
@@ -241,25 +246,9 @@
 					}
 				}
 
-				add = 500
+				add = 1000
 			}
-			else_if = {
-
-				limit = {
-					NOT = {
-						AND ={
-							any_scope_state = { state_region = s:STATE_KUBAN }
-							any_scope_state = { state_region = s:STATE_DAGESTAN }
-							any_scope_state = { state_region = s:STATE_AZERBAIJAN }
-							any_scope_state = { state_region = s:STATE_TURKMENIA }
-							any_scope_state = { state_region = s:STATE_SEMIRECHE }
-							any_scope_state = { state_region = s:STATE_TAJIKISTAN }
-							any_scope_state = { state_region = s:STATE_UZBEKIA }
-							any_scope_state = { state_region = s:STATE_KHIVA }													
-						}
-					}
-				}
-
+			else = {
 				multiply = 0
 			}
 		}
@@ -372,71 +361,95 @@
 
 				NOT = {
 					scope:target_country = {
-						top_overlord = root
-					}
-				}
-
-				scope:target_country = {
-					any_scope_state = {
 						OR = {
-							state_region = s:STATE_MALAYA
-							state_region = s:STATE_SINDH
-							state_region = s:STATE_BURMA
-							state_region = s:STATE_KACHIN
-							state_region = s:STATE_SHAN_STATES
-							state_region = s:STATE_PEGU
-							state_region = s:STATE_PUNJAB
-							state_region = s:STATE_KASHMIR
-							state_region = s:STATE_PASHTUNISTAN
-							state_region = s:STATE_BALUCHISTAN
-							state_region = s:STATE_HIMALAYAS
-							state_region = s:STATE_BOMBAY
-							state_region = s:STATE_BIHAR
-							state_region = s:STATE_NORTH_BENGAL
-							state_region = s:STATE_ASSAM
-							state_region = s:STATE_AWADH
-							state_region = s:STATE_DELHI
-							state_region = s:STATE_TENASSERIM
-							state_region = s:STATE_CENTRAL_INDIA
-							state_region = s:STATE_GUJARAT
-							state_region = s:STATE_HYDERABAD
-							state_region = s:STATE_MADRAS
-							state_region = s:STATE_TRAVANCORE
-							state_region = s:STATE_NAGPUR
-							state_region = s:STATE_CIRCARS
-							state_region = s:STATE_RAJPUTANA
-							state_region = s:STATE_ORISSA
-							state_region = s:STATE_MYSORE
+							top_overlord = root
+							top_overlord = root.top_overlord
 						}
 					}
 				}
 			}
 
-			add = 5000
-		}
-
-		if = {
-			limit = {
-				exists = c:GBR
-				root = c:GBR
-
-				OR = {
+			if = {
+				limit = {
 					scope:target_country = {
 						any_scope_state = {
 							OR = {
-								state_region = s:STATE_NORTH_ISLAND
-								state_region = s:STATE_SOUTH_ISLAND 
+								state_region = s:STATE_MALAYA
+								state_region = s:STATE_SINDH
+								state_region = s:STATE_BURMA
+								state_region = s:STATE_KACHIN
+								state_region = s:STATE_SHAN_STATES
+								state_region = s:STATE_PEGU
+								state_region = s:STATE_PUNJAB
+								state_region = s:STATE_KASHMIR
+								state_region = s:STATE_PASHTUNISTAN
+								state_region = s:STATE_BALUCHISTAN
+								state_region = s:STATE_HIMALAYAS
+								state_region = s:STATE_BOMBAY
+								state_region = s:STATE_BIHAR
+								state_region = s:STATE_NORTH_BENGAL
+								state_region = s:STATE_ASSAM
+								state_region = s:STATE_AWADH
+								state_region = s:STATE_DELHI
+								state_region = s:STATE_TENASSERIM
+								state_region = s:STATE_CENTRAL_INDIA
+								state_region = s:STATE_GUJARAT
+								state_region = s:STATE_HYDERABAD
+								state_region = s:STATE_MADRAS
+								state_region = s:STATE_TRAVANCORE
+								state_region = s:STATE_NAGPUR
+								state_region = s:STATE_CIRCARS
+								state_region = s:STATE_RAJPUTANA
+								state_region = s:STATE_ORISSA
+								state_region = s:STATE_MYSORE
 							}
 						}
+					}
+				}
 
-						NOT = {
-							is_subject_of = root
+				add = 5000
+			}
+			# BIC should not expand outside india
+			else_if = {
+				limit = {
+					root = c:BIC
+				}
+
+				multiply = 0
+			}			
+		}
+		
+		#try to get only Britain on New Zealand (i dont think this actually works tbh)
+		if = {
+			limit = {
+				scope:target_country = {
+					any_scope_state = {
+						OR = {
+							state_region = s:STATE_NORTH_ISLAND
+							state_region = s:STATE_SOUTH_ISLAND 
 						}
+					}
+
+					NOT = {
+						is_subject_of = root
 					}
 				}
 			}
 
-			add = 5000
+			if = {
+				limit = {					
+					exists = c:GBR
+					OR = {
+						root = c:GBR
+						top_overlord = c:GBR
+					}
+				}
+
+				add = 5000
+			}
+			else_if = {
+				multiply = 0
+			}
 		}
 
 		# Chinese aggression 
@@ -719,32 +732,10 @@
 				multiply = 0
 			}
 		}
-
-		# reduce prussia's desire to gun straight for austria or frnace
-		if = {
-			limit = {
-				exists = c:PRU
-				root = c:PRU
-
-				OR = {
-					AND = {
-						exists = c:FRA
-						scope:target_country = c:FRA
-					}
-					AND = {
-						exists = c:AUS
-						scope:target_country = c:AUS
-					}
-					scope:target_country = { top_overlord = c:AUS }
-				}
-			}
-
-			multiply = 0.5
-		}
 	}
 }
 
-# returns either 0 or 1, multiply by this
+# returns a value between 0 and 1, multiply by this
 lotus_strategy_block_checks = {
 
 	value = 1
@@ -842,7 +833,12 @@ lotus_strategy_block_checks = {
 							root = c:GER							
 						}						
 					}
-					scope:target_country = c:AUS
+					
+					AND = {
+						exists = c:AUS
+						scope:target_country = c:AUS
+					}
+
 				}
 			}
 		}
@@ -972,28 +968,6 @@ lotus_strategy_block_checks = {
 		}
 
 		multiply = 0
-	}
-
-	#limit french & british aggression in europe
-	if = {
-		limit = {
-			OR = {
-				AND = {
-					exists = c:GBR
-					root = c:GBR
-				}
-				AND = {
-					exists = c:FRA
-					root = c:FRA
-				}						
-			}
-
-			scope:target_country = {
-				country_is_in_europe = yes
-			}
-		}
-
-		#multiply = 0 #think this is unnecessary now
 	}
 
 	#limit ottoman & russian AI obsession with western europe
@@ -1222,35 +1196,6 @@ lotus_strategy_block_checks = {
 		multiply = 0
 	}
 
-	#reduce value if its not adjacent
-	if = {
-		limit = {
-			NOT = {
-				has_strategic_land_adjacency = scope:target_country
-			}
-		}
-
-		multiply = 0.5
-	}
-
-	#reduce value if the target is a major power or greater
-	if = {
-		limit = {
-			scope:target_country = { 
-				OR = {
-					country_rank >= rank_value:major_power
-					top_overlord = { country_rank >= rank_value:major_power }
-				}
-
-				NOT = {
-					is_country_type = unrecognized
-				}
-			}
-		}
-
-		multiply = 0.5
-	}
-
 	# remove french desire for india; just leads to too much gore & france spending too much time there
 	if = {
 		limit = {
@@ -1284,8 +1229,10 @@ lotus_strategy_block_checks = {
 					root = c:SPA					
 				}
 				NOT = { 
-					exists = c:PHI
-					scope:target_country = c:PHI
+					AND = {
+						exists = c:PHI
+						scope:target_country = c:PHI
+					}
 				}
 			}
 
@@ -1346,6 +1293,65 @@ lotus_strategy_block_checks = {
 		multiply = 0
 	}
 
+	# reduce prussia's desire to gun straight for austria or frnace
+	if = {
+		limit = {
+			exists = c:PRU
+			root = c:PRU
+
+			OR = {
+				AND = {
+					exists = c:FRA
+					scope:target_country = c:FRA
+				}
+				AND = {
+					exists = c:AUS
+					scope:target_country = c:AUS
+				}
+				scope:target_country = { top_overlord = c:AUS }
+			}
+		}
+
+		multiply = 0.5
+	}
+
+	# limit russia until theyve conquered central asia
+	if = {
+		limit = {
+			exists = c:RUS
+			root = c:RUS
+
+			NOT = {
+				scope:target_country = {
+					OR = {
+						any_scope_state = { state_region = s:STATE_KUBAN }
+						any_scope_state = { state_region = s:STATE_DAGESTAN }
+						any_scope_state = { state_region = s:STATE_AZERBAIJAN }
+						any_scope_state = { state_region = s:STATE_TURKMENIA }
+						any_scope_state = { state_region = s:STATE_SEMIRECHE }
+						any_scope_state = { state_region = s:STATE_TAJIKISTAN }
+						any_scope_state = { state_region = s:STATE_UZBEKIA }
+						any_scope_state = { state_region = s:STATE_KHIVA }						
+					}
+				}
+			}
+
+			calc_true_if = {
+				amount = 8
+				any_scope_state = { state_region = s:STATE_KUBAN }
+				any_scope_state = { state_region = s:STATE_DAGESTAN }
+				any_scope_state = { state_region = s:STATE_AZERBAIJAN }
+				any_scope_state = { state_region = s:STATE_TURKMENIA }
+				any_scope_state = { state_region = s:STATE_SEMIRECHE }
+				any_scope_state = { state_region = s:STATE_TAJIKISTAN }
+				any_scope_state = { state_region = s:STATE_UZBEKIA }
+				any_scope_state = { state_region = s:STATE_KHIVA }		
+			}
+		}
+
+		multiply = 0
+	}
+
 	# dont suicidally attack someone bigger than you
 	if = {
 		limit = {
@@ -1364,13 +1370,67 @@ lotus_strategy_block_checks = {
 			}
 		}
 
-		multiply = 0.5
+		multiply = 0.1
+	}
+
+	#dont attack if not adjacent
+	if = {
+		limit = {
+			NOT = {
+				has_strategic_land_adjacency = scope:target_country
+			}
+		}
+
+		if = {
+			limit = {
+				NOT = {
+					has_strategic_adjacency = scope:target_country
+				}
+			}
+
+			if = {
+				limit = {
+					NOT = {
+						any_subject_or_below = {
+							is_subject_type = subject_type_puppet
+							has_strategic_land_adjacency = scope:target_country
+						}
+					}					
+				}
+
+				if = {
+					limit = {
+						can_reach_target_country = no
+					}
+
+					multiply = 0					
+				}
+			}
+		}
+	}
+
+	#reduce value if the target is a major power or greater
+	if = {
+		limit = {
+			scope:target_country = { 
+				OR = {
+					country_rank >= rank_value:major_power
+					top_overlord = { country_rank >= rank_value:major_power }
+				}
+
+				NOT = {
+					is_country_type = unrecognized
+				}
+			}
+		}
+
+		multiply = 0.25
 	}
 }
 
 # generally prioritize conquering small countries over subjecting them
 #this has to be repeated 3 times so making it a function
-lotus_small_nation_puppet_check = {
+lotus_take_subject_check = {
 
 	value = 1
 
@@ -1379,46 +1439,18 @@ lotus_small_nation_puppet_check = {
 			scope:target_country = {
 
 				num_states <= 3
+			}
+		}
 
-				# exception for a few countries we prefer to puppet anyways
-				NOT = {
-					AND = {
-						exists = c:DAI
-						this = c:DAI
-					}
-					AND = {
-						exists = c:PHI
-						this = c:PHI
-					}
-					AND = {
-						exists = c:ALD
-						this = c:ALD
-					}
-					AND = {
-						exists = c:MOR
-						this = c:MOR
-					}
-					AND = {
-						exists = c:TRI
-						this = c:TRI
-					}
-					AND = {
-						exists = c:PAN
-						this = c:PAN
-					}	
-					AND = {
-						exists = c:KHI
-						this = c:KHI
-					}	
-					AND = {
-						exists = c:AFG
-						this = c:AFG
-					}	
-					AND = {
-						exists = c:BAV
-						this = c:BAV
-					}									
-				}
+		multiply = 0
+	}
+
+	# dont puppet most european countries
+	if = {
+		limit = {
+			scope:target_country = {
+				country_is_in_europe = yes
+				country_rank >= rank_value:minor_power	
 			}
 		}
 
@@ -1430,7 +1462,6 @@ lotus_small_nation_puppet_check = {
 	if = {
 		limit = {
 			scope:target_country = {
-
 				any_scope_state = {
 					has_claim_by = root
 				}
@@ -1440,13 +1471,65 @@ lotus_small_nation_puppet_check = {
 		multiply = 0
 	}
 
-	# dont puppet netherlands as it breaks DEI
+	# exception for a few countries we prefer to puppet anyways
 	if = {
 		limit = {
-			exists = c:NET
-			scope:target_country = c:NET
+			OR = {
+				AND = {
+					exists = c:DAI
+					scope:target_country = c:DAI
+				}
+				AND = {
+					exists = c:PHI
+					scope:target_country = c:PHI
+				}
+				AND = {
+					exists = c:ALD
+					scope:target_country = c:ALD
+				}
+				AND = {
+					exists = c:MOR
+					scope:target_country= c:MOR
+				}
+				AND = {
+					exists = c:TRI
+					scope:target_country= c:TRI
+				}
+				AND = {
+					exists = c:PAN
+					scope:target_country = c:PAN
+				}	
+				AND = {
+					exists = c:KHI
+					scope:target_country= c:KHI
+				}	
+				AND = {
+					exists = c:AFG
+					scope:target_country = c:AFG
+				}	
+				AND = {
+					exists = c:BAV
+					scope:target_country = c:BAV
+				}		
+				AND = {
+					exists = c:CAM
+					scope:target_country = c:CAM
+				}		
+				AND = {
+					exists = c:IRQ
+					scope:target_country = c:IRQ
+				}	
+				AND = {
+					exists = c:NEJ
+					scope:target_country = c:NEJ
+				}			
+				AND = {
+					exists = c:MAD
+					scope:target_country = c:MAD
+				}												
+			}			
 		}
 
-		multiply = 0
+		value = 1
 	}
 }

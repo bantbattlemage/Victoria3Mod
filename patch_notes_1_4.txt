@@ -1,9 +1,33 @@
 ### PATCH NOTES LotusAI release 1.5
 
-# Removed the rework to war exhaustion and attempted to rebalance peace deal values to work as intended in vanilla. Capitulation no longer happens at 0 War Support. I have it set to -25% instead of the default -100% now. In my testing the AI should now actually accept peace deals without the other side needing to capitulate and most wars that don't involve an occupied capital will actually end without one side needing to hit the capitulation threshold. They can still be stubborn though, and this will definitely need furthe refinement. (Or a Paradox patch to make peace deals not suck, please) I think this solution is better and is much closer to vanilla, though I miss knowing exactly when someone would capitulate.
+# Removed the rework to war exhaustion and attempted to rebalance peace deal values to work as intended in vanilla. Capitulation no longer happens at 0 War Support. I have it set to -25% instead of the default -100% now. In my testing the AI should now actually accept peace deals without the other side needing to capitulate and most wars that don't involve an occupied capital will actually end without one side needing to hit the capitulation threshold. They can still be stubborn though, and this will likely need furthe refinement. (Or a Paradox patch to make peace deals not suck, please) I think this solution is better and is much closer to vanilla, though I miss knowing exactly when someone would capitulate.
 
-# Further general refining of AI wargoal logic. There is a lot fine-tuning going on at this stage & working on solving later-game scenarios mainly now.
+# Further general refining of AI wargoal logic, some things country-specific some things broad. There is a lot fine-tuning going on at this stage & working on solving later-game scenarios mainly now. Though this bullet point is short this is the biggest change in this patch & where 90% of the time spent on this patch was went. (including fixing bugs in existing logic)
 
-# The AI will now use Liberate Country CB against Ottomans, Austria & Egypt but no one else. I forgot that I had disabled AI use of this CB in an earier update of the mod; it definitely is nicer not having the AI use this against most countries imo. While it doesn't line up with how it happened historically, this causes Ottomans & Austria to end up breaking up over the course of the game as they lose wars with liberate country CBs on them.
+# Related to the previous bullet point, AI infamy levels should not get quite as high as they should feel less aggressive overall. (but still drastically different than vanilla AI)
 
-# Removed Nationalism requirement from the mod's "Centralize Dutch East Indies" decision. This means it is useable right away and DEI will instantly annex it's starting vassals. The reason for this change is that in perhaps 50% of test games, Dutch East Indies loses it's starting vassals, and the reason is that it's power ranking drops to a Insignificant Power and that causes its puppets to automatically release. I don't think this is moddable, and it happens in vanilla too, so I am just unrestricting this as a workaround.
+# The AI will now use Liberate Country CB against Ottomans, Austria & Egypt but no one else. I forgot that I had disabled AI use of this CB in an earier update of the mod; it definitely is nicer not having the AI use this against most countries imo. While it doesn't line up with how it happened historically, this causes Ottomans & Austria to end up breaking up over the course of the game as they lose wars with liberate country CBs on them. NOTE: So far as I can tell, there is no way to obtain any information about the country being liberated. So I can't stop for example landlocked countries inside of Austria from being liberated. Although this will introduce some border-gore it hopefully should sort itself out by the end of a game. This also serves as a way for the other Great Powers to whittle down Austria and Ottomans, nerfing AI Austria in particular.
+
+# Removed Nationalism requirement from the mod's "Centralize Dutch East Indies" decision. This means it is useable right away and DEI will instantly annex it's starting vassals. The reason for this change is that in perhaps 50% of test games, Dutch East Indies loses it's starting vassals and the reason is that it's power ranking drops to Insignificant Power. That instantly causes its puppets to automatically release. I don't think this is moddable, and it happens in vanilla too, so I am just unrestricting this as a workaround.
+
+# Removed Miskito Kingdom protectorate from Great Britain as it would sometimes cause GBR to get dragged into a pointless war with the US.
+
+# Added a Russian claim to the state Kars (Ottoman held on the border with Ottomans, historically taken by Russia)
+
+# USA should actually get Hawaii now; fixed an issue related to the logic I had here.
+
+# The following changes are all to help with AI use of the Liberate Country CB being enabled specifically on Ottomans, Austria & Egypt:
+
+# Bosnia now will get Montenegro when released from a country. This is to prevent pocket of Otttoman territory in the Balkans after countries are released.
+
+# Albania now will get Southern Serbia when released from a country. This is to prevent pocket of Otttoman territory in the Balkans after countries are released.
+
+# Translyvania now will get Moldavia when released from a country. This is to prevent pocket of Austrian territory after countries are released.
+
+# Sudan now will get Eritrea when released from a country.
+
+# Venice now will get Istria when released from a country, and Trieste & Slovenia are no longer a releasable tags.
+
+# Slovakia is no longer a releasable country. So far as I can tell there is no way to control what country is chosen by the AI when choosing "release country" CB, and Slovakia is often picked if able & fully landlocked inside of Austria.
+
+# Transjordan & Lebanon are no longer releasable countries.

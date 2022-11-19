@@ -156,11 +156,7 @@
 			country = c:UNT
 			type = protectorate
 		}
-		# Mosquito Kingdom
-		create_diplomatic_pact = {
-			country = c:MKT
-			type = protectorate
-		}
+
 	}
 	c:DAI = {
 		create_diplomatic_pact = {

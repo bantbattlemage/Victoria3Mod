@@ -5,8 +5,8 @@
 ai_strategy_default = {
 	icon = "gfx/interface/icons/ai_strategy_icons/placate_population.dds" # Never shown
 
-	undesirable_infamy_level = 75
-	unacceptable_infamy_level = 90
+	undesirable_infamy_level = 50
+	unacceptable_infamy_level = 75
 	
 	revolution_aversion = 5 # Chance each day that the AI will stop enacting a law that is going to spark a civil war (1 aversion should translate into ~25% chance of avoiding a civil war)
 	min_law_chance_to_pass = 40 # If base chance for law to pass is below this, don't enact it
@@ -274,6 +274,23 @@ ai_strategy_default = {
 
 			value = 1000
 		}
+
+		# balkans/arabic should help each other fight ottomans
+		if = {
+			limit = {
+				OR = {
+					capital.region = sr:region_balkans
+					capital.region = sr:region_arabic			
+				}
+
+				AND = {
+					exists = c:TUR
+					scope:target_country = c:TUR
+				}
+			}
+
+			value = 1000
+		}
 	}
 
 	# Bravery multiplies the AI's estimation of its own strength, so at bravery 2 it believes its forces to be twice as strong as they actually are
@@ -440,6 +457,28 @@ ai_strategy_default = {
 			
 			multiply = 0
 			value = 0.75
+		}
+
+		# egypt/otto/china shouldnt back down much
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						exists = c:TUR
+						root = c:TUR
+					}
+					AND = {
+						exists = c:EGY
+						root = c:EGY
+					}
+					AND = {
+						exists = c:CHI
+						root = c:CHI
+					}										
+				}
+			}
+
+			add = 1
 		}
 	}
 	
@@ -851,7 +890,7 @@ ai_strategy_default = {
 			}
 
 			min = 0
-			max = 500
+			max = 1000
 		}
 		reconcile = {
 			value = 0
@@ -936,7 +975,7 @@ ai_strategy_default = {
 			}			
 
 			min = 0
-			max = 500
+			max = 1000
 		}		
 		protect = {
 			value = 0
@@ -1022,7 +1061,7 @@ ai_strategy_default = {
 			}
 
 			min = 0
-			max = 500
+			max = 1000
 		}		
 		antagonize = {
 			value = 0
@@ -1205,7 +1244,7 @@ ai_strategy_default = {
 			}
 
 			min = 0
-			max = 1000
+			max = 0 # test
 		}			
 	}
 	
@@ -1694,39 +1733,38 @@ ai_strategy_default = {
 				if = {
 					limit = {
 						scope:target_state = {
-							state_region = s:STATE_NORTHERN_MANCHURIA
+							state_region = s:STATE_OUTER_MANCHURIA
 						}
 					}
 
 					add = 125
 				}
 				else_if = {
-					limit = {
+					limit = {						
 						scope:target_state = {
 							
-							NOT = {
-								scope:target_state = { state_region = s:STATE_OUTER_MANCHURIA }
-							}
-
 							OR = {
-								state_region = s:STATE_NORTHERN_MANCHURIA
-								state_region = s:STATE_TUVA
-								state_region = s:STATE_TOMSK
-								state_region = s:STATE_JETISY
-								state_region = s:STATE_KIRGHIZIA						
+								AND = {
+									root = { any_scope_state = { state_region = s:STATE_OUTER_MANCHURIA } }
+									OR = {
+										state_region = s:STATE_NORTHERN_MANCHURIA
+										state_region = s:STATE_SOUTHERN_MANCHURIA										
+									}
+								}
+								OR = {
+									state_region = s:STATE_TUVA
+									state_region = s:STATE_TOMSK
+									state_region = s:STATE_JETISY
+									state_region = s:STATE_KIRGHIZIA						
+								}
 							}
 						}
 					}
 
-					add = 20
+					multiply = 0
+					add = 50
 				}
-				else_if = {
-					limit = {
-						NOT = {
-							scope:target_state = { state_region = s:STATE_OUTER_MANCHURIA }
-						}
-					}
-
+				else = {
 					multiply = 0
 				}
 			}
@@ -1869,17 +1907,32 @@ ai_strategy_default = {
 			#europeans shouldnt conquer egypt or ottomans directly
 			if = {
 				limit = {
-					country_is_in_europe = yes
+
+					OR = {
+						AND = {
+							exists = c:RUS
+							root = c:RUS
+						}
+						AND = {
+							exists = c:GBR
+							root = c:GBR
+						}
+						country_is_in_europe = yes
+					}
 
 					OR = {
 						AND = {
 							exists = c:EGY
 							scope:target_country = c:EGY
+							OR = {
+								scope:target_state = { region = sr:region_nile_basin }							
+								scope:target_state.state_region = s:STATE_ADANA
+							}
 						}
 						AND = {
 							exists = c:TUR
 							scope:target_country = c:TUR
-						}						
+						}
 					}
 				}
 
@@ -1909,24 +1962,24 @@ ai_strategy_default = {
 						}
 					}
 				}
-
+			
 				multiply = 0
 			}
-			#no one else should relaly be taking states from russia
+			#no one else should really be taking states from russia
 			else_if = {
 				limit = {
-					AND = {
-						exists = c:RUS
-						scope:target_country = c:RUS						
-					}					
+					exists = c:RUS
+					scope:target_country = c:RUS				
 				}
 
 				multiply = 0
 			}
 
-			#prioritize puppeting larger countries over taking states
+			#prioritize puppeting larger countries over taking states (and list of specific smaller countries we prefer to puppet instead of conquer)
 			if = {
 				limit = {
+
+					country_rank >= rank_value:major_power
 
 					NOT = {
 						scope:target_country = {
@@ -1944,10 +1997,12 @@ ai_strategy_default = {
 								scope:target_country = c:CHI
 							}
 							AND = {
-								exists = c:TUR
-								root = c:TUR
 								exists = c:EGY
 								scope:target_country = c:EGY
+							}
+							AND = {
+								exists = c:TUR
+								scope:target_country = c:TUR
 							}
 						}
 					}
@@ -1994,7 +2049,23 @@ ai_strategy_default = {
 							AND = {
 								exists = c:BAV
 								this = c:BAV
-							}											
+							}	
+							AND = {
+								exists = c:CAM
+								this = c:CAM
+							}		
+							AND = {
+								exists = c:IRQ
+								this = c:IRQ
+							}		
+							AND = {
+								exists = c:NEJ
+								this = c:NEJ
+							}			
+							AND = {
+								exists = c:MAD
+								this = c:MAD
+							}						
 						}
 					}
 				}
@@ -2005,36 +2076,36 @@ ai_strategy_default = {
 			# dont take stuff you cant reach
 			if = {
 				limit = {
-					can_reach_target_state = no
 					NOT = {
-						any_subject_or_below = {
-							AND = {
-								is_subject_type = subject_type_puppet
-								is_adjacent = scope:target_country
-							}
+						any_scope_state = {
+							scope:target_state.state_region = this.state_region
 						}
 					}
 				}
 
-				multiply = 0
-			}
-			else_if = {
-				limit = {
-					scope:target_state = { is_coastal = no }
-					NOT = {
-						is_adjacent = scope:target_country
-					}
-					NOT = {
-						any_subject_or_below = {
-							AND = {
+				if = {
+					limit = {
+						NOT = {
+							any_subject_or_below = {
 								is_subject_type = subject_type_puppet
-								is_adjacent = scope:target_country
+								OR = {
+									is_adjacent = scope:target_state
+									any_scope_state = {
+										scope:target_state.state_region = this.state_region
+									}
+								}
 							}
-						}
-					}
-				}
+						}				
+					}		
 
-				multiply = 0
+					if = {
+						limit = {
+							can_reach_target_state = no
+						}
+
+						multiply = 0
+					}			
+				}				
 			}
 
 			multiply = { 
@@ -2096,6 +2167,36 @@ ai_strategy_default = {
 					can_reach_target_state = no
 				}
 				multiply = 0
+			}
+
+			#ottoman priority order for egypt cores
+			if = {
+				limit = {
+					exists = c:TUR
+					root = c:TUR
+					scope:target_country = c:EGY
+				}
+
+				if = {
+					limit = {
+						NOT = {
+							scope:target_state.state_region = s:STATE_ADANA
+							scope:target_state.state_region = s:STATE_ALEPPO
+							scope:target_state.state_region = s:STATE_SYRIA							
+						}						
+					}
+
+					multiply = 0.25					
+				}
+				else_if = {
+					limit = {
+						NOT = {
+							scope:target_state.state_region = s:STATE_ADANA					
+						}
+					}
+
+					multiply = 0.5
+				}
 			}
 
 			min = 0
@@ -2396,7 +2497,7 @@ ai_strategy_default = {
 			}
 
 			multiply = {
-				value = lotus_small_nation_puppet_check
+				value = lotus_take_subject_check
 			}
 
 			min = 0
@@ -2470,7 +2571,7 @@ ai_strategy_default = {
 			}
 
 			multiply = {
-				value = lotus_small_nation_puppet_check
+				value = lotus_take_subject_check
 			}
 
 			min = 0
@@ -2544,7 +2645,7 @@ ai_strategy_default = {
 			}
 
 			multiply = {
-				value = lotus_small_nation_puppet_check
+				value = lotus_take_subject_check
 			}
 
 			min = 0
@@ -2913,20 +3014,11 @@ ai_strategy_default = {
 				multiply = 0
 			}
 
-			#dont make your overlord liberate other subjects
-			if = {
-				limit = {
-					scope:target_country.top_overlord = root
-				}
-
-				multiply = 0
-			}
-
 			#dont make britian release subjects its a mess
 			if = {
 				limit = {
 					exists = c:GBR
-					scope:target_country = c:GBR
+					scope:target_country.top_overlord = c:GBR
 				}
 
 				multiply = 0
@@ -2941,7 +3033,7 @@ ai_strategy_default = {
 			}
 
 			min = 0
-			max = 20			
+			max = 50		
 		}	
 
 		liberate_country = {
@@ -3065,7 +3157,7 @@ ai_strategy_default = {
 			if = {
 				limit = {
 					can_reach_target_country = yes
-					is_adjacent = scope:target_country
+					has_strategic_land_adjacency = scope:target_country
 					
 					#because it just leads to a mess and is flavorfully awful dont transfer BIC/DEI
 					NOT = {
