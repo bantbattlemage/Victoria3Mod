@@ -363,7 +363,6 @@ CRO = {
 VEN = {
 	states = { 
 		STATE_VENETIA 
-		STATE_ISTRIA
 	}
 	
 	ai_will_do = { always = no }

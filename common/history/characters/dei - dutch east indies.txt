@@ -19,8 +19,6 @@ CHARACTERS = {
 
 		create_character = {
 			is_general = yes
-			first_name = Dutch
-			last_name = Guy
 			age = 40
 			hq = region_indonesia
 			commander_rank = commander_rank_1
@@ -29,8 +27,6 @@ CHARACTERS = {
 
 		create_character = {
 			is_general = yes
-			first_name = Dutch
-			last_name = Guy
 			age = 40
 			hq = region_indonesia
 			commander_rank = commander_rank_1

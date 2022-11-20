@@ -201,15 +201,18 @@
 		#russian central asia focus & manchuria
 		if = {
 			limit = {
-				AND = {
-					exists = c:RUS
-					root = c:RUS
-				}
+				exists = c:RUS
+				root = c:RUS
 			}
 
 			if = {
 				limit = {
-					scope:target_country = { NOT = { is_subject_of = root } }
+					NOT = { 
+						AND = {
+							exists = c:CHI
+							scope:target_country = c:CHI 
+						}
+					}
 					scope:target_country = {
 						any_scope_state = {
 							OR = {
@@ -217,14 +220,14 @@
 								state_region = s:STATE_DAGESTAN
 								state_region = s:STATE_AZERBAIJAN
 								state_region = s:STATE_TURKMENIA
-								state_region = s:STATE_SEMIRECHE
 								state_region = s:STATE_TAJIKISTAN
 								state_region = s:STATE_UZBEKIA
 								state_region = s:STATE_KHIVA
 								state_region = s:STATE_SAKHALIN
+								state_region = s:STATE_KIRGHIZIA								
 							}
 						}
-					}	
+					}
 				}
 
 				add = 5000
@@ -439,13 +442,10 @@
 			if = {
 				limit = {					
 					exists = c:GBR
-					OR = {
-						root = c:GBR
-						top_overlord = c:GBR
-					}
+					root = c:GBR
 				}
 
-				add = 5000
+				add = 500
 			}
 			else_if = {
 				multiply = 0
@@ -1315,43 +1315,6 @@ lotus_strategy_block_checks = {
 		multiply = 0.5
 	}
 
-	# limit russia until theyve conquered central asia
-	if = {
-		limit = {
-			exists = c:RUS
-			root = c:RUS
-
-			NOT = {
-				scope:target_country = {
-					OR = {
-						any_scope_state = { state_region = s:STATE_KUBAN }
-						any_scope_state = { state_region = s:STATE_DAGESTAN }
-						any_scope_state = { state_region = s:STATE_AZERBAIJAN }
-						any_scope_state = { state_region = s:STATE_TURKMENIA }
-						any_scope_state = { state_region = s:STATE_SEMIRECHE }
-						any_scope_state = { state_region = s:STATE_TAJIKISTAN }
-						any_scope_state = { state_region = s:STATE_UZBEKIA }
-						any_scope_state = { state_region = s:STATE_KHIVA }						
-					}
-				}
-			}
-
-			calc_true_if = {
-				amount = 8
-				any_scope_state = { state_region = s:STATE_KUBAN }
-				any_scope_state = { state_region = s:STATE_DAGESTAN }
-				any_scope_state = { state_region = s:STATE_AZERBAIJAN }
-				any_scope_state = { state_region = s:STATE_TURKMENIA }
-				any_scope_state = { state_region = s:STATE_SEMIRECHE }
-				any_scope_state = { state_region = s:STATE_TAJIKISTAN }
-				any_scope_state = { state_region = s:STATE_UZBEKIA }
-				any_scope_state = { state_region = s:STATE_KHIVA }		
-			}
-		}
-
-		multiply = 0
-	}
-
 	# dont suicidally attack someone bigger than you
 	if = {
 		limit = {
@@ -1392,6 +1355,7 @@ lotus_strategy_block_checks = {
 				limit = {
 					NOT = {
 						any_subject_or_below = {
+							overlord = root
 							is_subject_type = subject_type_puppet
 							has_strategic_land_adjacency = scope:target_country
 						}
@@ -1530,6 +1494,7 @@ lotus_take_subject_check = {
 			}			
 		}
 
-		value = 1
+		multiply = 0 
+		add = 1
 	}
 }

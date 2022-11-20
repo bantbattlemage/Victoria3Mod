@@ -100,7 +100,7 @@
 		}
 		create_diplomatic_pact = {
 			country = c:SAF
-			type = puppet
+			type = dominion
 		}		
 
 		### OH CANADA ###

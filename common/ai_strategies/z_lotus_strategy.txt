@@ -6,7 +6,7 @@ ai_strategy_default = {
 	icon = "gfx/interface/icons/ai_strategy_icons/placate_population.dds" # Never shown
 
 	undesirable_infamy_level = 50
-	unacceptable_infamy_level = 75
+	unacceptable_infamy_level = 100
 	
 	revolution_aversion = 5 # Chance each day that the AI will stop enacting a law that is going to spark a civil war (1 aversion should translate into ~25% chance of avoiding a civil war)
 	min_law_chance_to_pass = 40 # If base chance for law to pass is below this, don't enact it
@@ -704,9 +704,6 @@ ai_strategy_default = {
 			# Go after conquer targets
 			if = {
 				limit = {
-					
-					can_reach_target_country = yes
-
 					OR = {
 						has_secret_goal = {
 							who = scope:target_country
@@ -719,12 +716,13 @@ ai_strategy_default = {
 					}	
 				}
 
-				add = 250
+				add = 10000
 			}
-
-			add = lotus_strategy_calculation		
-			multiply = { 
-				value = lotus_strategy_block_checks
+			else = {
+				add = lotus_strategy_calculation		
+				multiply = { 
+					value = lotus_strategy_block_checks
+				}
 			}
 		}
 	}
@@ -889,6 +887,31 @@ ai_strategy_default = {
 				add = 500
 			}
 
+			if = {
+				limit = {
+					exists = c:RUS
+					root = c:RUS
+					scope:target_country = {
+						OR = {
+							AND = {
+								exists = c:KHI
+								this = c:KHI
+							}
+							AND = {
+								exists = c:BUK
+								this = c:BUK
+							}
+							AND = {
+								exists = c:KOK
+								this = c:KOK
+							}														
+						}
+					}
+				}
+
+				multiply = 0
+			}
+
 			min = 0
 			max = 1000
 		}
@@ -974,6 +997,31 @@ ai_strategy_default = {
 				value = 200
 			}			
 
+			if = {
+				limit = {
+					exists = c:RUS
+					root = c:RUS
+					scope:target_country = {
+						OR = {
+							AND = {
+								exists = c:KHI
+								this = c:KHI
+							}
+							AND = {
+								exists = c:BUK
+								this = c:BUK
+							}
+							AND = {
+								exists = c:KOK
+								this = c:KOK
+							}														
+						}
+					}
+				}
+
+				multiply = 0
+			}
+
 			min = 0
 			max = 1000
 		}		
@@ -1058,6 +1106,33 @@ ai_strategy_default = {
 					is_subject_of = scope:target_country	
 				}
 				multiply = 0.0	
+			}
+
+			######## custom
+
+			if = {
+				limit = {
+					exists = c:RUS
+					root = c:RUS
+					scope:target_country = {
+						OR = {
+							AND = {
+								exists = c:KHI
+								this = c:KHI
+							}
+							AND = {
+								exists = c:BUK
+								this = c:BUK
+							}
+							AND = {
+								exists = c:KOK
+								this = c:KOK
+							}														
+						}
+					}
+				}
+
+				multiply = 0
 			}
 
 			min = 0
@@ -1787,6 +1862,7 @@ ai_strategy_default = {
 					scope:target_state = { 
 						OR = {
 							state_is_in_europe = yes 
+							state_is_in_south_america = yes
 							region = sr:region_england
 							region = sr:region_north_sea_coast
 						}
@@ -1849,29 +1925,6 @@ ai_strategy_default = {
 								AND = {
 									exists = c:AUS
 									root = c:AUS
-								}
-							}
-						}
-					}
-
-					# russia/germany in eastern europe
-					NOT = {
-						AND = {
-							OR = {
-								AND = {
-									exists = c:RUS
-									root = c:RUS
-								}
-								AND = {
-									exists = c:GER
-									root = c:GER
-								}
-							}
-
-							scope:target_state = {
-								OR = {
-									region = sr:region_danubia
-									region = sr:region_poland
 								}
 							}
 						}
@@ -2087,6 +2140,7 @@ ai_strategy_default = {
 					limit = {
 						NOT = {
 							any_subject_or_below = {
+								overlord = root
 								is_subject_type = subject_type_puppet
 								OR = {
 									is_adjacent = scope:target_state
@@ -2100,7 +2154,10 @@ ai_strategy_default = {
 
 					if = {
 						limit = {
-							can_reach_target_state = no
+							OR = {
+								can_reach_target_country = no								
+								can_reach_target_state = no
+							}
 						}
 
 						multiply = 0
@@ -2182,11 +2239,12 @@ ai_strategy_default = {
 						NOT = {
 							scope:target_state.state_region = s:STATE_ADANA
 							scope:target_state.state_region = s:STATE_ALEPPO
-							scope:target_state.state_region = s:STATE_SYRIA							
+							scope:target_state.state_region = s:STATE_SYRIA	
+							scope:target_state.state_region = s:STATE_LEBANON						
 						}						
 					}
 
-					multiply = 0.25					
+					multiply = 0.1					
 				}
 				else_if = {
 					limit = {

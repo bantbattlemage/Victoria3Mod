@@ -57,6 +57,10 @@ AroAI is fully compatible and recommended! https://steamcommunity.com/sharedfile
 
 # Liberia is no longer a protectorate of the USA; This is the only way I could figure out how to stop USA from colonizing in West Africa & getting involved in African colonial wars. (they are forced to have an interest in that region because of the protectorate)
 
+# Cape Colony is now a Dominion instead of a Puppet so it can do things on it's own.
+
+# The decentralized nations in New Zealand have been removed & consolodated into the United Tribes tag. This is the best solution I could think of for now as to how to stop USA from taking South Island every game. (As they need the interest in Oceania in order to get Hawaii) There is no way to limit where countries colonize other than strategic regions.
+
 ### Journal/Event/Decision Changes ###
 
 # The Heavenly Kingdom war now starts instantly after choosing a decision in the corresponding event, and Heavenly Kingdom gets an Annex wargoal on Qing.
@@ -83,3 +87,18 @@ AroAI is fully compatible and recommended! https://steamcommunity.com/sharedfile
 
 # Russia now has a decision to annex the 3 central asian minors if they are vassals of Russia. This is for the same reason as the others; the AI doesn't actually understand how to annex vassals, and just pushes the normal "annex vassal" button on the very rare occasion that the conditions for it have been met by chance. NOTE: I added this before fixing the Conquer State issues, and now Russia typically will take them directly instead of puppeting them, but left this there in case. 
 
+### The following changes are all to help with AI use of the Liberate Country CB being enabled specifically & only on Ottomans, Austria & Egypt (disabled in all other cases, players can use it freely) ###
+
+# Bosnia now will get Montenegro when released from a country. This is to prevent pocket of Otttoman territory in the Balkans after countries are released.
+
+# Albania now will get Southern Serbia when released from a country. This is to prevent pocket of Otttoman territory in the Balkans after countries are released.
+
+# Translyvania now will get Moldavia when released from a country. This is to prevent pocket of Austrian territory after countries are released.
+
+# Sudan now will get Eritrea when released from a country.
+
+# Trieste & Slovenia are no longer releasable tags.
+
+# Slovakia is no longer a releasable country. So far as I can tell there is no way to control what country is chosen by the AI when choosing "release country" CB, and Slovakia is often picked if able & fully landlocked inside of Austria.
+
+# Transjordan & Lebanon are no longer releasable tags.

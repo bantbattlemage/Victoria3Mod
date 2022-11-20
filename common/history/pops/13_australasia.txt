@@ -99,6 +99,10 @@
 				culture = maori
 				size = 25000
 			}
+			create_pop = {
+				culture = maori
+				size = 32000
+			}
 		}
 		region_state:NSW = {
 			create_pop = {
@@ -110,15 +114,9 @@
 				size = 1004
 			}
 		}
-		region_state:NTO = {
-			create_pop = {
-				culture = maori
-				size = 32000
-			}
-		}
 	}
 	s:STATE_SOUTH_ISLAND = {
-		region_state:NTO = {
+		region_state:UNT = {
 			create_pop = {
 				culture = australian
 				size = 428
@@ -127,8 +125,6 @@
 				culture = maori
 				size = 12000
 			}
-		}
-		region_state:NTU = {
 			create_pop = {
 				culture = maori
 				size = 64000

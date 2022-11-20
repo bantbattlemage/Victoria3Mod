@@ -16,7 +16,11 @@
 
 # USA should actually get Hawaii now; fixed an issue related to the logic I had here.
 
-# The following changes are all to help with AI use of the Liberate Country CB being enabled specifically on Ottomans, Austria & Egypt:
+# Cape Colony is now a Dominion instead of a Puppet so it can do things on it's own.
+
+# The decentralized nations in New Zealand have been removed & consolodated into the United Tribes tag. This is the best solution I could think of for now as to how to stop USA from taking South Island every game. (As they need the interest in Oceania in order to get Hawaii) There is no way to limit where countries colonize other than strategic regions.
+
+### The following changes are all to help with AI use of the Liberate Country CB being enabled specifically & only on Ottomans, Austria & Egypt (disabled in all other cases, players can use it freely) ###
 
 # Bosnia now will get Montenegro when released from a country. This is to prevent pocket of Otttoman territory in the Balkans after countries are released.
 
@@ -26,8 +30,8 @@
 
 # Sudan now will get Eritrea when released from a country.
 
-# Venice now will get Istria when released from a country, and Trieste & Slovenia are no longer a releasable tags.
+# Trieste & Slovenia are no longer releasable tags.
 
 # Slovakia is no longer a releasable country. So far as I can tell there is no way to control what country is chosen by the AI when choosing "release country" CB, and Slovakia is often picked if able & fully landlocked inside of Austria.
 
-# Transjordan & Lebanon are no longer releasable countries.
+# Transjordan & Lebanon are no longer releasable tags.

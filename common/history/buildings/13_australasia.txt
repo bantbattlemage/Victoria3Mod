@@ -110,14 +110,6 @@
 				activate_production_methods={ "pm_anchorage" }
 			}
 		}
-		region_state:NTO={
-		}
-	}
-	s:STATE_SOUTH_ISLAND={
-		region_state:NTO={
-		}
-		region_state:NTU={
-		}
 	}
 }
 
