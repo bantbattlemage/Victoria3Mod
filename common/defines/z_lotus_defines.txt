@@ -25,15 +25,15 @@ NAI = {
 	# i suspect these are all useless too 
 	AI_PEACE_AGREEMENT_WAR_SUPPORT_FACTOR = -2
 	#AI_PEACE_AGREEMENT_ALLY_WARGOAL_FACTOR = 10 # For each wargoal that our allies are pressing
-	#AI_PEACE_AGREEMENT_SELF_WARGOAL_FACTOR = 40 # For each wargoal we have that's being pressed
-	AI_PEACE_AGREEMENT_ENEMY_WARGOAL_SELF_FACTOR = -10 # For each wargoal that the enemy is pressing against us
-	AI_PEACE_AGREEMENT_ENEMY_WARGOAL_ALLY_FACTOR = -5 # For each wargoal that's being pressed against our allies
+	#AI_PEACE_AGREEMENT_SELF_WARGOAL_FACTOR = 20 # For each wargoal we have that's being pressed
+	#AI_PEACE_AGREEMENT_ENEMY_WARGOAL_SELF_FACTOR = -10 # For each wargoal that the enemy is pressing against us
+	#AI_PEACE_AGREEMENT_ENEMY_WARGOAL_ALLY_FACTOR = -5 # For each wargoal that's being pressed against our allies
 
 	CHANGE_LAW_RANDOM_FACTOR = 0.1
 	CHANGE_LAW_POTENTIAL_CIVIL_WAR_THRESHOLD = 50
 	CHANGE_LAW_POTENTIAL_CIVIL_WAR_ENACT_CHANCE = 1
 
-	FRONT_STRENGTH_FACTOR_TO_INVADE = 0.5
+	FRONT_STRENGTH_FACTOR_TO_INVADE = 0.55
 	FRONT_MIN_MORALE_TO_ATTACK = 0.75
 	INVADE_STATE_CAPITAL_WEIGHT = 500
 	INVADE_STATE_WARGOAL_WEIGHT = 500

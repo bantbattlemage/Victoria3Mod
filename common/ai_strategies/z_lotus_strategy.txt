@@ -435,7 +435,6 @@ ai_strategy_default = {
 					root = c:TEX
 					root = c:MEX				
 				}
-
 			}
 
 			add = 1
@@ -459,7 +458,7 @@ ai_strategy_default = {
 			value = 0.75
 		}
 
-		# egypt/otto/china shouldnt back down much
+		# egypt/otto/china/mexico shouldnt back down much
 		if = {
 			limit = {
 				OR = {
@@ -474,11 +473,15 @@ ai_strategy_default = {
 					AND = {
 						exists = c:CHI
 						root = c:CHI
-					}										
+					}		
+					AND = {
+						exists = c:MEX
+						root = c:MEX
+					}											
 				}
 			}
 
-			add = 1
+			add = 10
 		}
 	}
 	
@@ -758,13 +761,14 @@ ai_strategy_default = {
 	secret_goal_scores = {
 		none = {
 			value = 0
+
 			
 			if = {
 				limit = {		
 					scope:target_country = { NOT = { is_subject_of = root } }
 					root = { NOT = { is_subject_of = scope:target_country } }
 				}
-				add = 150	
+				add = 1000	
 			}				
 			
 			# Minor german states shouldn't have far-reaching diplomatic ambitions
@@ -794,6 +798,33 @@ ai_strategy_default = {
 				}
 				multiply = 0.5
 			}		
+
+			######## custom
+
+			if = {
+				limit = {
+					exists = c:RUS
+					root = c:RUS
+					scope:target_country = {
+						OR = {
+							AND = {
+								exists = c:KHI
+								this = c:KHI
+							}
+							AND = {
+								exists = c:BUK
+								this = c:BUK
+							}
+							AND = {
+								exists = c:KOK
+								this = c:KOK
+							}														
+						}
+					}
+				}
+
+				multiply = 0
+			}
 
 			min = 0
 			max = 1000
@@ -1274,6 +1305,31 @@ ai_strategy_default = {
 			#### DEFAULTS ABOVE
 			#### CUSTOM
 
+			if = {
+				limit = {
+					exists = c:RUS
+					root = c:RUS
+					scope:target_country = {
+						OR = {
+							AND = {
+								exists = c:KHI
+								this = c:KHI
+							}
+							AND = {
+								exists = c:BUK
+								this = c:BUK
+							}
+							AND = {
+								exists = c:KOK
+								this = c:KOK
+							}														
+						}
+					}
+				}
+
+				multiply = 0
+			}
+
 			#BIC & DEI should not fight their overlord
 			if = {
 				limit = {
@@ -1306,6 +1362,9 @@ ai_strategy_default = {
 			multiply = { 
 				value = lotus_strategy_block_checks
 			}
+			multiply = { 
+				value = lotus_conquer_state_check
+			}
 
 			min = 0
 			max = 1000
@@ -1317,9 +1376,11 @@ ai_strategy_default = {
 			multiply = { 
 				value = lotus_strategy_block_checks
 			}
-
+			multiply = { 
+				value = lotus_take_subject_check
+			}
 			min = 0
-			max = 0 # test
+			max = 1000 # test
 		}			
 	}
 	
@@ -1570,173 +1631,6 @@ ai_strategy_default = {
 				add = 150
 			}
 
-			# USA should not expand into core mexico
-			if = {
-				limit = {
-
-					exists = c:USA
-					exists = c:MEX
-					root = c:USA
-					scope:target_country = c:MEX
-
-					scope:target_state = {
-						OR = {
-							state_region = s:STATE_SONORA
-							state_region = s:STATE_RIO_GRANDE
-							state_region = s:STATE_DURANGO
-							state_region = s:STATE_SINALOA
-							state_region = s:STATE_BAJIO
-							state_region = s:STATE_YUCATAN
-							state_region = s:STATE_MEXICO
-							state_region = s:STATE_VERACRUZ
-							state_region = s:STATE_GUERRERO
-							state_region = s:STATE_OAXACA
-							state_region = s:STATE_JALISCO
-							state_region = s:STATE_ZACATECAS
-							state_region = s:STATE_CHIHUAHUA
-							state_region = s:STATE_BAJA_CALIFORNIA
-							state_region = s:STATE_CHIAPAS
-						}
-					}
-				}
-			
-				multiply = 0
-			}
-
-			# europeans shouldn't take states from china except russia
-			if = {
-				limit = {
-					OR = {
-						country_is_in_europe = yes
-						AND = {
-							exists = c:GBR
-							root = c:GBR
-						}
-					}
-
-					AND = {
-						exists = c:CHI
-						scope:target_country = c:CHI
-					}
-					
-					NOT = {
-						AND = {
-							exists = c:RUS
-							root = c:RUS
-						}
-					}
-                }
-
-				multiply = 0
-			}
-
-			# britain shouldnt take mainland europe & vice versa
-			if = {
-				limit = {
-
-					OR = {
-						
-						AND = {
-							exists = c:GBR
-							root = c:GBR
-							scope:target_state = {
-								state_is_in_europe = yes
-							
-								NOT = {
-									region = sr:region_england
-									region = sr:region_north_sea
-								}
-							}
-						}
-						AND = {
-							country_is_in_europe = yes
-							scope:target_state = {							
-								OR = {
-									region = sr:region_england
-									region = sr:region_north_sea
-								}
-							}
-						}	
-					}				
-                }
-
-				multiply = 0
-			}
-
-			#France and Spain should not attempt to conquer each other
-			if = {
-				limit = {
-					
-					OR = {
-						AND = {
-							exists = c:FRA
-							root = c:FRA
-						}
-						AND = {
-							exists = c:SPA
-							root = c:SPA
-						}
-					}
-
-					OR = {
-						AND = {
-							exists = c:FRA
-							scope:target_country = c:FRA
-							root = c:SPA
-						}
-						AND = {
-							exists = c:SPA
-							scope:target_country = c:SPA
-							root = c:FRA
-						}
-					}
-
-					scope:target_state = {
-						state_is_in_europe = yes
-					}
-				}
-
-				multiply = 0
-			}
-
-			#Portugal and Spain should not attempt to conquer each other
-			if = {
-				limit = {
-
-					exists = c:POR
-					exists = c:SPA
-					
-					OR = {
-						AND = {
-							exists = c:POR
-							root = c:POR
-						}
-						AND = {
-							exists = c:SPA
-							root = c:SPA
-						}
-					}
-
-					OR = {
-						AND = {
-							exists = c:POR
-							scope:target_country = c:POR
-							root = c:SPA
-						}
-						AND = {
-							scope:target_country = c:SPA
-							root = c:POR
-						}
-					}
-
-					scope:target_state = {
-						state_is_in_europe = yes
-					}
-				}
-
-				multiply = 0
-			}
-
 			#USA should take texas from mexico & northeast from canada (if they fight)
 			if = {
 				limit = {
@@ -1934,6 +1828,235 @@ ai_strategy_default = {
 				multiply = 0.0
 			}
 
+			# USA should not expand into core mexico
+			if = {
+				limit = {
+
+					exists = c:USA
+					exists = c:MEX
+					root = c:USA
+					scope:target_country = c:MEX
+
+					scope:target_state = {
+						OR = {
+							state_region = s:STATE_SONORA
+							state_region = s:STATE_RIO_GRANDE
+							state_region = s:STATE_DURANGO
+							state_region = s:STATE_SINALOA
+							state_region = s:STATE_BAJIO
+							state_region = s:STATE_YUCATAN
+							state_region = s:STATE_MEXICO
+							state_region = s:STATE_VERACRUZ
+							state_region = s:STATE_GUERRERO
+							state_region = s:STATE_OAXACA
+							state_region = s:STATE_JALISCO
+							state_region = s:STATE_ZACATECAS
+							state_region = s:STATE_CHIHUAHUA
+							state_region = s:STATE_BAJA_CALIFORNIA
+							state_region = s:STATE_CHIAPAS
+						}
+					}
+				}
+			
+				multiply = 0
+			}
+			
+			# USA core territory
+			if = {
+				
+				limit = {
+					exists = c:USA
+					root = c:USA
+
+					scope:target_state = {
+						OR = {
+							state_region = s:STATE_OREGON
+							state_region = s:STATE_WASHINGTON
+							state_region = s:STATE_IDAHO
+							state_region = s:STATE_TEXAS
+							state_region = s:STATE_COLORADO	
+							state_region = s:STATE_NEVADA
+							state_region = s:STATE_ARIZONA
+							state_region = s:STATE_NEW_MEXICO
+							state_region = s:STATE_CALIFORNIA
+							state_region = s:STATE_UTAH
+							state_region = s:STATE_INDIANA
+							state_region = s:STATE_WYOMING
+							state_region = s:STATE_MONTANA
+							state_region = s:STATE_OKLAHOMA
+							state_region = s:STATE_KANSAS
+							state_region = s:STATE_NEBRASKA							
+							state_region = s:STATE_SOUTH_DAKOTA
+							state_region = s:STATE_NORTH_DAKOTA							
+							state_region = s:STATE_NEBRASKA
+							state_region = s:STATE_MISSOURI
+							state_region = s:STATE_ARKANSAS
+							state_region = s:STATE_LOUISIANA
+							state_region = s:STATE_MISSISSIPPI
+							state_region = s:STATE_TENNESSEE
+							state_region = s:STATE_ILLINOIS
+							state_region = s:STATE_IOWA
+							state_region = s:STATE_WISCONSIN
+							state_region = s:STATE_MICHIGAN
+							state_region = s:STATE_OHIO
+							state_region = s:STATE_KENTUCKY
+							state_region = s:STATE_GEORGIA
+							state_region = s:STATE_FLORIDA
+							state_region = s:STATE_SOUTH_CAROLINA
+							state_region = s:STATE_NORTH_CAROLINA
+							state_region = s:STATE_VIRGINIA
+							state_region = s:STATE_WEST_VIRGINIA
+							state_region = s:STATE_MARYLAND
+							state_region = s:STATE_DELAWARE
+							state_region = s:STATE_PENNSYLVANIA
+							state_region = s:STATE_NEW_YORK
+							state_region = s:STATE_CONNECTICUT
+							state_region = s:STATE_MASSACHUSETTS
+							state_region = s:STATE_NEW_HAMPSHIRE
+							state_region = s:STATE_MAINE
+							state_region = s:STATE_VERMONT
+							state_region = s:STATE_DISTRICT_OF_COLUMBIA
+						}					
+					}	
+				}
+
+				add = 125			
+			}
+
+			# europeans shouldn't take states from china except russia
+			if = {
+				limit = {
+					OR = {
+						country_is_in_europe = yes
+						AND = {
+							exists = c:GBR
+							root = c:GBR
+						}
+					}
+
+					AND = {
+						exists = c:CHI
+						scope:target_country = c:CHI
+					}
+					
+					NOT = {
+						AND = {
+							exists = c:RUS
+							root = c:RUS
+						}
+					}
+				}
+
+				multiply = 0
+			}
+
+			# britain shouldnt take mainland europe & vice versa
+			if = {
+				limit = {
+
+					OR = {
+						
+						AND = {
+							exists = c:GBR
+							root = c:GBR
+							scope:target_state = {
+								state_is_in_europe = yes
+							
+								NOT = {
+									region = sr:region_england
+									region = sr:region_north_sea
+								}
+							}
+						}
+						AND = {
+							country_is_in_europe = yes
+							scope:target_state = {							
+								OR = {
+									region = sr:region_england
+									region = sr:region_north_sea
+								}
+							}
+						}	
+					}				
+				}
+
+				multiply = 0
+			}
+
+			#France and Spain should not attempt to conquer each other
+			if = {
+				limit = {
+					
+					OR = {
+						AND = {
+							exists = c:FRA
+							root = c:FRA
+						}
+						AND = {
+							exists = c:SPA
+							root = c:SPA
+						}
+					}
+
+					OR = {
+						AND = {
+							exists = c:FRA
+							scope:target_country = c:FRA
+							root = c:SPA
+						}
+						AND = {
+							exists = c:SPA
+							scope:target_country = c:SPA
+							root = c:FRA
+						}
+					}
+
+					scope:target_state = {
+						state_is_in_europe = yes
+					}
+				}
+
+				multiply = 0
+			}
+
+			#Portugal and Spain should not attempt to conquer each other
+			if = {
+				limit = {
+
+					exists = c:POR
+					exists = c:SPA
+					
+					OR = {
+						AND = {
+							exists = c:POR
+							root = c:POR
+						}
+						AND = {
+							exists = c:SPA
+							root = c:SPA
+						}
+					}
+
+					OR = {
+						AND = {
+							exists = c:POR
+							scope:target_country = c:POR
+							root = c:SPA
+						}
+						AND = {
+							scope:target_country = c:SPA
+							root = c:POR
+						}
+					}
+
+					scope:target_state = {
+						state_is_in_europe = yes
+					}
+				}
+
+				multiply = 0
+			}
+
 			#BIC & DEI shouldnt take european territory
 			if = {
 				limit = {
@@ -2028,104 +2151,24 @@ ai_strategy_default = {
 				multiply = 0
 			}
 
-			#prioritize puppeting larger countries over taking states (and list of specific smaller countries we prefer to puppet instead of conquer)
+			# russian european territory they are allowed to take
 			if = {
 				limit = {
+					exists = c:RUS
+					root = c:RUS
 
-					country_rank >= rank_value:major_power
-
-					NOT = {
-						scope:target_country = {
-							OR = {
-								country_rank = rank_value:great_power
-								country_rank = rank_value:major_power							
-							}
-						}
-					}
-
-					NOT = {
+					scope:target_state = {
 						OR = {
-							AND = {
-								exists = c:CHI
-								scope:target_country = c:CHI
-							}
-							AND = {
-								exists = c:EGY
-								scope:target_country = c:EGY
-							}
-							AND = {
-								exists = c:TUR
-								scope:target_country = c:TUR
-							}
-						}
-					}
-
-					scope:target_country = {
-						
-						OR = {
-							country_rank = rank_value:unrecognized_major_power
-							country_rank = rank_value:unrecognized_regional_power
-							num_states > 3
-
-							AND = {
-								exists = c:DAI
-								this = c:DAI
-							}
-							AND = {
-								exists = c:PHI
-								this = c:PHI
-							}
-							AND = {
-								exists = c:ALD
-								this = c:ALD
-							}
-							AND = {
-								exists = c:MOR
-								this = c:MOR
-							}
-							AND = {
-								exists = c:TRI
-								this = c:TRI
-							}
-							AND = {
-								exists = c:PAN
-								this = c:PAN
-							}
-							AND = {
-								exists = c:AFG
-								this = c:AFG
-							}	
-							AND = {
-								exists = c:KHI
-								this = c:KHI
-							}			
-							AND = {
-								exists = c:BAV
-								this = c:BAV
-							}	
-							AND = {
-								exists = c:CAM
-								this = c:CAM
-							}		
-							AND = {
-								exists = c:IRQ
-								this = c:IRQ
-							}		
-							AND = {
-								exists = c:NEJ
-								this = c:NEJ
-							}			
-							AND = {
-								exists = c:MAD
-								this = c:MAD
-							}						
+							state_region = s:STATE_WEST_GALICIA
+							state_region = s:STATE_EAST_GALICIA		
+							state_region = s:STATE_MOLDAVIA	
 						}
 					}
 				}
 
-				multiply = 0
+				add = 125
 			}
-			
+
 			# dont take stuff you cant reach
 			if = {
 				limit = {
@@ -2161,12 +2204,15 @@ ai_strategy_default = {
 						}
 
 						multiply = 0
-					}			
-				}				
-			}
+					}
+				}			
+			}	
 
-			multiply = { 
+			multiply = {
 				value = lotus_strategy_block_checks
+			}
+			multiply = {
+				value = lotus_conquer_state_check
 			}
 
 			min = 0
@@ -2366,6 +2412,17 @@ ai_strategy_default = {
 
 			### default above
 
+			# china
+			if = {
+				limit = {
+					exists = c:CHI
+					root = c:CHI
+					scope:target_country = c:CHI
+				}
+
+				add = 100
+			}
+
 			# major & great powers should want ports off of unrecognized powers
 			if = {
 				limit = {
@@ -2414,17 +2471,17 @@ ai_strategy_default = {
 						scope:target_state = { state_region = s:STATE_SHENGJING }
 					}
 
-					#add = 100
+					add = 100
 				}
 				else_if = {
 					limit = {
 						scope:target_state = { state_region = s:STATE_OUTER_MANCHURIA }
 					}
 
-					#multiply = 0
+					multiply = 0
 				}
 				else = {
-					#multiply = 0
+					multiply = 0
 				}
 			}
 
@@ -2969,6 +3026,21 @@ ai_strategy_default = {
 			if = {
 				limit = {
 					can_reach_target_country = no
+				}
+
+				multiply = 0
+			}
+
+			if = {
+				limit = {
+					NOT = {
+						is_adjacent = scope:target_country
+					}
+					NOT = {
+						scope:target_country = {
+							any_scope_state = { is_coastal = yes }
+						}
+					}
 				}
 
 				multiply = 0

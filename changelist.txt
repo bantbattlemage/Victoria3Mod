@@ -4,7 +4,7 @@ AroAI is fully compatible and recommended! https://steamcommunity.com/sharedfile
 
 ****** Make sure you load LotusAI AFTER ARoAI in mod load order in Paradox launcher! ******
 
-### General AI Behavior Changes ###
+##### General AI Behavior Changes #####
 
 # The AI should in general declare wars much more often than it did before and be much better at creating the games main formable tags.
 
@@ -22,18 +22,15 @@ AroAI is fully compatible and recommended! https://steamcommunity.com/sharedfile
 
 # The AI should be quicker to accept peace when it has lost a war.
 
-### Game Balance Changes ###
+##### Game Balance Changes #####
 
-!>Major Balance Change<!
-# Because White Peace is fundamentally broken and unfixable in mods, wars will now end when one side reaches 0 war support. Some related values have been tweaked to account for this. It is now predictable when a war will end: whoever reaches 0 War Support first will capitulate.
-
-# Some values related to the automated battle system have been adjusted.
+# Some values related to the automated battle system have been adjusted so that battles actually happen on fronts.
 
 # Dominions no longer break when their overlord does not defend them. (This included civil wars) This is the primary cause of independent Dutch East Indies or East India Company, which imo is flavorfully awful and should be extremely rare in this mod.
 
 # Added a hidden decision that only the AI can take that will prevent a new civil war from firing while already at war. These nested civil wars are the primary cause of indepedent revolter tags throughout the course of the game, and are the primary cause of late-game bordergore with tiny weird indepdendent countries popping up everywhere. The game simply does not handle these nested wars well; I think as a player however they are more managable, and it is super cheesy to be able to use this button as a player, so it is restricted to just the AI.
 
-### Game Start Changes ###
+##### Game Start Changes #####
 
 # Removed all starting treaty ports except Macau. (They are just no longer treaty ports, the tiles are still owned by their respective overlords)
 
@@ -61,7 +58,7 @@ AroAI is fully compatible and recommended! https://steamcommunity.com/sharedfile
 
 # The decentralized nations in New Zealand have been removed & consolodated into the United Tribes tag. This is the best solution I could think of for now as to how to stop USA from taking South Island every game. (As they need the interest in Oceania in order to get Hawaii) There is no way to limit where countries colonize other than strategic regions.
 
-### Journal/Event/Decision Changes ###
+##### Journal/Event/Decision Changes #####
 
 # The Heavenly Kingdom war now starts instantly after choosing a decision in the corresponding event, and Heavenly Kingdom gets an Annex wargoal on Qing.
 
@@ -87,7 +84,11 @@ AroAI is fully compatible and recommended! https://steamcommunity.com/sharedfile
 
 # Russia now has a decision to annex the 3 central asian minors if they are vassals of Russia. This is for the same reason as the others; the AI doesn't actually understand how to annex vassals, and just pushes the normal "annex vassal" button on the very rare occasion that the conditions for it have been met by chance. NOTE: I added this before fixing the Conquer State issues, and now Russia typically will take them directly instead of puppeting them, but left this there in case. 
 
-### The following changes are all to help with AI use of the Liberate Country CB being enabled specifically & only on Ottomans, Austria & Egypt (disabled in all other cases, players can use it freely) ###
+# Removed Miskito Kingdom protectorate from Great Britain as it would sometimes cause GBR to get dragged into a pointless war with the US.
+
+# Added a Russian claim to the state Kars (Ottoman held on the border with Ottomans, historically taken by Russia)
+
+##### The following changes are all to help with AI use of the Liberate Country CB being enabled specifically & only on Ottomans, Austria & Egypt (disabled in all other cases, players can use it freely) #####
 
 # Bosnia now will get Montenegro when released from a country. This is to prevent pocket of Otttoman territory in the Balkans after countries are released.
 

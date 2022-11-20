@@ -17,18 +17,6 @@
 			}
 		}
 
-		# Annex vassals
-		if = {
-			limit = {
-
-				scope:target_country = { 
-					is_subject_of = ROOT 
-				}		
-			}
-
-			add = 10
-		}
-
 		# Go after weak countries with strategic adjacency to you
 		if = {
 			limit = {
@@ -234,6 +222,13 @@
 			}
 			else_if = {
 				limit = {
+
+					NOT = {
+						exists = c:KHI
+						exists = c:BUK
+						exists = c:KOK
+					}
+
 					scope:target_country = {
 						any_scope_state = {
 							OR = {
@@ -251,7 +246,39 @@
 
 				add = 1000
 			}
-			else = {
+			else_if = {
+				limit = {
+
+					NOT = {
+						exists = c:KHI
+						exists = c:BUK
+						exists = c:KOK
+					}
+
+					scope:target_country = {
+						any_scope_state = {
+							OR = {
+								state_region = s:STATE_WEST_GALICIA
+								state_region = s:STATE_EAST_GALICIA		
+								state_region = s:STATE_MOLDAVIA	
+							}
+						}
+					}
+				}
+
+				add = 500
+			}
+			else_if = {
+				limit = {
+					NOT = {
+						scope:target_country = {
+							any_scope_state = {
+								has_claim_by = root
+							}
+						}
+					}					
+				}
+
 				multiply = 0
 			}
 		}
@@ -1026,6 +1053,19 @@ lotus_strategy_block_checks = {
 		multiply = 0
 	}
 
+	#dont let britian push too far into asia
+	if = {
+		limit = {
+			exists = c:GBR
+			root = c:GBR
+			scope:target_country = {
+				capital.region = sr:region_central_asia
+			}
+		}
+
+		multiply = 0
+	}
+
 	#colonizers shouldn't fight their own colonies
 	if = {
 		limit = {
@@ -1400,9 +1440,14 @@ lotus_take_subject_check = {
 
 	if = {
 		limit = {
+
 			scope:target_country = {
 
-				num_states <= 3
+				OR = {
+					country_rank >= rank_value:major_power
+					country_rank = rank_value:unrecognized_major_power
+					num_states <= 3
+				}
 			}
 		}
 
@@ -1468,6 +1513,10 @@ lotus_take_subject_check = {
 					scope:target_country= c:KHI
 				}	
 				AND = {
+					exists = c:KOK
+					scope:target_country= c:KOK
+				}					
+				AND = {
 					exists = c:AFG
 					scope:target_country = c:AFG
 				}	
@@ -1496,5 +1545,117 @@ lotus_take_subject_check = {
 
 		multiply = 0 
 		add = 1
+	}
+}
+
+# checks for conquering
+lotus_conquer_state_check = {
+
+	value = 1
+
+	#prioritize puppeting larger countries over taking states (and list of specific smaller countries we prefer to puppet instead of conquer)
+	if = {
+		limit = {
+
+			country_rank >= rank_value:major_power
+
+			NOT = {
+				scope:target_country = {
+					OR = {
+						country_rank = rank_value:great_power
+						country_rank = rank_value:major_power							
+					}
+				}
+			}
+
+			NOT = {
+				OR = {
+					AND = {
+						exists = c:CHI
+						scope:target_country = c:CHI
+					}
+					AND = {
+						exists = c:EGY
+						scope:target_country = c:EGY
+					}
+					AND = {
+						exists = c:TUR
+						scope:target_country = c:TUR
+					}
+					AND = {
+						exists = c:MEX
+						scope:target_country = c:MEX
+					}
+				}
+			}
+
+			scope:target_country = {
+				
+				OR = {
+					country_rank = rank_value:unrecognized_major_power
+					country_rank = rank_value:unrecognized_regional_power
+					num_states > 3
+
+					AND = {
+						exists = c:DAI
+						this = c:DAI
+					}
+					AND = {
+						exists = c:PHI
+						this = c:PHI
+					}
+					AND = {
+						exists = c:ALD
+						this = c:ALD
+					}
+					AND = {
+						exists = c:MOR
+						this = c:MOR
+					}
+					AND = {
+						exists = c:TRI
+						this = c:TRI
+					}
+					AND = {
+						exists = c:PAN
+						this = c:PAN
+					}
+					AND = {
+						exists = c:AFG
+						this = c:AFG
+					}	
+					AND = {
+						exists = c:KHI
+						this = c:KHI
+					}			
+					AND = {
+						exists = c:KOK
+						this = c:KOK
+					}	
+					AND = {
+						exists = c:BAV
+						this = c:BAV
+					}	
+					AND = {
+						exists = c:CAM
+						this = c:CAM
+					}		
+					AND = {
+						exists = c:IRQ
+						this = c:IRQ
+					}		
+					AND = {
+						exists = c:NEJ
+						this = c:NEJ
+					}			
+					AND = {
+						exists = c:MAD
+						this = c:MAD
+					}						
+				}
+			}
+		}
+
+		multiply = 0
 	}
 }
