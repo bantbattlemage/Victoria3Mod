@@ -234,3 +234,75 @@ decision_auto_capitulate_zero_troop_war = {
         base = 1000
     }
 }
+
+# germany
+complete_german_unification = {
+	
+	is_shown = {
+        exists = c:GER
+        root = c:GER
+	}
+
+	possible = {
+        exists = c:GER
+        root = c:GER
+        OR = {
+            any_country = {
+                has_diplomatic_pact = {
+                    who = root
+                    type = protectorate
+                }   
+                OR = {
+                    country_has_primary_culture = cu:north_german
+                    country_has_primary_culture = cu:south_german              
+                }
+            }     
+            any_country = {
+                NOT = {
+                    this = c:GER
+                }
+                top_overlord = root
+                is_player = no		
+                OR = {
+                    country_has_primary_culture = cu:north_german
+                    country_has_primary_culture = cu:south_german              
+                }
+            }
+        }
+	}
+
+	when_taken = {
+
+		every_country = {
+			
+			if = {
+				limit = { 
+                    NOT = {
+                        this = c:GER
+                    }                    
+                    is_player = no		
+                    OR = {
+                        country_has_primary_culture = cu:north_german
+                        country_has_primary_culture = cu:south_german              
+                    }
+
+                    OR = {
+                        has_diplomatic_pact = {
+                            who = root
+                            type = protectorate
+                        }     
+                        top_overlord = root
+                    }
+				}
+
+                c:GER = {
+                    annex = prev
+                }
+			}
+		}
+	}
+
+	ai_chance = {
+		base = 1000
+	}
+}

@@ -1303,19 +1303,6 @@ lotus_strategy_block_checks = {
 		multiply = 0
 	}
 
-	# reduce british focus on middle east
-	if = {
-		limit = {
-			exists = c:GBR
-			root = c:GBR
-			scope:target_country = { 
-				capital.region = sr:region_arabic 
-			}
-		}
-
-		multiply = 0.25
-	}
-
 	# no one conquers tibet
 	if = {
 		limit = {

@@ -741,6 +741,23 @@ ai_strategy_default = {
 
 			min = 0
 			max = 100
+
+			if = {
+				limit = {
+					OR = {
+						AND = {
+							exists = c:GER
+							root = c:GER
+						}
+						AND = {
+							exists = c:ITA
+							root = c:ITA
+						}
+					}
+				}
+
+				multiply = 10
+			}
 		}
 	}
 		
@@ -1942,6 +1959,7 @@ ai_strategy_default = {
 				limit = {
 					OR = {
 						country_is_in_europe = yes
+						country_rank >= rank_value:major_power
 						AND = {
 							exists = c:GBR
 							root = c:GBR
@@ -2108,6 +2126,7 @@ ai_strategy_default = {
 							root = c:GBR
 						}
 						country_is_in_europe = yes
+						country_rank >= rank_value:major_power
 					}
 
 					OR = {

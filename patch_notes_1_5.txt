@@ -22,6 +22,8 @@
 
 # The level 10 Barracks in Ankara is upgraded to level 30. Additionally, Adana is now fully owned by Ottomans at game start.
 
+# Added a decision for Germany to annex any German subjects it still has after forming Germany.
+
 ##### The following changes are all to help with AI use of the Liberate Country CB being enabled specifically & only on Ottomans, Austria & Egypt (disabled in all other cases, players can use it freely) #####
 
 # Bosnia now will get Montenegro when released from a country. This is to prevent pocket of Otttoman territory in the Balkans after countries are released.

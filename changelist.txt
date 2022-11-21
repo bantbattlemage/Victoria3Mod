@@ -90,6 +90,8 @@ AroAI is fully compatible and recommended! https://steamcommunity.com/sharedfile
 
 # Added a Russian claim to the state Kars (Ottoman held on the border with Ottomans, historically taken by Russia)
 
+# Added a decision for Germany to annex any German subjects it still has after forming Germany.
+
 ##### The following changes are all to help with AI use of the Liberate Country CB being enabled specifically & only on Ottomans, Austria & Egypt (disabled in all other cases, players can use it freely) #####
 
 # Bosnia now will get Montenegro when released from a country. This is to prevent pocket of Otttoman territory in the Balkans after countries are released.
