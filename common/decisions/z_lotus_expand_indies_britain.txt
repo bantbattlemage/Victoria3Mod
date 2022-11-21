@@ -54,21 +54,9 @@
 				value = 100
 			}
 
-			if = {
-				limit = {
-					c:BIC = { has_variable = british_raj_var }		
-				}
-
-				create_diplomatic_pact = {
-					country = c:BIC
-					type = puppet				
-				}
-			}
-			else = {
-				create_diplomatic_pact = {
-					country = c:BIC
-					type = dominion				
-				}
+			create_diplomatic_pact = {
+				country = c:BIC
+				type = puppet				
 			}
 		}
 	}
@@ -89,7 +77,7 @@ bic_centralize_british_raj = {
 	
 	possible = {
 
-		is_at_war = no
+		#is_at_war = no
 
 		exists = c:BIC
 		c:BIC = { top_overlord = root }

@@ -139,28 +139,7 @@
 			if = {
 				limit = {
 					scope:target_country = {
-
-						any_scope_state = {
-							OR = {
-								state_region = s:STATE_EAST_PRUSSIA
-								state_region = s:STATE_WEST_PRUSSIA
-								state_region = s:STATE_POSEN
-								state_region = s:STATE_POMERANIA
-								state_region = s:STATE_MECKLENBURG
-								state_region = s:STATE_SCHLESWIG_HOLSTEIN
-								state_region = s:STATE_BRANDENBURG
-								state_region = s:STATE_ELBE
-								state_region = s:STATE_HANNOVER
-								state_region = s:STATE_BRUNSWICK
-								state_region = s:STATE_SAXONY
-								state_region = s:STATE_SILESIA
-								state_region = s:STATE_NORTH_RHINE								
-								state_region = s:STATE_HESSE																
-								state_region = s:STATE_WESTPHALIA								
-								state_region = s:STATE_RHINELAND								
-								state_region = s:STATE_BADEN
-							}
-						}
+						country_has_primary_culture = cu:north_german
 					}
 				}
 
@@ -170,29 +149,22 @@
 			else_if = {
 				limit = {
 					scope:target_country = {
-
-						any_scope_state = {
-							OR = {
-								state_region = s:STATE_WURTTEMBERG
-								state_region = s:STATE_BAVARIA
-								state_region = s:STATE_FRANCONIA								
-								state_region = s:STATE_ALSACE_LORRAINE
-							}
-						}
+						country_has_primary_culture = cu:south_german
 					}
 				}
 
-				add = 5000
+				add = 2500
 			}			
 		}
 
-		#russian central asia focus & manchuria
+		#russian expansion
 		if = {
 			limit = {
 				exists = c:RUS
 				root = c:RUS
 			}
 
+			# central asia first
 			if = {
 				limit = {
 					NOT = { 
@@ -220,14 +192,9 @@
 
 				add = 5000
 			}
+			# china
 			else_if = {
 				limit = {
-
-					NOT = {
-						exists = c:KHI
-						exists = c:BUK
-						exists = c:KOK
-					}
 
 					scope:target_country = {
 						any_scope_state = {
@@ -246,6 +213,7 @@
 
 				add = 1000
 			}
+			# east europe
 			else_if = {
 				limit = {
 
@@ -266,8 +234,9 @@
 					}
 				}
 
-				add = 500
+				add = 1000
 			}
+			# any claims (Kars in Ottomans)
 			else_if = {
 				limit = {
 					NOT = {
@@ -446,7 +415,15 @@
 				}
 
 				multiply = 0
-			}			
+			}
+			# reduce british focus elsewhere
+			else_if = {
+				limit = {
+					root = c:GBR
+				}
+
+				multiply = 0.5
+			}	
 		}
 		
 		#try to get only Britain on New Zealand (i dont think this actually works tbh)
@@ -530,53 +507,60 @@
 					capital.state_region = s:STATE_TIANSHAN
 					capital.state_region = s:STATE_DZUNGARIA
 				}
-
-				scope:target_country = {
-
-					NOT = { is_subject_of = root }
-
-					any_scope_state = {
-						OR = {
-							state_region = s:STATE_BEIJING
-							state_region = s:STATE_GUANGXI
-							state_region = s:STATE_SHENGJING
-							state_region = s:STATE_OUTER_MANCHURIA
-							state_region = s:STATE_SOUTHERN_MANCHURIA
-							state_region = s:STATE_NORTHERN_MANCHURIA
-							state_region = s:STATE_SHANXI
-							state_region = s:STATE_NINGXIA
-							state_region = s:STATE_GANSU
-							state_region = s:STATE_XIAN
-							state_region = s:STATE_QINGHAI
-							state_region = s:STATE_CHONGQING
-							state_region = s:STATE_GUANGDONG
-							state_region = s:STATE_FUJIAN
-							state_region = s:STATE_ZHEJIANG
-							state_region = s:STATE_NANJING
-							state_region = s:STATE_JIANGSU
-							state_region = s:STATE_HENAN
-							state_region = s:STATE_ZHILI
-							state_region = s:STATE_JIANGXI
-							state_region = s:STATE_SOUTHERN_ANHUI
-							state_region = s:STATE_NORTHERN_ANHUI
-							state_region = s:STATE_WESTERN_HUBEI
-							state_region = s:STATE_EASTERN_HUBEI
-							state_region = s:STATE_HUNAN
-							state_region = s:STATE_FORMOSA
-							state_region = s:STATE_HINGGAN
-							state_region = s:STATE_ALXA
-							state_region = s:STATE_SHAOZHOU
-							state_region = s:STATE_GUIZHOU
-							state_region = s:STATE_YUNNAN
-							state_region = s:STATE_SICHUAN
-							state_region = s:STATE_TIANSHAN
-							state_region = s:STATE_DZUNGARIA
-						}
-					}
-				}
 			}
 
-			add = 5000
+			if = {
+				limit = {
+					scope:target_country = {
+
+						NOT = { is_subject_of = root }
+
+						any_scope_state = {
+							OR = {
+								state_region = s:STATE_BEIJING
+								state_region = s:STATE_GUANGXI
+								state_region = s:STATE_SHENGJING
+								state_region = s:STATE_OUTER_MANCHURIA
+								state_region = s:STATE_SOUTHERN_MANCHURIA
+								state_region = s:STATE_NORTHERN_MANCHURIA
+								state_region = s:STATE_SHANXI
+								state_region = s:STATE_NINGXIA
+								state_region = s:STATE_GANSU
+								state_region = s:STATE_XIAN
+								state_region = s:STATE_QINGHAI
+								state_region = s:STATE_CHONGQING
+								state_region = s:STATE_GUANGDONG
+								state_region = s:STATE_FUJIAN
+								state_region = s:STATE_ZHEJIANG
+								state_region = s:STATE_NANJING
+								state_region = s:STATE_JIANGSU
+								state_region = s:STATE_HENAN
+								state_region = s:STATE_ZHILI
+								state_region = s:STATE_JIANGXI
+								state_region = s:STATE_SOUTHERN_ANHUI
+								state_region = s:STATE_NORTHERN_ANHUI
+								state_region = s:STATE_WESTERN_HUBEI
+								state_region = s:STATE_EASTERN_HUBEI
+								state_region = s:STATE_HUNAN
+								state_region = s:STATE_FORMOSA
+								state_region = s:STATE_HINGGAN
+								state_region = s:STATE_ALXA
+								state_region = s:STATE_SHAOZHOU
+								state_region = s:STATE_GUIZHOU
+								state_region = s:STATE_YUNNAN
+								state_region = s:STATE_SICHUAN
+								state_region = s:STATE_TIANSHAN
+								state_region = s:STATE_DZUNGARIA
+							}
+						}
+					}					
+				}
+
+				add = 5000
+			}
+			else = {
+				multiply = 0
+			}
 		}
 
 		#limit US aggression to historic claims
@@ -733,6 +717,19 @@
 			}
 
 			add = 5000
+		}
+
+		# china
+		if = {
+			limit = {
+				country_rank >= rank_value:major_power
+				exists = c:CHI
+				scope:target_country = c:CHI
+				NOT = { has_treaty_port_in_country = c:CHI }
+				navy_size >= 30
+			}
+
+			add = 500
 		}
 
 		# limit ottomans to historic areas
@@ -1164,18 +1161,14 @@ lotus_strategy_block_checks = {
 		multiply = 0
 	}
 
-	#Austria & Qing & ottomans should chill out and not be aggressive and hopefully fall/get picked apart
+	#Austria & ottomans should chill out and not be aggressive and hopefully fall/get picked apart
 	if = {
 		limit = {
 			OR = {
 				AND = {
 					exists = c:AUS
 					root = c:AUS
-				}
-				AND = {
-					exists = c:CHI
-					root = c:CHI
-				}		
+				}	
 				AND = {
 					exists = c:TUR
 					root = c:TUR
@@ -1320,7 +1313,7 @@ lotus_strategy_block_checks = {
 			}
 		}
 
-		multiply = 0.1
+		multiply = 0.25
 	}
 
 	# no one conquers tibet
@@ -1430,6 +1423,8 @@ lotus_strategy_block_checks = {
 
 		multiply = 0.25
 	}
+
+
 }
 
 # generally prioritize conquering small countries over subjecting them
@@ -1444,9 +1439,20 @@ lotus_take_subject_check = {
 			scope:target_country = {
 
 				OR = {
+					AND = {
+						is_subject = yes
+						OR = {
+							is_subject_type = subject_type_puppet
+							is_subject_type = subject_type_vassal
+							is_subject_type = subject_type_dominion
+							is_subject_type = subject_type_personal_union
+							is_subject_type = subject_type_protectorate
+						}
+					}
 					country_rank >= rank_value:major_power
 					country_rank = rank_value:unrecognized_major_power
 					num_states <= 3
+					country_rank >= root.country_rank
 				}
 			}
 		}
@@ -1483,6 +1489,18 @@ lotus_take_subject_check = {
 	# exception for a few countries we prefer to puppet anyways
 	if = {
 		limit = {
+			scope:target_country = {
+				OR = {
+					is_subject = no
+					AND = {
+						is_subject = yes
+						OR = {
+							is_subject_type = subject_type_tributary
+							is_subject_type = subject_type_customs_union							
+						}
+					}
+				}
+			}
 			OR = {
 				AND = {
 					exists = c:DAI
@@ -1539,6 +1557,10 @@ lotus_take_subject_check = {
 				AND = {
 					exists = c:MAD
 					scope:target_country = c:MAD
+				}	
+				AND = {
+					exists = c:KOR
+					scope:target_country = c:KOR
 				}												
 			}			
 		}
@@ -1558,6 +1580,21 @@ lotus_conquer_state_check = {
 		limit = {
 
 			country_rank >= rank_value:major_power
+			
+			# direct subjects we have to conquer
+			scope:target_country = {
+				OR = {
+					is_subject = no
+					AND = {
+						is_subject = yes
+						OR = {
+							is_subject_type = subject_type_tributary
+							#is_subject_type = subject_type_protectorate
+							is_subject_type = subject_type_customs_union							
+						}
+					}
+				}
+			}
 
 			NOT = {
 				scope:target_country = {
@@ -1590,7 +1627,7 @@ lotus_conquer_state_check = {
 			}
 
 			scope:target_country = {
-				
+
 				OR = {
 					country_rank = rank_value:unrecognized_major_power
 					country_rank = rank_value:unrecognized_regional_power
@@ -1651,7 +1688,11 @@ lotus_conquer_state_check = {
 					AND = {
 						exists = c:MAD
 						this = c:MAD
-					}						
+					}					
+					AND = {
+						exists = c:KOR
+						this = c:KOR
+					}	
 				}
 			}
 		}

@@ -13,8 +13,8 @@ ai_strategy_default = {
 	max_progressiveness = 25 # How progressive is the AI willing to be when passing laws
 	max_regressiveness = 25 # How regressive is the AI willing to be when passing laws
 
-	diplomatic_play_neutrality = 75 	 # Added to base neutrality in diplomatic plays	
-	diplomatic_play_boldness = 50
+	diplomatic_play_neutrality = 100 	 # Added to base neutrality in diplomatic plays	
+	diplomatic_play_boldness = 100
 
 	# How many maneuvers are we OK with using up in the initial phase to add more wargoals
 	# All strategies are added together here to produce a value from 0 to 1
@@ -165,28 +165,6 @@ ai_strategy_default = {
 
 		#### custom
 
-		#GBR & NET should never back down from defending their colonies
-		if = {
-			limit = {
-				OR = {
-					AND = {
-						exists = c:GBR
-						root = c:GBR
-						exists = c:BIC
-						scope:target_country = c:BIC
-					}
-					AND = {
-						exists = c:NET
-						root = c:NET
-						exists = c:DEI
-						scope:target_country = c:DEI
-					}					
-				}
-			}
-
-			value = 1000
-		}
-
 		#GBR/NET should not take obligations against BIC/DEI
 		if = {
 			limit = {
@@ -251,14 +229,11 @@ ai_strategy_default = {
 			value = 1000
 		}
 
-		#China should only care about asia
+		#China shouldnt accept obligations
 		if = {
 			limit = {
 				exists = c:CHI
 				root = c:CHI
-				NOT = {
-					scope:target_country = { country_is_in_east_asia = yes }
-				}
 			}
 
 			multiply = 0
@@ -282,10 +257,18 @@ ai_strategy_default = {
 					capital.region = sr:region_balkans
 					capital.region = sr:region_arabic			
 				}
+			}
 
-				AND = {
-					exists = c:TUR
-					scope:target_country = c:TUR
+			value = 1000
+		}
+
+		if = {
+			limit = {
+				scope:target_country = {
+					OR = {
+						overlord = root
+						top_overlord = root
+					}
 				}
 			}
 
@@ -444,6 +427,7 @@ ai_strategy_default = {
 		if = {
 			limit = {
 				exists = c:AUS
+				exists = c:FRA
 				exists = c:PRU
 				root = c:PRU
 
@@ -451,14 +435,13 @@ ai_strategy_default = {
 					scope:target_country = c:AUS
 					scope:target_country = c:FRA	
 				}
-
 			}
 			
 			multiply = 0
 			value = 0.75
 		}
 
-		# egypt/otto/china/mexico shouldnt back down much
+		# egypt/otto/mexico
 		if = {
 			limit = {
 				OR = {
@@ -481,7 +464,16 @@ ai_strategy_default = {
 				}
 			}
 
-			add = 10
+			add = 1
+		}
+
+		if = {
+			limit = {
+				exists = c:CHI
+				root = c:CHI
+			}
+
+			multiply = 0
 		}
 	}
 	
@@ -719,14 +711,36 @@ ai_strategy_default = {
 					}	
 				}
 
-				add = 10000
+				add = 100
 			}
 			else = {
 				add = lotus_strategy_calculation		
 				multiply = { 
 					value = lotus_strategy_block_checks
+					max = 100
 				}
 			}
+			
+			if = {
+				limit = {
+					infamy > 0
+				}
+
+				divide = {
+					value = infamy
+				}
+			}
+
+			if = {
+				limit = {
+					infamy >= 50
+				}
+
+				multiply = 0
+			}
+
+			min = 0
+			max = 100
 		}
 	}
 		
@@ -1380,7 +1394,7 @@ ai_strategy_default = {
 				value = lotus_take_subject_check
 			}
 			min = 0
-			max = 1000 # test
+			max = 1000
 		}			
 	}
 	
@@ -2169,6 +2183,54 @@ ai_strategy_default = {
 				add = 125
 			}
 
+			# austrian territory prussia/ngf/germany can take
+			if = {
+				limit = {
+					OR = {
+						AND = {
+							exists = c:PRU
+							root = c:PRU
+						}
+						AND = {
+							exists = c:NGF
+							root = c:NGF
+						}
+						AND = {
+							exists = c:GER
+							root = c:GER
+						}												
+					}
+
+					OR = {
+						AND = {
+							exists = c:AUS
+							scope:target_country = c:AUS
+						}
+						AND = {
+							exists = c:BOH
+							scope:target_country = c:BOH
+						}											
+					}	
+				}
+
+				if = {
+					limit = {							
+				
+						scope:target_state = {
+							OR = {
+								state_region = s:STATE_BOHEMIA
+								state_region = s:STATE_MORAVIA
+							}
+						}
+					}
+
+					add = 125
+				}
+				else = {
+					multiply = 0
+				}
+			}			
+
 			# dont take stuff you cant reach
 			if = {
 				limit = {
@@ -2458,6 +2520,28 @@ ai_strategy_default = {
 
 				multiply = 0
 			}
+
+			# china
+			if = {
+				limit = {
+					country_rank >= rank_value:major_power
+					exists = c:CHI
+					scope:target_country = c:CHI
+					NOT = { has_treaty_port_in_country = c:CHI }
+					navy_size >= 30
+				}
+
+				add = 100
+			}
+
+			# dont take outer manchuria as a port 
+			if = {
+				limit = {
+					scope:target_state = { state_region = s:STATE_OUTER_MANCHURIA }
+				}
+
+				multiply = 0
+			}
 			
 			#russia in china
 			if = {
@@ -2475,13 +2559,13 @@ ai_strategy_default = {
 				}
 				else_if = {
 					limit = {
-						scope:target_state = { state_region = s:STATE_OUTER_MANCHURIA }
+						NOT = {
+							scope:target_state = { state_region = s:STATE_OUTER_MANCHURIA }
+						}
+						
 					}
 
-					multiply = 0
-				}
-				else = {
-					multiply = 0
+					add = 50
 				}
 			}
 
@@ -2615,6 +2699,16 @@ ai_strategy_default = {
 				value = lotus_take_subject_check
 			}
 
+			if = {
+				limit = {
+					lotus_strategy_calculation > 0
+					lotus_strategy_block_checks > 0
+					lotus_take_subject_check > 0
+				}
+
+				add = 175
+			}
+
 			min = 0
 			max = 175			
 		}
@@ -2689,6 +2783,16 @@ ai_strategy_default = {
 				value = lotus_take_subject_check
 			}
 
+			if = {
+				limit = {
+					lotus_strategy_calculation > 0
+					lotus_strategy_block_checks > 0
+					lotus_take_subject_check > 0
+				}
+
+				add = 150
+			}
+
 			min = 0
 			max = 150				
 		}
@@ -2761,6 +2865,16 @@ ai_strategy_default = {
 
 			multiply = {
 				value = lotus_take_subject_check
+			}
+
+			if = {
+				limit = {
+					lotus_strategy_calculation > 0
+					lotus_strategy_block_checks > 0
+					lotus_take_subject_check > 0
+				}
+
+				add = 175
 			}
 
 			min = 0
@@ -2847,7 +2961,7 @@ ai_strategy_default = {
 						"ai_ideological_opinion(scope:target_country)" <= -25	
 					}
 				}
-				add = 10
+				add = 1
 			}			
 
 			### kind of a uselesss war goal, dont take it too often
@@ -2890,6 +3004,24 @@ ai_strategy_default = {
 				add = 20
 			}
 
+			if = {
+				limit = {
+					OR = {
+						has_secret_goal = {
+							who = scope:target_country
+							secret_goal = conquer
+						}	
+						has_secret_goal = {
+							who = scope:target_country
+							secret_goal = dominate
+						}
+					}	
+				}
+
+				multiply = 0
+				add = 1
+			}
+
 			max = 20
 		}
 
@@ -2929,6 +3061,24 @@ ai_strategy_default = {
 					min = 0.5
 					max = 2.0
 				}				
+			}
+
+			if = {
+				limit = {
+					OR = {
+						has_secret_goal = {
+							who = scope:target_country
+							secret_goal = conquer
+						}	
+						has_secret_goal = {
+							who = scope:target_country
+							secret_goal = dominate
+						}
+					}	
+				}
+
+				multiply = 0
+				add = 1
 			}
 
 			if = {
@@ -3168,41 +3318,6 @@ ai_strategy_default = {
 
 		liberate_country = {
 			value = 0
-
-			#because it just leads to a mess and is flavorfully awful dont force release these
-			if = {
-				limit = {
-					OR = {
-						AND = {
-							exists = c:BIC
-							scope:target_country = c:BIC
-						}
-						AND = {
-							exists = c:DEI
-							scope:target_country = c:DEI						
-						}
-					}
-				}
-
-				multiply = 0
-			}
-
-			#dont make your overlord liberate other subjects
-			if = {
-				limit = {
-					scope:target_country.top_overlord = root
-				}
-
-				multiply = 0
-			}
-
-			if = {
-				limit = {
-					can_reach_target_country = no
-				}
-
-				multiply = 0
-			}
 			
 			# only use this on specific countries
 			if = {

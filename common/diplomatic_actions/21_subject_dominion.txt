@@ -53,7 +53,12 @@
 			has_attitude = {
 				who = scope:target_country
 				attitude = rebellious
-			}			
+			}		
+			NOT = {
+				scope:target_country = {
+					is_player = no
+				}
+			}
 		}
 		
 		propose_break_score = {

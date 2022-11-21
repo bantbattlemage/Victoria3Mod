@@ -48,7 +48,7 @@ AroAI is fully compatible and recommended! https://steamcommunity.com/sharedfile
 
 # Added Russian claims to the 2 central Asian states that are fully enclosed in the Caucuses. 
 
-# The level 40 Barracks in Lower Egypt has been reduced to level 10 to help Ottomans not get curbstomped quite so badly and consistently.
+# The level 40 Barracks in Lower Egypt has been reduced to level 10, and the level 10 Barracks in Ankara upgraded to level 30, to help Ottomans not get curbstomped quite so badly and consistently. Additionally, as Ottomans still get their asses kicked by Egypt pretty consistently, Adana is now fully owned by Ottomans at game start.
 
 # Mexico has been given two level 5 naval bases because as AI it sometimes liked to declare war on Caribbean countries without realizing it doesn't have the boats to do so. NOTE: The root issue here has since been addressed and the AI shouldn't declare overseas wars if it doesn't' have enough boats, but I left the naval bases for Mexico for now.
 
@@ -57,6 +57,8 @@ AroAI is fully compatible and recommended! https://steamcommunity.com/sharedfile
 # Cape Colony is now a Dominion instead of a Puppet so it can do things on it's own.
 
 # The decentralized nations in New Zealand have been removed & consolodated into the United Tribes tag. This is the best solution I could think of for now as to how to stop USA from taking South Island every game. (As they need the interest in Oceania in order to get Hawaii) There is no way to limit where countries colonize other than strategic regions.
+
+# USA & Brazil both start with 5 extra Barracks in their capitals to help them win their initial wars as AI (Brazil in particular needed help, USA was losing a little more often than I'd like, but it's not abhorrent for Mexico to win).
 
 ##### Journal/Event/Decision Changes #####
 
