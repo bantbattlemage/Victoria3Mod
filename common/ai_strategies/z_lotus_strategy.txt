@@ -734,6 +734,14 @@ ai_strategy_default = {
 				multiply = 0
 			}
 
+			if = {
+				limit = {
+					scope:target_country.army_size > root.army_size
+				}
+
+				multiply = 0.5
+			}
+
 			min = 0
 			max = 1000
 
@@ -742,6 +750,20 @@ ai_strategy_default = {
 					OR = {
 						has_strategy = ai_strategy_unify_germany
 						has_strategy = ai_strategy_unify_italy
+						AND = {
+							exists = c:GER
+							root = c:GER
+						}
+						AND = {
+							exists = c:ITA
+							root = c:ITA
+						}						
+					}
+
+					scope:target_country = {
+						any_scope_state = {
+							is_homeland_of_country_cultures = root
+						}
 					}
 				}
 
@@ -3420,7 +3442,7 @@ ai_strategy_default = {
 					exists = c:GER
 					root = c:GER
 					exists = c:AUS
-					target_country = c:AUS
+					scope:target_country = c:AUS
 				}
 
 				multiply = 0

@@ -400,6 +400,9 @@ german_unification.2 = {
 		random_country = {
 			limit = {
 				exists = yes
+				is_at_war = no
+				is_revolutionary = no
+				
 				trigger_if = {
 					limit = {
 						has_technology_researched = pan-nationalism
