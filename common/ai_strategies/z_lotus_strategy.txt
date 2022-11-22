@@ -5,7 +5,7 @@
 ai_strategy_default = {
 	icon = "gfx/interface/icons/ai_strategy_icons/placate_population.dds" # Never shown
 
-	undesirable_infamy_level = 50
+	undesirable_infamy_level = 75
 	unacceptable_infamy_level = 100
 	
 	revolution_aversion = 5 # Chance each day that the AI will stop enacting a law that is going to spark a civil war (1 aversion should translate into ~25% chance of avoiding a civil war)
@@ -422,24 +422,6 @@ ai_strategy_default = {
 
 			add = 1
 		}
-		
-		# prussia shouldnt be over-confident against austria or france
-		if = {
-			limit = {
-				exists = c:AUS
-				exists = c:FRA
-				exists = c:PRU
-				root = c:PRU
-
-				OR = {
-					scope:target_country = c:AUS
-					scope:target_country = c:FRA	
-				}
-			}
-			
-			multiply = 0
-			value = 0.75
-		}
 
 		# egypt/otto/mexico
 		if = {
@@ -474,6 +456,16 @@ ai_strategy_default = {
 			}
 
 			multiply = 0
+		}
+
+		if = {
+			limit = {
+				exists = c:NGF
+				root = c:NGF
+				scope:target_country = c:AUS
+			}
+
+			add = 1
 		}
 	}
 	
@@ -711,13 +703,16 @@ ai_strategy_default = {
 					}	
 				}
 
-				add = 100
+				add = 1000
+				multiply = { 
+					value = lotus_strategy_block_checks
+				}
 			}
 			else = {
 				add = lotus_strategy_calculation		
 				multiply = { 
 					value = lotus_strategy_block_checks
-					max = 100
+					max = 500
 				}
 			}
 			
@@ -740,23 +735,17 @@ ai_strategy_default = {
 			}
 
 			min = 0
-			max = 100
+			max = 1000
 
 			if = {
 				limit = {
 					OR = {
-						AND = {
-							exists = c:GER
-							root = c:GER
-						}
-						AND = {
-							exists = c:ITA
-							root = c:ITA
-						}
+						has_strategy = ai_strategy_unify_germany
+						has_strategy = ai_strategy_unify_italy
 					}
 				}
 
-				multiply = 10
+				multiply = 5
 			}
 		}
 	}
@@ -791,7 +780,7 @@ ai_strategy_default = {
 
 	secret_goal_scores = {
 		none = {
-			value = 0
+			value = 2500
 
 			
 			if = {
@@ -799,8 +788,8 @@ ai_strategy_default = {
 					scope:target_country = { NOT = { is_subject_of = root } }
 					root = { NOT = { is_subject_of = scope:target_country } }
 				}
-				add = 1000	
-			}				
+				add = 2500	
+			}	
 			
 			# Minor german states shouldn't have far-reaching diplomatic ambitions
 			if = {
@@ -857,8 +846,30 @@ ai_strategy_default = {
 				multiply = 0
 			}
 
+			if = {
+				limit = {
+					lotus_strategy_calculation > 0
+					lotus_strategy_block_checks > 0
+					OR = {
+						lotus_take_subject_check > 0
+						lotus_conquer_state_check > 0
+					}
+				}
+
+				if = {
+					limit = {
+						lotus_strategy_calculation >= 1000						
+					}
+
+					multiply = 0
+				}
+				else = {
+					multiply = 0.25
+				}
+			}
+
 			min = 0
-			max = 1000
+			max = 5000
 		}	
 		befriend = {
 			value = 200
@@ -967,6 +978,47 @@ ai_strategy_default = {
 								exists = c:KOK
 								this = c:KOK
 							}														
+						}
+					}
+				}
+
+				multiply = 0
+			}
+
+			if = {
+				limit = {
+					lotus_strategy_calculation > 0
+					lotus_strategy_block_checks > 0
+					OR = {
+						lotus_take_subject_check > 0
+						lotus_conquer_state_check > 0
+					}
+				}
+
+				multiply = 0.1				
+			}
+
+			#russia and austria shouldnt be friends
+			if = {
+				limit = {
+					OR  = {
+						AND = {
+							exists = c:RUS
+							root = c:RUS							
+						}
+						AND = {
+							exists = c:AUS
+							root = c:AUS							
+						}						
+					}
+					OR = {
+						AND = {
+							exists = c:RUS
+							scope:target_country = c:RUS
+						}
+						AND = {
+							exists = c:AUS
+							scope:target_country = c:AUS
 						}
 					}
 				}
@@ -1084,6 +1136,48 @@ ai_strategy_default = {
 				multiply = 0
 			}
 
+			if = {
+				limit = {
+					lotus_strategy_calculation > 0
+					lotus_strategy_block_checks > 0
+					OR = {
+						lotus_take_subject_check > 0
+						lotus_conquer_state_check > 0
+					}
+				}
+
+				multiply = 0.1				
+			}
+
+			#russia and austria shouldnt be friends
+			if = {
+				limit = {
+					OR  = {
+						AND = {
+							exists = c:RUS
+							root = c:RUS							
+						}
+						AND = {
+							exists = c:AUS
+							root = c:AUS							
+						}						
+					}
+					OR = {
+						AND = {
+							exists = c:RUS
+							scope:target_country = c:RUS
+						}
+						AND = {
+							exists = c:AUS
+							scope:target_country = c:AUS
+						}
+					}
+				}
+
+				multiply = 0
+			}
+
+
 			min = 0
 			max = 1000
 		}		
@@ -1190,6 +1284,48 @@ ai_strategy_default = {
 								exists = c:KOK
 								this = c:KOK
 							}														
+						}
+					}
+				}
+
+				multiply = 0
+			}
+
+			if = {
+				limit = {
+					lotus_strategy_calculation > 0
+					lotus_strategy_block_checks > 0
+					OR = {
+						lotus_take_subject_check > 0
+						lotus_conquer_state_check > 0
+					}
+
+				}
+
+				multiply = 0.1
+			}
+
+			#russia and austria shouldnt be friends
+			if = {
+				limit = {
+					OR  = {
+						AND = {
+							exists = c:RUS
+							root = c:RUS							
+						}
+						AND = {
+							exists = c:AUS
+							root = c:AUS							
+						}						
+					}
+					OR = {
+						AND = {
+							exists = c:RUS
+							scope:target_country = c:RUS
+						}
+						AND = {
+							exists = c:AUS
+							scope:target_country = c:AUS
 						}
 					}
 				}
@@ -1383,8 +1519,38 @@ ai_strategy_default = {
 				multiply = 0
 			}
 
+			#gbr/usa shouldnt antagonize prussia
+			if = {
+				limit = {
+					OR  = {
+						AND = {
+							exists = c:GBR
+							root = c:GBR							
+						}
+						AND = {
+							exists = c:USA
+							root = c:USA							
+						}						
+					}
+					OR = {
+						AND = {
+							exists = c:PRU
+							scope:target_country = c:PRU
+						}
+						AND = {
+							exists = c:NGF
+							scope:target_country = c:NGF
+						}
+					}
+				}
+
+				multiply = 0
+			}
+
+
+
 			min = 0
-			max = 1000
+			max = 200
 		}
 		conquer = {
 			value = 0
@@ -2125,6 +2291,11 @@ ai_strategy_default = {
 							exists = c:GBR
 							root = c:GBR
 						}
+						AND = {
+							exists = c:EGY
+							root = c:EGY
+						}
+
 						country_is_in_europe = yes
 						country_rank >= rank_value:major_power
 					}
@@ -2229,7 +2400,7 @@ ai_strategy_default = {
 							exists = c:BOH
 							scope:target_country = c:BOH
 						}											
-					}	
+					}
 				}
 
 				if = {
@@ -2249,6 +2420,23 @@ ai_strategy_default = {
 					multiply = 0
 				}
 			}			
+
+			# small countries are allowed to be aggressive for claims but stop them from conquering territory while they are at it
+			if = {
+				limit = {
+					country_rank <= rank_value:minor_power
+					NOT = {
+						scope:target_state = {
+							OR = {
+								has_claim_by = root
+								is_homeland_of_country_cultures = root
+							}
+						}
+					}
+				}
+
+				multiply = 0
+			}
 
 			# dont take stuff you cant reach
 			if = {
@@ -3225,30 +3413,22 @@ ai_strategy_default = {
 
 		unification = {
 			value = 1000
-		
-			add = {
-				value = scope:target_country.gdp
-				divide = 100000
-				max = 100						
-			}
 
+			# dont do uber germany
 			if = {
 				limit = {
-					has_strategic_adjacency = scope:target_country
+					exists = c:GER
+					root = c:GER
+					exists = c:AUS
+					target_country = c:AUS
 				}
-				multiply = 1.5
-			}	
-			
-			if = {
-				limit = {
-					lenient_ai_behavior_trigger = yes
-				}
-				multiply = 0.0
+
+				multiply = 0
 			}
 
 			min = 0
 			max = 1000	
-		}			
+		}
 
 		liberate_subject = {
 			value = 0	
@@ -3447,6 +3627,30 @@ ai_strategy_default = {
 			}
 
 			max = 100
+		}
+
+		unification_leadership = {
+			value = 1000 
+
+			if = {
+				limit = {
+					OR = {
+						# leadershhip mechanics are dumb becuase if you lose once you can never do it again, so AI austria just wont try to take it 
+						AND = { 
+							exists = c:AUS
+							root = c:AUS
+						}
+						AND = {
+							army_size < 300
+							scope:target_country = {
+								army_size > root.army_size
+							}
+						}
+					}
+				}
+
+				multiply = 0
+			}
 		}
 	}
 

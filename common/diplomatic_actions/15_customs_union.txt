@@ -188,19 +188,25 @@
 				}
 				add = {
 					desc = "DIPLOMATIC_ACCEPTANCE_SUPPORT_UNIFICATION"
-					value = 25
+					value = 100
 				}
 				if = {
 					limit = {
-						AND = {
-							exists = c:GER
-							root = c:GER
+						OR = {
+							AND = {
+								exists = c:NGF
+								root = c:NGF
+							}						
+							AND = {
+								exists = c:GER
+								root = c:GER
+							}
 						}
 					}
 
 					add = {
 						desc = "DIPLOMATIC_ACCEPTANCE_SUPPORT_UNIFICATION"
-						value = 75
+						value = 100
 					}
 				}
 			}
@@ -681,12 +687,12 @@
 
 				if = {
 					limit = { scope:actor = { country_rank = root.country_rank } }
-					value = -20
+					value = -100
 				}
 
 				if = {
 					limit = { scope:actor = { country_rank < root.country_rank } }
-					value = -50
+					value = -500
 				}
 			}
 		}

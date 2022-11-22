@@ -56,44 +56,131 @@ expedition_events.201 = { #Choose commander
 	}
 
 	immediate = {
-		random_scope_character = {
+		if = {
 			limit = {
-				is_ruler = no
-				OR = {
-					has_role = general
-					has_role = admiral
+				any_scope_character = {
+					is_ruler = no
+					OR = {
+						has_role = general
+						has_role = admiral
+					}
+					has_trait = explorer
 				}
 			}
-			save_scope_as = expedition_leader_1
+			random_scope_character = {
+				limit = {
+					is_ruler = no
+					OR = {
+						has_role = general
+						has_role = admiral
+					}
+					has_trait = explorer
+				}
+				save_scope_as = expedition_leader_1
+			}
 		}
-		
-		random_scope_character = {
-			limit = {
-				is_ruler = no
-				OR = {
-					has_role = general
-					has_role = admiral
+		else = {
+			random_scope_character = {
+				limit = {
+					is_ruler = no
+					OR = {
+						has_role = general
+						has_role = admiral
+					}
 				}
-				NOT = {
-					this = scope:expedition_leader_1
-				}
+				save_scope_as = expedition_leader_1
 			}
-			save_scope_as = expedition_leader_2
 		}
-
-		random_scope_character = {
+		if = {
 			limit = {
-				is_ruler = no
-				OR = {
-					has_role = general
-					has_role = admiral
-				}
-				NOR = {
-					this = scope:expedition_leader_1
-					this = scope:expedition_leader_2
+				any_scope_character = {
+					is_ruler = no
+					OR = {
+						has_role = general
+						has_role = admiral
+					}
+					NOT = {
+						this = scope:expedition_leader_1
+					}
+					has_trait = explorer
 				}
 			}
-			save_scope_as = expedition_leader_3
+			random_scope_character = {
+				limit = {
+					is_ruler = no
+					OR = {
+						has_role = general
+						has_role = admiral
+					}
+					NOT = {
+						this = scope:expedition_leader_1
+					}
+					has_trait = explorer
+				}
+				save_scope_as = expedition_leader_2
+			}
+		}
+		else = {
+			random_scope_character = {
+				limit = {
+					is_ruler = no
+					OR = {
+						has_role = general
+						has_role = admiral
+					}
+					NOT = {
+						this = scope:expedition_leader_1
+					}
+				}
+				save_scope_as = expedition_leader_2
+			}
+		}
+		if = {
+			limit = {
+				any_scope_character = {
+					is_ruler = no
+					OR = {
+						has_role = general
+						has_role = admiral
+					}
+					NOR = {
+						this = scope:expedition_leader_1
+						this = scope:expedition_leader_2
+					}
+					has_trait = explorer
+				}
+			}
+			random_scope_character = {
+				limit = {
+					is_ruler = no
+					OR = {
+						has_role = general
+						has_role = admiral
+					}
+					NOR = {
+						this = scope:expedition_leader_1
+						this = scope:expedition_leader_2
+					}
+					has_trait = explorer
+				}
+				save_scope_as = expedition_leader_3
+			}
+		}
+		else = {
+			random_scope_character = {
+				limit = {
+					is_ruler = no
+					OR = {
+						has_role = general
+						has_role = admiral
+					}
+					NOR = {
+						this = scope:expedition_leader_1
+						this = scope:expedition_leader_2
+					}
+				}
+				save_scope_as = expedition_leader_3
+			}
 		}
 		set_variable = west_america_expedition_var
 		set_variable = {
@@ -163,7 +250,7 @@ expedition_events.201 = { #Choose commander
 	}
 }
 
-expedition_events.300 = { #Sucessful expedition - Buenaventura River
+expedition_events.300 = { #Successful expedition - Buenaventura River
 	type = country_event
     placement = ROOT
 
@@ -187,13 +274,6 @@ expedition_events.300 = { #Sucessful expedition - Buenaventura River
 		remove_variable = on_expedition
 		remove_expedition_events_effect = yes
 		set_global_variable = buenaventura_river_disproven
-		random_scope_character = {
-			limit = {
-				has_variable = expedition_leader_var
-			}
-			remove_variable = expedition_leader_var
-			save_scope_as = expedition_leader
-		}
 	}
 
 	option = {
@@ -202,6 +282,7 @@ expedition_events.300 = { #Sucessful expedition - Buenaventura River
 		scope:expedition_leader = {
 			set_character_busy = no
 			add_trait = explorer
+			remove_variable = expedition_leader_var 
 		}
 		add_modifier = {
 			name = modifier_buenaventura_river_disproven
@@ -210,7 +291,7 @@ expedition_events.300 = { #Sucessful expedition - Buenaventura River
 	}
 }
 
-expedition_events.301 = { #Sucessful expedition - Oregon Trail
+expedition_events.301 = { #Successful expedition - Oregon Trail
 	type = country_event
     placement = ROOT
 
@@ -234,13 +315,6 @@ expedition_events.301 = { #Sucessful expedition - Oregon Trail
 		remove_variable = on_expedition
 		remove_expedition_events_effect = yes
 		set_global_variable = oregon_trail_mapped
-		random_scope_character = {
-			limit = {
-				has_variable = expedition_leader_var 
-			}
-			remove_variable = expedition_leader_var
-			save_scope_as = expedition_leader
-		}
 	}
 
 	option = {
@@ -249,6 +323,7 @@ expedition_events.301 = { #Sucessful expedition - Oregon Trail
 		scope:expedition_leader = {
 			set_character_busy = no
 			add_trait = explorer
+			remove_variable = expedition_leader_var
 		}
 		add_modifier = {
 			name = modifier_oregon_trail_mapped
@@ -257,7 +332,7 @@ expedition_events.301 = { #Sucessful expedition - Oregon Trail
 	}
 }
 
-expedition_events.302 = { #Sucessful expedition - Great Salt Lake
+expedition_events.302 = { #Successful expedition - Great Salt Lake
 	type = country_event
     placement = ROOT
 
@@ -285,7 +360,6 @@ expedition_events.302 = { #Sucessful expedition - Great Salt Lake
 			limit = {
 				has_variable = expedition_leader_var 
 			}
-			remove_variable = expedition_leader_var
 			save_scope_as = expedition_leader
 		}
 	}
@@ -296,6 +370,7 @@ expedition_events.302 = { #Sucessful expedition - Great Salt Lake
 		scope:expedition_leader = {
 			set_character_busy = no
 			add_trait = explorer
+			remove_variable = expedition_leader_var
 		}
 		add_modifier = {
 			name = modifier_great_salt_lake_mapped
@@ -325,12 +400,12 @@ expedition_events.205 = { #Failed expedition
 
     immediate = {
     	west_america_expedition_location = yes
-		remove_expedition_events_effect = yes
 		random_scope_character = {
 			limit = { has_variable = expedition_leader_var }
-			remove_variable = expedition_leader_var
 			save_scope_as = expedition_leader
 		}
+		remove_variable = on_expedition
+		remove_expedition_events_effect = yes
     }
 
 	option = {
@@ -339,6 +414,7 @@ expedition_events.205 = { #Failed expedition
 		scope:expedition_leader = {
 			add_trait = explorer
 			set_character_busy = no
+			remove_variable = expedition_leader_var
 		}
 		add_modifier = {
 			name = modifier_failed_expedition
@@ -384,10 +460,10 @@ expedition_events.220 = { #crossing a river
 		name = expedition_events.220.a
 		default_option = yes
 		random_list = {
-			75= { #75%
+			10 = { #50%
 				trigger_event = { id = expedition_events.221 days = 0 popup = yes }
 			}
-			25= { #25%
+			10 = { #50%
 				trigger_event = { id = expedition_events.222 days = 0 popup = yes}
 			}
 		}
@@ -409,11 +485,11 @@ expedition_events.220 = { #crossing a river
 		custom_tooltip = jump_river_tt
 		hidden_effect = {
 			random_list = {
-				75= {
+				99 = {
 					set_variable = jump_river_fail_var
 					trigger_event = { id = expedition_events.222 days = 0 popup = yes }
 				}
-				25 = {
+				1 = {
 					set_variable = jump_river_success_var
 					trigger_event = { id = expedition_events.221 days = 0 popup = yes }
 				}
@@ -521,10 +597,10 @@ expedition_events.230 = { #Bear sighted
 		name = expedition_events.230.a
 		default_option = yes
 		random_list = {
-			75 = {
+			10 = {
 				trigger_event = { id = expedition_events.231 days = 0 popup = yes } #Success
 			}
-			25 = {
+			10 = {
 				trigger_event = { id = expedition_events.232 days = 0 popup = yes} #Failure
 			}
 		}
@@ -947,6 +1023,7 @@ expedition_events.263 = { #Snow clears
 		name = expedition_events.263.a
 		default_option = yes
 		custom_tooltip = expedition_event_ongoing_tt
+		expedition_peril_decrease_small_effect = yes
 	}
 }
 
@@ -1075,7 +1152,10 @@ expedition_events.280 = { #Lost
     option = { #push on
 		name = expedition_events.280.a
 		random_list = {
-			30 = {
+			#30 = {
+				#trigger_event = { id = expedition_events.281 days = 0 popup = yes }
+			#}
+			10 = {
 				trigger_event = { id = expedition_events.281 days = 0 popup = yes }
 			}
 			10 = {
@@ -1270,6 +1350,7 @@ expedition_events.291 = { #Pregnant Woman
 		name = expedition_events.291.a
 		default_option = yes
 		custom_tooltip = expedition_event_delayed_tt
+		set_variable = expedition_has_baby_var
 	}
 	
 	option = { #tell them to go back
@@ -1417,10 +1498,10 @@ expedition_events.293 = { #give these men a quest
 				has_variable = disciplinary_sanctions_var
 			}
 			random_list = {
-				25 = { #they flee
+				50 = { #they flee
 					add_medium_peril_effect = yes
 				}
-				75 = {
+				50 = {
 					trigger_event = { id = expedition_events.295 days = 3 }
 				}
 			}
@@ -1439,10 +1520,10 @@ expedition_events.293 = { #give these men a quest
 				has_variable = disciplinary_sanctions_var
 			}
 			random_list = {
-				25 = { #they flee
+				50 = { #they flee
 					add_medium_peril_effect = yes
 				}
-				75 = {
+				50 = {
 					trigger_event = { id = expedition_events.294 days = 3 }
 				}
 			}
@@ -1512,7 +1593,7 @@ expedition_events.294 = { #found a native settlement
 		trigger = {
 			custom_tooltip = {
 				text = expedition_baby_tt
-				has_variable = expedition_baby_var
+				has_variable = expedition_has_baby_var #expedition_baby_var
 			}
 		}
 		expedition_peril_decrease_small_effect = yes
@@ -1544,10 +1625,10 @@ expedition_events.295 = { #hunting party
 		name = expedition_events.295.a
 		default_option = yes
 		random_list = {
-			25 = {
+			33 = {
 				add_medium_peril_effect = yes
 			}
-			75 = {
+			66 = {
 				expedition_minor_progress_effect = yes
 			}
 		}
@@ -1556,13 +1637,13 @@ expedition_events.295 = { #hunting party
 	option = { #go for the great game
 		name = expedition_events.295.b
 		random_list = {
-			10 = {
+			33 = {
 				add_medium_peril_effect = yes
 			}
-			15 = {
+			33 = {
 				add_large_peril_effect = yes
 			}
-			75 = {
+			33 = {
 				expedition_moderate_progress_effect = yes
 			}
 		}
@@ -1624,10 +1705,10 @@ expedition_events.296 = { #listen to your guide
 	option = { #take the faster route
 		name = expedition_events.296.b
 		random_list = {
-			25 = {
+			50 = {
 				add_medium_peril_effect = yes
 			}
-			75 = {
+			50 = {
 				expedition_minor_progress_effect = yes
 			}
 		}
@@ -1679,11 +1760,11 @@ expedition_events.297 = { #cabin fever
         default_option = yes
         custom_tooltip = expedition_event_delayed_tt
         random_list = {
-            25 = {
+            50 = {
                 add_small_peril_effect = yes
             }
-            75 = {
-		expedition_minor_progress_effect = yes
+            50 = {
+				expedition_peril_decrease_small_effect = yes
             }
         }
     }

@@ -27,6 +27,9 @@ africa_colonial_events.51 = {
 				any_scope_state = {
 					is_incorporated = no
 					NOT = {
+						has_variable = colony_conflict
+					}
+					NOT = {
 						has_claim_by = ROOT
 					}
 					owner = {
@@ -45,6 +48,9 @@ africa_colonial_events.51 = {
 			limit = {
 				is_incorporated = no
 				state_in_africa = yes
+				NOT = {
+					has_variable = colony_conflict
+				}
 				state_region = {
 					any_scope_state = {
 						is_incorporated = no
@@ -61,6 +67,9 @@ africa_colonial_events.51 = {
 				random_scope_state = {
 					limit = {
 						is_incorporated = no
+						NOT = {
+							has_variable = colony_conflict
+						}
 						owner = {
 							NOT = { this = root }
 							#country_rank = root.country_rank
@@ -71,6 +80,7 @@ africa_colonial_events.51 = {
 					owner = {
 						save_scope_as = african_colony_conflict_recipient
 					}
+					set_variable = colony_conflict
 				}
 			}
 		}
@@ -80,7 +90,7 @@ africa_colonial_events.51 = {
 		name = africa_colonial_events.51.a
 		create_incident = {
 			country = scope:african_colony_conflict_recipient
-			value = 10
+			value = 2.5 #10
 		}
 		scope:african_colony_conflict_recipient = {
 			trigger_event = { id = africa_colonial_events.52 days = 0 popup = yes }
@@ -121,7 +131,7 @@ africa_colonial_events.52 = {
 		name = africa_colonial_events.52.a
 		create_incident = {
 			country = scope:african_colony_conflict_sender
-			value = 10
+			value = 2.5 #10
 		}
 		scope:african_colony_conflict_sender = {
 			post_notification = colonial_conflict_region_demands_refused
@@ -249,6 +259,9 @@ africa_colonial_events.54 = {
 		any_state = {
 			has_claim_by = root
 			state_in_africa = yes
+			NOT = {
+				has_variable = colony_conflict_2
+			}
 			is_incorporated = no
 			owner = {
 				not = { this = root }
@@ -263,6 +276,9 @@ africa_colonial_events.54 = {
 			limit = {
 				has_claim_by = root
 				state_in_africa = yes
+				NOT = {
+					has_variable = colony_conflict_2
+				}
 				is_incorporated = no
 				owner = {
 					not = { this = root }
@@ -273,6 +289,7 @@ africa_colonial_events.54 = {
 			owner = {
 				save_scope_as = african_colony_claim_conflict_recipient
 			}
+			set_variable = colony_conflict_2
 		}
 	}
 
@@ -280,10 +297,11 @@ africa_colonial_events.54 = {
 		name = africa_colonial_events.54.a
 		create_incident = {
 			country = scope:african_colony_claim_conflict_recipient
-			value = 15
+			value = 2.5 #15
 		}
 		scope:african_colony_claim_conflict_recipient = {
 			trigger_event = { id = africa_colonial_events.55 days = 0 popup = yes }
+			
 		}
 	}
 
@@ -320,7 +338,7 @@ africa_colonial_events.55 = {
 		name = africa_colonial_events.55.a
 		create_incident = {
 			country = scope:african_colony_claim_conflict_sender
-			value = 10
+			value = 2.5 #10
 		}
 		scope:african_colony_claim_conflict_sender = {
 			post_notification = colonial_conflict_claim_demands_refused
@@ -328,6 +346,17 @@ africa_colonial_events.55 = {
 
 		ai_chance = {
 			base = 9
+			
+			modifier = {
+				factor = 0 
+				scope:african_colony_claim_conflict_sender = {
+					OR = {
+						has_diplomatic_pact = { who = root type = alliance  }
+						has_diplomatic_pact = { who = root type = defensive_pact  }
+						has_diplomatic_pact = { who = root type = customs_union  }
+					}
+				}
+			}
 		}
 	}
 
@@ -344,6 +373,17 @@ africa_colonial_events.55 = {
 
 		ai_chance = {
 			base = 1
+			
+			modifier = {
+				factor = 0 
+				scope:african_colony_claim_conflict_sender = {
+					OR = {
+						has_diplomatic_pact = { who = root type = rivalry  }
+						has_diplomatic_pact = { who = root type = embargo  }
+						has_war_with = ROOT
+					}
+				}
+			}
 		}
 	}
 }

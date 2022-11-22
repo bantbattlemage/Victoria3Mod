@@ -57,6 +57,16 @@ cold.102 = { #Choose commander
 			save_scope_as = expedition_leader_1
 		}
 		if = {
+			limit = {
+				any_scope_character = {
+					is_ruler = no
+					has_role = admiral
+					has_trait = explorer
+					NOT = {
+						this = scope:expedition_leader_1
+					}
+				}
+			}
 			random_scope_character = {
 				limit = {
 					is_ruler = no
@@ -81,28 +91,86 @@ cold.102 = { #Choose commander
 				save_scope_as = expedition_leader_2
 			}
 		}
-		random_scope_character = {
+		if = {
 			limit = {
-				is_ruler = no
-				has_role = admiral
-				NOR = {
-					this = scope:expedition_leader_1
-					this = scope:expedition_leader_2
+				any_scope_character = {
+					is_ruler = no
+					has_role = admiral
+					has_trait = explorer
+					NOR = {
+						this = scope:expedition_leader_1
+						this = scope:expedition_leader_2
+					}
+					
 				}
 			}
-			save_scope_as = expedition_leader_3
+			random_scope_character = {
+				limit = {
+					is_ruler = no
+					has_role = admiral
+					has_trait = explorer
+					NOR = {
+						this = scope:expedition_leader_1
+						this = scope:expedition_leader_2
+					}
+				}
+				save_scope_as = expedition_leader_3
+			}
 		}
-		random_scope_character = {
+		else = {
+			random_scope_character = {
+				limit = {
+					is_ruler = no
+					has_role = admiral
+					NOR = {
+						this = scope:expedition_leader_1
+						this = scope:expedition_leader_2
+					}
+				}
+				save_scope_as = expedition_leader_3
+			}
+		}
+		if = {
 			limit = {
-				is_ruler = no
-				has_role = admiral
-				NOR = {
-					this = scope:expedition_leader_1
-					this = scope:expedition_leader_2
-					this = scope:expedition_leader_3
+				any_scope_character = {
+					is_ruler = no
+					has_role = admiral
+					has_trait = explorer
+					NOR = {
+						this = scope:expedition_leader_1
+						this = scope:expedition_leader_2
+						this = scope:expedition_leader_3
+					}
+					
 				}
 			}
-			save_scope_as = expedition_leader_4
+			random_scope_character = {
+				limit = {
+					is_ruler = no
+					has_role = admiral
+					has_trait = explorer
+					NOR = {
+						this = scope:expedition_leader_1
+						this = scope:expedition_leader_2
+						this = scope:expedition_leader_3
+					}
+				}
+				save_scope_as = expedition_leader_4
+			}
+		}
+		else = {
+			random_scope_character = {
+				limit = {
+					is_ruler = no
+					has_role = admiral
+					NOR = {
+						this = scope:expedition_leader_1
+						this = scope:expedition_leader_2
+						this = scope:expedition_leader_3
+					}
+				}
+				save_scope_as = expedition_leader_4
+			}
 		}
 		set_variable = {
 			name = expedition_progress
@@ -219,6 +287,10 @@ cold.1 = {
 	
 	immediate = {
 		set_variable = mountains_of_madness
+		random_scope_character = {
+			limit = { has_variable = expedition_leader_var }
+			save_scope_as = expedition_leader
+		}
 	}
 	
 	option = { # Move on
@@ -435,7 +507,6 @@ cold.4 = {
 		random_scope_character = {
 			limit = { has_variable = expedition_leader_var }
 			save_scope_as = expedition_leader
-			remove_variable = expedition_leader_var
 		}
 	}
 
@@ -450,7 +521,7 @@ cold.4 = {
 	}
 }
 
-# The Pole!
+# The Pole! 
 cold.5 = {
 	type = country_event
 	placement = ROOT
@@ -621,8 +692,9 @@ cold.7 = {
 		random_scope_character = {
 			limit = { has_variable = expedition_leader_var }
 			save_scope_as = expedition_leader
-			remove_variable = expedition_leader_var
 		}
+		remove_variable = on_expedition
+		remove_expedition_events_effect = yes
 	}
 	
 	option = {
@@ -635,6 +707,7 @@ cold.7 = {
 			add_trait = explorer
 			set_variable = polar_explorer
 			set_character_busy = no
+			remove_variable = expedition_leader_var 
 			add_modifier = {
 				name = succesfull_south_pole_modifier
 				multiplier = 2
@@ -654,6 +727,7 @@ cold.7 = {
 			add_trait = explorer
 			set_variable = polar_explorer
 			set_character_busy = no
+			remove_variable = expedition_leader_var
 			add_modifier = {
 				name = succesfull_south_pole_modifier
 			}
@@ -794,7 +868,7 @@ cold.9 = {
 	}
 }
 
-# Whaling Station
+# Whaling Station fail expedition
 cold.10 = {
 	type = country_event
 	placement = ROOT
@@ -817,7 +891,6 @@ cold.10 = {
 		random_scope_character = {
 			limit = { has_variable = expedition_leader_var }
 			save_scope_as = expedition_leader
-			remove_variable = expedition_leader_var
 		}
 	}
 	
@@ -828,6 +901,7 @@ cold.10 = {
 			add_trait = explorer
 			set_variable = polar_explorer
 			set_character_busy = no
+			remove_variable = expedition_leader_var
 			add_modifier = {
 				name = safe_polar_exp_modifier
 				months = normal_modifier_time

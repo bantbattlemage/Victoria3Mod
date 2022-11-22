@@ -1,0 +1,4 @@
+﻿l_english:
+ africa_colonial_events.52.d:0 "One of our colonial expeditions in [SCOPE.sState('african_colony_state_recipient').GetName] has encountered [SCOPE.sC('african_colony_conflict_sender').GetAdjectiveNoFormatting] troops in the region. [SCOPE.sC('african_colony_conflict_sender').GetName] demands we turn back and abandon our designs on [SCOPE.sState('african_colony_state_recipient').GetName]."
+ 
+ industrial_accident_events.3.f:0 "Come all you rounders, if you want to hear a story all about a brave engineer..."

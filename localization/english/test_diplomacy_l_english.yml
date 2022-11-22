@@ -1,0 +1,11 @@
+﻿l_english:
+
+DIPLOMATIC_ACCEPTANCE_SAME_CULTURE:0 "We have the same primary culture as [SCOPE.GetRootScope.GetCountry.GetAdjectiveNoFormatting]"
+
+DIPLOMATIC_ACCEPTANCE_UNIFICATION:0 "The [SCOPE.GetRootScope.GetCountry.GetAdjectiveNoFormatting] are supporting our bid for unification"
+
+DIPLOMATIC_ACCEPTANCE_SUPPORT_UNIFICATION:0 "We are supporting [SCOPE.GetRootScope.GetCountry.GetAdjectiveNoFormatting]'s bid for unification"
+
+DIPLOMATIC_ACCEPTANCE_NO_UNIFICATION:0 "The [SCOPE.GetRootScope.GetCountry.GetAdjectiveNoFormatting] are NOT supporting our bid for unification"
+
+DIPLOMATIC_ACCEPTANCE_WANTS_UNIFICATION:0 "The [SCOPE.GetRootScope.GetCountry.GetAdjectiveNoFormatting] are involved in national unification"

@@ -1,0 +1,17 @@
+LotusAI 1.5.1
+
+# Integrated several bugfixes from this mod. https://mods.paradoxplaza.com/mods/52798/Any This included a slightly expanded German/Italian unification that is still very close to vanilla that is integrated as well.
+
+# Further adjustments/fixes to aggression & wargoals, small fixes that I didn't get to or notice before yesterday.
+
+# I believe I have fixed a bug where AI Prussia would annex itself when forming NGF (and thus revert back to being Prussia instantly and no longer able to form NGF) This would only happen to AI Prussia.
+
+# Fixed AI conquering others subjects instead of using transfer vassal CB.
+
+# Fixed Prussia gunning for German Leadership too early and losing it pretty consistently.
+
+# Fixed Italians being more passive than intended; Italy was not really forming because of this.
+
+# Fixed Sweden not going after Denmark to form Scandinavia.
+
+# AI Qing will no longer enter into any Defensive Pacts or Alliances with anyone.

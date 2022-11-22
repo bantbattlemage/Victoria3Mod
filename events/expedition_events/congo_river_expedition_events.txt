@@ -68,7 +68,6 @@ expedition_events.602 = { #Choose commander
 						has_role = general
 						has_role = admiral
 					}
-					is_ruler = no
 					has_trait = explorer
 				}
 			}
@@ -84,39 +83,108 @@ expedition_events.602 = { #Choose commander
 				save_scope_as = expedition_leader_1
 			}
 		}
-		random_scope_character = {
-			limit = {
-				is_ruler = no
-				OR = {
-					has_role = general
-					has_role = admiral
+		else = {
+			random_scope_character = {
+				limit = {
+					is_ruler = no
+					OR = {
+						has_role = general
+						has_role = admiral
+					}
 				}
-				trigger_if = {
-					limit = { exists = scope:expedition_leader_1 }
+				save_scope_as = expedition_leader_1
+			}
+		}
+		if = {
+			limit = {
+				any_scope_character = {
+					is_ruler = no
+					OR = {
+						has_role = general
+						has_role = admiral
+					}
+					NOT = {
+						this = scope:expedition_leader_1
+					}
+					has_trait = explorer
+				}
+			}
+			random_scope_character = {
+				limit = {
+					is_ruler = no
+					OR = {
+						has_role = general
+						has_role = admiral
+					}
+					NOT = {
+						this = scope:expedition_leader_1
+					}
+					has_trait = explorer
+				}
+				save_scope_as = expedition_leader_2
+			}
+		}
+		else = {
+			random_scope_character = {
+				limit = {
+					is_ruler = no
+					OR = {
+						has_role = general
+						has_role = admiral
+					}
 					NOT = {
 						this = scope:expedition_leader_1
 					}
 				}
+				save_scope_as = expedition_leader_2
 			}
-			save_scope_as = expedition_leader_2
 		}
-		random_scope_character = {
+		if = {
 			limit = {
-				is_ruler = no
-				OR = {
-					has_role = general
-					has_role = admiral
-				}
-				NOR = {
-					AND = {
-						exists = scope:expedition_leader_1
-						this = scope:expedition_leader_1
+				any_scope_character = {
+					is_ruler = no
+					OR = {
+						has_role = general
+						has_role = admiral
 					}
-					this = scope:expedition_leader_2
+					NOR = {
+						this = scope:expedition_leader_1
+						this = scope:expedition_leader_2
+					}
+					has_trait = explorer
 				}
-
 			}
-			save_scope_as = expedition_leader_3
+			random_scope_character = {
+				limit = {
+					is_ruler = no
+					OR = {
+						has_role = general
+						has_role = admiral
+					}
+					NOR = {
+						this = scope:expedition_leader_1
+						this = scope:expedition_leader_2
+					}
+					has_trait = explorer
+				}
+				save_scope_as = expedition_leader_3
+			}
+		}
+		else = {
+			random_scope_character = {
+				limit = {
+					is_ruler = no
+					OR = {
+						has_role = general
+						has_role = admiral
+					}
+					NOR = {
+						this = scope:expedition_leader_1
+						this = scope:expedition_leader_2
+					}
+				}
+				save_scope_as = expedition_leader_3
+			}
 		}
 		set_variable = congo_river_expedition_var
 		set_variable = {
@@ -244,7 +312,6 @@ expedition_events.611 = { #Successful expedition
 		random_scope_character = {
 			limit = { has_variable = expedition_leader_var }
 			save_scope_as = expedition_leader
-			remove_variable = expedition_leader_var
 		}
 		if = {
 			limit = {
@@ -265,6 +332,7 @@ expedition_events.611 = { #Successful expedition
 		scope:expedition_leader = {
 			add_trait = explorer
 			set_character_busy = no
+			remove_variable = expedition_leader_var 
 			add_modifier = {
 				name = congo_expedition_modifier
 				months = normal_modifier_time
@@ -313,7 +381,6 @@ expedition_events.612 = { #Failed expedition
 		random_scope_character = {
 			limit = { has_variable = expedition_leader_var }
 			save_scope_as = expedition_leader
-			remove_variable = expedition_leader_var
 			set_variable = failed_expedition_leader_var
 		}
 	}
@@ -325,6 +392,7 @@ expedition_events.612 = { #Failed expedition
 		}
 		scope:expedition_leader = {
 			place_character_in_void = 24
+			set_character_busy = no
 		}
 		add_modifier = {
 			name = modifier_failed_expedition
@@ -351,6 +419,8 @@ expedition_events.612 = { #Failed expedition
 				months = normal_modifier_time
 			}
 			add_trait = explorer
+			set_character_busy = no
+			remove_variable = expedition_leader_var
 		}
 	}
 }

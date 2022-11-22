@@ -1,6 +1,4 @@
-﻿# BUG FIXES ONLY - error spam from these is fixed
-
-GER = { # Germany
+﻿GER = { # Germany
 	dynamic_country_name = {
 		name = dyn_c_german_empire
 		
@@ -9,8 +7,9 @@ GER = { # Germany
 		
 		trigger = {
 			coa_def_monarchy_flag_trigger = yes
-
+			exists = scope:actor
 			scope:actor = {
+				exists = yes
 				country_rank >= rank_value:major_power
 			}
 		}

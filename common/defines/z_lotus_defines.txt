@@ -3,30 +3,22 @@ NAI = {
 
 	BASE_AGGRESSION = 1
 	WAR_GOAL_RANDOM_FACTOR = 0
-	UNIFICATION_AGGRESSION_MULT_SAME_TIER = 1.0
+	UNIFICATION_AGGRESSION_MULT_HIGHER_TIER = 100
+	UNIFICATION_AGGRESSION_MULT_SAME_TIER = 1
 	START_DIPLO_PLAY_RANDOM_FACTOR = 1
 
-	#DIPLO_PLAY_CONFIDENCE_FORCE_BALANCE_FACTOR = 0
-	#DIPLO_PLAY_CONFIDENCE_FROM_TURMOIL = -1000
+	DIPLO_PLAY_BOLDNESS_EXISTENTIAL_PLAY = 100
 	DIPLO_PLAY_TAKE_SIDES_CHANCE = 0.1
 	DIPLO_PLAY_TAKE_SIDES_MIN_BOLDNESS = 100
 	DIPLO_PLAY_DECLARE_NEUTRALITY_CHANCE = 0.1
-	#DIPLO_PLAY_SWAY_COUNTRIES_ESCALATION = 0
 	DIPLO_PLAY_DECIDE_ON_SUPPORT_ESCALATION = 0 # the default value for this blocks ai from supporting against secessions in their own subjects
-	#DIPLO_PLAY_SWAY_THRESHOLD = 0.1
-	
-	#DIPLO_PLAY_BOLDNESS_EXISTENTIAL_PLAY = 0
-	#DIPLO_PLAY_CONFIDENCE_CIVIL_WAR_OR_UPRISING = -1000
-	#DIPLO_PLAY_CONFIDENCE_FROM_GOLD_RESERVES = 0
-	#DIPLO_PLAY_ADD_WARGOAL_THRESHOLD = 10
-	DIPLO_PLAY_SECESSION_OWN_SECESSION_RISK_FACTOR = 100 # this value is backwards by default or at least is applied backwards to which side it is on in a seccession war 
+	#DIPLO_PLAY_SWAY_COUNTRIES_ESCALATION = 0
+	DIPLO_PLAY_SYMPATHY_INCREASE_NEW_WARGOAL = 0.25
+	DIPLO_PLAY_SYMPATHY_ENEMY_OF_INFAMOUS_COUNTRY = 15 # Added to sympathy range for enemy of infamous country
+	DIPLO_PLAY_SYMPATHY_ENEMY_OF_NOTORIOUS_COUNTRY = 30 # Added to sympathy range for enemy of notorious country
+	DIPLO_PLAY_SYMPATHY_ENEMY_OF_PARIAH_COUNTRY = 100 # Added to sympathy range for enemy of pariah country
+	DIPLO_PLAY_SECESSION_OWN_SECESSION_RISK_FACTOR = 0 # this value is backwards by default or at least is applied backwards to which side it is on in a seccession war 
 	DIPLO_PLAY_NEUTRALITY_IN_SUBJECT_CONFLICT = -1000
-	#DIPLO_PLAY_SWAY_WARGOAL_WEAK_SWAYER_CONFIDENT_IN_OWN_ARMY_FACTOR = 1.0
-	#DIPLO_PLAY_ATTITUDE_PROTECTIVE_FACTOR = 500
-	#DIPLO_PLAY_ATTITUDE_PROTECTIVE_BACKER_FACTOR = 200
-	#DIPLO_PLAY_BOLDNESS_FROM_RANK = 10
-	#DIPLO_PLAY_SWAY_WARGOAL_MINIMUM_SWAYER_MULTIPLIER_TARGET = 1
-	#DIPLO_PLAY_SWAY_WARGOAL_MINIMUM_SWAYER_MULTIPLIER_TARGET = 1
 
 	AI_PEACE_AGREEMENT_PEACE_DESIRE_FACTOR = 5
 	AI_PEACE_AGREEMENT_WHITE_PEACE = 100 
@@ -38,8 +30,8 @@ NAI = {
 	AI_PEACE_DESIRE_FROM_TURMOIL = 100
 	AI_PEACE_DESIRE_FROM_DEVASTATION = 50000 #default value 50 lol
 	AI_PEACE_DESIRE_FROM_DEBT_LEVEL = 100
-	AI_PEACE_DESIRE_FROM_LOYALISTS = 0
-	AI_PEACE_DESIRE_FROM_GOLD_RESERVES = 0
+	AI_PEACE_DESIRE_FROM_LOYALISTS = -5
+	AI_PEACE_DESIRE_FROM_GOLD_RESERVES = -10
 
 	# i suspect these are all useless too 
 	AI_PEACE_AGREEMENT_WAR_SUPPORT_FACTOR = -5
@@ -64,28 +56,19 @@ NAI = {
 	GENERAL_COMMAND_LIMIT_PROMOTION_TARGET_FRACTION = 0.25
 	ADMIRAL_COMMAND_LIMIT_PROMOTION_TARGET_FRACTION = 0.25
 
-	HQ_DEFENSE_MIN_THEATER_SCORE = 1000
+	FRONT_IMPORTANCE_MIN_SCORE = 1
+	HQ_DEFENSE_MIN_THEATER_SCORE = 500
 	HQ_DEFENSE_MIN_WANTED_GARRISON = 0.0
 	COMBAT_UNIT_ASSIGNMENT_STICKINESS = 0.1
-
-	ADMIRAL_ORDERS_MIN_OFFENSIVE_FRACTION = 0.0
-	#ADMIRAL_ORDERS_BASE_OFFENSIVE_FRACTION = 0.0
-	ADMIRAL_ORDERS_MAX_OFFENSIVE_FRACTION = 0.4
-
-	NAVAL_INVASION_MIN_SCORE = 1
-	NAVAL_INVASION_MAX_LOCAL_FRONT_SCORE = 5000
-	NAVAL_INVASION_COOLDOWN_DAYS = 7
-	NAVAL_INVASION_MIN_RELATIVE_LOCAL_ARMY_STRENGTH = 0
-	#NAVAL_INVASION_MIN_RELATIVE_LOCAL_NAVY_STRENGTH = 0
 
 
 	# Higher priority wargoals are executed first
 	WAR_GOAL_EXECUTION_PRIORITY_REGIME_CHANGE = 1
-	WAR_GOAL_EXECUTION_PRIORITY_BAN_SLAVERY = 2
-	WAR_GOAL_EXECUTION_PRIORITY_HUMILIATION = 3
+	WAR_GOAL_EXECUTION_PRIORITY_BAN_SLAVERY = 1
+	WAR_GOAL_EXECUTION_PRIORITY_HUMILIATION = 2
+	WAR_GOAL_EXECUTION_PRIORITY_WAR_REPARATIONS = 3
 	WAR_GOAL_EXECUTION_PRIORITY_OPEN_MARKET = 4
-	WAR_GOAL_EXECUTION_PRIORITY_WAR_REPARATIONS = 5
-	WAR_GOAL_EXECUTION_PRIORITY_LIBERATE_SUBJECT = 6
+	WAR_GOAL_EXECUTION_PRIORITY_LIBERATE_SUBJECT = 5
 	WAR_GOAL_EXECUTION_PRIORITY_CONQUER_STATE = 7
 	WAR_GOAL_EXECUTION_PRIORITY_LIBERATE_COUNTRY = 8
 	WAR_GOAL_EXECUTION_PRIORITY_TRANSFER_SUBJECT = 9
@@ -97,12 +80,51 @@ NAI = {
 	WAR_GOAL_EXECUTION_PRIORITY_MAKE_PUPPET = 90
 	WAR_GOAL_EXECUTION_PRIORITY_RETURN_STATE = 100
 	WAR_GOAL_EXECUTION_PRIORITY_CONTAIN_THREAT = 101
-	WAR_GOAL_EXECUTION_PRIORITY_FORCE_RECOGNITION = 101
-	WAR_GOAL_EXECUTION_PRIORITY_INDEPENDENCE = 102
-	WAR_GOAL_EXECUTION_PRIORITY_SECESSION = 102
-	WAR_GOAL_EXECUTION_PRIORITY_UNIFICATION = 202	
-	WAR_GOAL_EXECUTION_PRIORITY_UNIFICATION_LEADERSHIP = 202
+	WAR_GOAL_EXECUTION_PRIORITY_FORCE_RECOGNITION = 102
+	WAR_GOAL_EXECUTION_PRIORITY_INDEPENDENCE = 103
+	WAR_GOAL_EXECUTION_PRIORITY_SECESSION = 104
+	WAR_GOAL_EXECUTION_PRIORITY_UNIFICATION_LEADERSHIP = 6
+	WAR_GOAL_EXECUTION_PRIORITY_UNIFICATION = 202
 	WAR_GOAL_EXECUTION_PRIORITY_ANNEX_COUNTRY = 202
+
+	#### admiral values taken from Best War
+	# Below data is used for Admiral Orders:
+	ADMIRAL_ORDERS_RANDOM_FACTOR = 2									# The higher this is, the more random AI will be in selection of admiral orders
+	#ADMIRAL_ORDERS_MIN_OFFENSIVE_FRACTION = 1					# Min fraction the AI will use for offensive operations
+	#ADMIRAL_ORDERS_MAX_OFFENSIVE_FRACTION = 1 						# Max fraction the AI will use for offensive operations
+	#ADMIRAL_ORDERS_BASE_OFFENSIVE_FRACTION = 1					# How much of its naval forces will the AI use for offensive operations at 100% relative navy strength
+	#ADMIRAL_ORDERS_OFFENSIVE_FRACTION_SCALING = 0.25				# Fraction the AI will use for offensive operations will be multiplied or divided by (1 + ((stronger side strength ratio - 1) * this)) based on who in the war has the stronger navy
+	
+	ADMIRAL_ORDERS_STANCE_CHANGE_CHANCE = 1							# The chance that an admiral will change their stance from offensive to defensive or vice versa each AI update (1 = 100%)
+	
+	ADMIRAL_ORDERS_RAID_CONVOYS_LANE_SIZE_FACTOR = 1					# Multiplied by the number of convoys that the target shipping lane uses
+	ADMIRAL_ORDERS_RAID_CONVOYS_MILITARY_IMPORTS_MULT = 5				# Score for shipping lanes that are importing military goods to enemies is multiplied by this
+	ADMIRAL_ORDERS_RAID_CONVOYS_ARMY_SUPPLY_ROUTE_MULT = 3			# Score for shipping lanes supporting overseas armies is multiplied by this
+	ADMIRAL_ORDERS_RAID_CONVOYS_ARMY_OWN_TERRITORY_SUPPLY_ROUTE_MULT = 5	# Score for shipping lanes supporting overseas armies on our fronts is multiplied by this
+
+	ADMIRAL_ORDERS_ESCORT_CONVOYS_RELATIVE_LANE_SIZE_FACTOR = 1		# Apply this score relative to fraction of owning country's convoys used
+	ADMIRAL_ORDERS_ESCORT_CONVOYS_ABSOLUTE_LANE_SIZE_FACTOR = 0.1		# Apply this score per actual convoy used by the route
+	ADMIRAL_ORDERS_ESCORT_CONVOYS_LANE_SIZE_FACTOR_MAX = 1			# Total lane size factor cannot be above this
+	ADMIRAL_ORDERS_ESCORT_CONVOYS_PORT_CONNECTION_WAR_MULT = 0.1		# Score for shipping lanes supporting overseas ports multiplied by this while at war
+	ADMIRAL_ORDERS_ESCORT_CONVOYS_PORT_CONNECTION_PEACE_MULT = 1.0		# Score for shipping lanes supporting overseas ports multiplied by this while not at war
+	ADMIRAL_ORDERS_ESCORT_CONVOYS_MILITARY_IMPORTS_WAR_MULT = 1.0		# Score for shipping lanes that are importing military goods to our market while at war is multiplied by this
+	ADMIRAL_ORDERS_ESCORT_CONVOYS_ARMY_SUPPLY_ROUTE_MULT = 1.0			# Score for shipping lanes supporting our overseas armies is multiplied by this
+	ADMIRAL_ORDERS_ESCORT_CONVOYS_ACTIVE_RAIDERS_MULT = 1.0				# Score for shipping lanes that are being actively raided by the enemy is multiplied by this
+	
+	ADMIRAL_ORDERS_INTERCEPTION_PEACE_NEGOTIATOR_CAPITAL_FACTOR = 1	# Score for defending allied peace negotiator capital region with interception order
+	ADMIRAL_ORDERS_INTERCEPTION_OWN_CAPITAL_FACTOR = 10				# Score for defending our capital region with interception order
+	ADMIRAL_ORDERS_INTERCEPTION_WARGOAL_FACTOR = 10					# Score for defending wargoal targeting ally with interception order
+	ADMIRAL_ORDERS_INTERCEPTION_WARGOAL_OWN_TERRITORY_FACTOR = 1	    # Score for defending wargoal targeting us with interception order
+	
+	# Below data is used for naval invasions:
+	NAVAL_INVASION_RANDOM_FACTOR = 0.5 								# The higher this is, the more random AI naval invasion theater selection will be
+	NAVAL_INVASION_MIN_RELATIVE_LOCAL_ARMY_STRENGTH = 0.25 			# AI wants at least this fraction of defending army strength to risk a naval invasion
+	NAVAL_INVASION_MIN_RELATIVE_LOCAL_NAVY_STRENGTH = 0.5			# AI wants at least this fraction of defending naval strength to risk a naval invasion
+	NAVAL_INVASION_MIN_RELATIVE_GLOBAL_NAVY_STRENGTH_ATTACKER = 0.5 # AI wants at least this fraction of naval strength in the overall war to risk a naval invasion as the attacking war side
+	NAVAL_INVASION_MIN_RELATIVE_GLOBAL_NAVY_STRENGTH_DEFENDER = 0.3 # AI wants at least this fraction of naval strength in the overall war to risk a naval invasion as the defending war side
+	NAVAL_INVASION_COOLDOWN_DAYS = 7 								# After launching a naval invasion, the AI will wait at least this long before launching another
+	NAVAL_INVASION_MIN_SCORE = 0									# AI won't bother launching naval invasions against theaters with a lower total state score than this
+	NAVAL_INVASION_MAX_LOCAL_FRONT_SCORE = 500						# Don't launch a naval invasion if there is a local front of at least this total score for the general		
 }
 
 ### most values in the below defines are taken from this mod https://forum.paradoxplaza.com/forum/threads/unofficial-bug-fixes-and-tweaks-1-02a-for-game-version-1-05-now-works-with-the-subscribe-feature.1556045/page-2
@@ -143,6 +165,22 @@ NEconomy = {
 }
 
 ######### currently unused values that have been experimented with below
+
+#DIPLO_PLAY_CONFIDENCE_FORCE_BALANCE_FACTOR = 0
+#DIPLO_PLAY_CONFIDENCE_FROM_TURMOIL = -1000
+
+#DIPLO_PLAY_SWAY_THRESHOLD = 0.1
+#DIPLO_PLAY_BOLDNESS_EXISTENTIAL_PLAY = 0
+#DIPLO_PLAY_CONFIDENCE_CIVIL_WAR_OR_UPRISING = -1000
+#DIPLO_PLAY_CONFIDENCE_FROM_GOLD_RESERVES = 0
+#DIPLO_PLAY_ADD_WARGOAL_THRESHOLD = 10
+
+#DIPLO_PLAY_SWAY_WARGOAL_WEAK_SWAYER_CONFIDENT_IN_OWN_ARMY_FACTOR = 1.0
+#DIPLO_PLAY_ATTITUDE_PROTECTIVE_FACTOR = 500
+#DIPLO_PLAY_ATTITUDE_PROTECTIVE_BACKER_FACTOR = 200
+#DIPLO_PLAY_BOLDNESS_FROM_RANK = 10
+#DIPLO_PLAY_SWAY_WARGOAL_MINIMUM_SWAYER_MULTIPLIER_TARGET = 1
+#DIPLO_PLAY_SWAY_WARGOAL_MINIMUM_SWAYER_MULTIPLIER_TARGET = 1
 
 #AI_CAPITULATE_BASE_VALUE = -200		
 #MIN_WAR_SUPPORT = 0

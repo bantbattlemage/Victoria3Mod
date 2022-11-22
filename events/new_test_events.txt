@@ -1,0 +1,57 @@
+﻿namespace = test
+
+test.100 = {
+   type = country_event
+    # placement = top
+
+   duration = -1
+   trigger = { always = no }
+   cancellation_trigger = { always = no }
+
+    option = {
+        name = "Missing option name"
+		every_scope_character = {
+			limit = { has_variable = expedition_leader_var }
+			remove_variable = expedition_leader_var
+			set_character_busy = no
+		}
+   }
+}
+
+test.101 = {
+   type = country_event
+    # placement = top
+
+   duration = -1
+   trigger = { always = no }
+   cancellation_trigger = { always = no }
+
+    option = {
+        name = "Missing option name"
+		every_state = {
+			limit = {
+				has_building = building_port
+			}
+			create_building = {
+				building = building_port
+				level = 0
+			}
+		}
+   }
+}
+
+test.102 = {
+   type = country_event
+    # placement = top
+
+   duration = -1
+   trigger = { always = no }
+   cancellation_trigger = { always = no }
+
+    option = {
+        name = "Missing option name"
+		c:PRU= {
+			set_strategy = ai_strategy_unify_germany
+		}
+   }
+}

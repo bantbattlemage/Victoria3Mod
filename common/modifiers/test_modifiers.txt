@@ -1,0 +1,65 @@
+﻿base_values = {
+	country_weekly_innovation_add = 50
+	country_weekly_innovation_max_add = 50
+	country_tech_spread_add = 25
+	
+	country_loan_interest_rate_add = 0.2
+	
+	country_legitimacy_govt_total_clout_add = 1
+	country_legitimacy_govt_size_add = -20
+	
+	country_bureaucracy_add = 100
+	country_authority_add = 100
+	country_influence_add = 100
+
+	country_revolution_secession_speed_add = 0.1
+	
+	state_education_access_wealth_add = 0.02
+	
+	country_minting_add = 250
+
+	state_tax_capacity_add = 100
+	state_infrastructure_add = 3
+	
+	state_poor_expected_sol = 5
+	state_middle_expected_sol = 10
+	state_rich_expected_sol = 15
+	state_expected_sol_from_literacy = 5
+	
+	character_health_add = 1
+	
+	country_construction_add = 5
+	
+	building_mobilization_cost_mult = 0.6
+	
+	building_economy_of_scale_level_cap_add = 20
+	
+	country_max_declared_interests_add = 1
+	
+	state_political_strength_from_discrimination_mult = -0.9 #new
+}
+
+temporary_tax_cut = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_coins_negative.dds
+	tax_income_add = -0.05 #-0.1
+}
+
+retired_commander_interest_group_impact = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_statue_positive.dds
+	#interest_group_approval_add = -1
+}
+
+school_supplies_modifier = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_positive.dds
+	country_bureaucracy_mult = -0.15 #0.15
+}
+
+religious_schools_good_modifier = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_positive.dds
+	country_law_enactment_time_mult = -0.2
+}
+
+religious_schools_bad_modifier = {
+	icon = gfx/interface/icons/timed_modifier_icons/modifier_documents_negative.dds
+	country_law_enactment_time_mult = 0.2
+}

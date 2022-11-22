@@ -322,7 +322,7 @@ UKR = {
 }
 
 GAL = {
-	states = { STATE_EAST_GALICIA STATE_WEST_GALICIA }
+	states = { STATE_EAST_GALICIA STATE_WEST_GALICIA STATE_MOLDAVIA }
 	
 	ai_will_do = { always = no }
 }

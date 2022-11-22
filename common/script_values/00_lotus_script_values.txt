@@ -23,7 +23,19 @@
 				has_strategic_adjacency = scope:target_country
 			}
 
-			add = 50
+			add = 200
+
+			if = {
+				limit = {
+					scope:target_country = {
+						any_scope_state = {
+							is_homeland_of_country_cultures = root
+						}
+					}
+				}
+
+				multiply = 5
+			}
 
 			if = {
 				limit = {
@@ -67,8 +79,14 @@
 				}
 
 				OR = {
-					has_journal_entry = je_italian_unification
-
+					AND = {
+						exists = c:SAR
+						root = c:SAR					
+					}
+					AND = {
+						exists = c:SIC
+						root = c:SIC					
+					}
 					AND = {
 						exists = c:ITA
 						root = c:ITA					
@@ -154,7 +172,29 @@
 				}
 
 				add = 2500
-			}			
+			}	
+
+			if = {
+				limit = {
+					OR = {
+						AND = {
+							exists = c:NGF
+							root = c:NGF
+						}
+						AND = {
+							exists = c:PRU
+							root = c:PRU
+							has_journal_entry = je_german_unification
+						}						
+					}
+
+					exists = c:AUS
+					scope:target_country = c:AUS
+					#is_unification_candidate = GER					
+				}
+
+				add = 10000
+			}		
 		}
 
 		#russian expansion
@@ -228,7 +268,7 @@
 							OR = {
 								state_region = s:STATE_WEST_GALICIA
 								state_region = s:STATE_EAST_GALICIA		
-								state_region = s:STATE_MOLDAVIA	
+								state_region = s:STATE_MOLDAVIA
 							}
 						}
 					}
@@ -341,7 +381,7 @@
 				}
 			}
 
-			add = 500
+			add = 5000
 		}
 
 		#British + Raj aggression
@@ -422,8 +462,8 @@
 					root = c:GBR
 				}
 
-				multiply = 0.5
-			}	
+				multiply = 0.25
+			}
 		}
 		
 		#try to get only Britain on New Zealand (i dont think this actually works tbh)
@@ -756,6 +796,51 @@
 				multiply = 0
 			}
 		}
+
+		#scandinavia
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						exists = c:SWE
+						root = c:SWE						
+					}
+					AND = {
+						exists = c:SCA
+						root = c:SCA						
+					}					
+				}
+
+				OR = {
+					AND = {
+						exists = c:DEN
+						scope:target_country = c:DEN					
+					}
+					AND = {
+						exists = c:FIN
+						scope:target_country = c:FIN					
+					}
+					AND = {
+						exists = c:NOR
+						scope:target_country = c:NOR					
+					}						
+				}
+			}
+ 
+			add = 5000
+
+		}
+
+		# greece
+		if = {
+			limit = {
+				exists = c:GRE
+				root = c:GRE
+				scope:target_country = c:TUR
+			}
+
+			add = 1000
+		}
 	}
 }
 
@@ -789,6 +874,14 @@ lotus_strategy_block_checks = {
 					}
 
 					is_country_type = unrecognized
+				}
+
+				NOT = {
+					scope:target_country = {
+						any_scope_state = {
+							has_claim_by = root
+						}
+					}
 				}
 
 				NOT = {
@@ -826,6 +919,14 @@ lotus_strategy_block_checks = {
 						exists = c:DEI
 						root = c:DEI
 					}
+					AND = {
+						exists = c:SWE
+						root = c:SWE
+					}
+					AND = {
+						exists = c:SCA
+						root = c:SCA
+					}
 				}
 			}
 		}
@@ -842,6 +943,7 @@ lotus_strategy_block_checks = {
 				AND = {
 					exists = c:ITA
 					root = c:ITA
+					exists = c:AUS
 					scope:target_country = c:AUS
 				}
 			}
@@ -1411,7 +1513,26 @@ lotus_strategy_block_checks = {
 		multiply = 0.25
 	}
 
+	#limit USA to historic claims
+	if = {
+		limit = {
+			exists = c:USA
+			root = c:USA
+			lotus_strategy_calculation <= 0
+		}
 
+		multiply = 0
+	}
+
+	#restrict china in general
+	if = {
+		limit = {
+			exists = c:CHI
+			root = c:CHI
+		}
+
+		multiply = 0
+	}
 }
 
 # generally prioritize conquering small countries over subjecting them
@@ -1426,20 +1547,16 @@ lotus_take_subject_check = {
 			scope:target_country = {
 
 				OR = {
-					AND = {
-						is_subject = yes
-						OR = {
-							is_subject_type = subject_type_puppet
-							is_subject_type = subject_type_vassal
-							is_subject_type = subject_type_dominion
-							is_subject_type = subject_type_personal_union
-							is_subject_type = subject_type_protectorate
-						}
-					}
 					country_rank >= rank_value:major_power
 					country_rank = rank_value:unrecognized_major_power
 					num_states <= 3
 					country_rank >= root.country_rank
+					any_scope_state = {
+						OR = {
+							has_claim_by = root
+							is_homeland_of_country_cultures = root
+						}
+					}
 				}
 			}
 		}
@@ -1476,19 +1593,13 @@ lotus_take_subject_check = {
 	# exception for a few countries we prefer to puppet anyways
 	if = {
 		limit = {
-			scope:target_country = {
-				OR = {
-					is_subject = no
-					AND = {
-						is_subject = yes
-						OR = {
-							is_subject_type = subject_type_tributary
-							is_subject_type = subject_type_customs_union							
-						}
-					}
-				}
-			}
 			OR = {
+				AND = {
+					exists = c:DEN
+					scope:target_country = c:DEN
+					exists = c:SWE
+					root = c:SWE
+				}
 				AND = {
 					exists = c:DAI
 					scope:target_country = c:DAI
@@ -1565,8 +1676,6 @@ lotus_conquer_state_check = {
 	#prioritize puppeting larger countries over taking states (and list of specific smaller countries we prefer to puppet instead of conquer)
 	if = {
 		limit = {
-
-			country_rank >= rank_value:major_power
 			
 			# direct subjects we have to conquer
 			scope:target_country = {
@@ -1574,10 +1683,8 @@ lotus_conquer_state_check = {
 					is_subject = no
 					AND = {
 						is_subject = yes
-						OR = {
-							is_subject_type = subject_type_tributary
-							#is_subject_type = subject_type_protectorate
-							is_subject_type = subject_type_customs_union							
+						root = {
+							lotus_take_subject_check > 0
 						}
 					}
 				}
@@ -1620,6 +1727,12 @@ lotus_conquer_state_check = {
 					country_rank = rank_value:unrecognized_regional_power
 					num_states > 3
 
+					AND = {
+						exists = c:DEN
+						this = c:DEN
+						exists = c:SWE
+						root = c:SWE
+					}
 					AND = {
 						exists = c:DAI
 						this = c:DAI
@@ -1683,6 +1796,15 @@ lotus_conquer_state_check = {
 				}
 			}
 		}
+
+		multiply = 0
+	}
+
+	if = {
+		limit = {
+			exists = c:TUR
+			root = c:TUR		
+		}		
 
 		multiply = 0
 	}

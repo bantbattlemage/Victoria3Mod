@@ -56,42 +56,131 @@ expedition_events.502 = { #Choose commander
 	}
 
 	immediate = {
-		random_scope_character = {
+		if = {
 			limit = {
-				is_ruler = no
-				OR = {
-					has_role = general
-					has_role = admiral
+				any_scope_character = {
+					is_ruler = no
+					OR = {
+						has_role = general
+						has_role = admiral
+					}
+					has_trait = explorer
 				}
 			}
-			save_scope_as = expedition_leader_1
+			random_scope_character = {
+				limit = {
+					is_ruler = no
+					OR = {
+						has_role = general
+						has_role = admiral
+					}
+					has_trait = explorer
+				}
+				save_scope_as = expedition_leader_1
+			}
 		}
-		random_scope_character = {
-			limit = {
-				is_ruler = no
-				OR = {
-					has_role = general
-					has_role = admiral
+		else = {
+			random_scope_character = {
+				limit = {
+					is_ruler = no
+					OR = {
+						has_role = general
+						has_role = admiral
+					}
 				}
-				NOT = {
-					this = scope:expedition_leader_1
-				}
+				save_scope_as = expedition_leader_1
 			}
-			save_scope_as = expedition_leader_2
 		}
-		random_scope_character = {
+		if = {
 			limit = {
-				is_ruler = no
-				OR = {
-					has_role = general
-					has_role = admiral
-				}
-				NOR = {
-					this = scope:expedition_leader_1
-					this = scope:expedition_leader_2
+				any_scope_character = {
+					is_ruler = no
+					OR = {
+						has_role = general
+						has_role = admiral
+					}
+					NOT = {
+						this = scope:expedition_leader_1
+					}
+					has_trait = explorer
 				}
 			}
-			save_scope_as = expedition_leader_3
+			random_scope_character = {
+				limit = {
+					is_ruler = no
+					OR = {
+						has_role = general
+						has_role = admiral
+					}
+					NOT = {
+						this = scope:expedition_leader_1
+					}
+					has_trait = explorer
+				}
+				save_scope_as = expedition_leader_2
+			}
+		}
+		else = {
+			random_scope_character = {
+				limit = {
+					is_ruler = no
+					OR = {
+						has_role = general
+						has_role = admiral
+					}
+					NOT = {
+						this = scope:expedition_leader_1
+					}
+				}
+				save_scope_as = expedition_leader_2
+			}
+		}
+		if = {
+			limit = {
+				any_scope_character = {
+					is_ruler = no
+					OR = {
+						has_role = general
+						has_role = admiral
+					}
+					NOR = {
+						this = scope:expedition_leader_1
+						this = scope:expedition_leader_2
+					}
+					has_trait = explorer
+				}
+			}
+			random_scope_character = {
+				limit = {
+					is_ruler = no
+					OR = {
+						has_role = general
+						has_role = admiral
+					}
+					NOR = {
+						this = scope:expedition_leader_1
+						this = scope:expedition_leader_2
+					}
+					has_trait = explorer
+				}
+				save_scope_as = expedition_leader_3
+			}
+		}
+		else = {
+			random_scope_character = {
+				limit = {
+					is_ruler = no
+					OR = {
+						has_role = general
+						has_role = admiral
+					}
+					NOR = {
+						this = scope:expedition_leader_1
+						this = scope:expedition_leader_2
+					}
+				}
+				save_scope_as = expedition_leader_3
+			}
 		}
 		set_variable = central_africa_expedition_var
 		set_variable = {
@@ -214,14 +303,13 @@ expedition_events.511 = { #Successful expedition
     duration = 3
 
 	immediate = {
-		set_variable = {
-			name = on_expedition
-			value = no
-		}
+		#set_variable = {
+			#name = on_expedition
+			#value = no
+		#}
 		set_global_variable = central_africa_explored
 		random_scope_character = {
 			limit = { has_variable = expedition_leader_var }
-			remove_variable = expedition_leader_var
 			save_scope_as = expedition_leader
 		}
 		if = {
@@ -230,6 +318,7 @@ expedition_events.511 = { #Successful expedition
 			}
 			trigger_event = { id = expedition_events.696 days = 30 }
 		}
+		remove_variable = on_expedition
 		remove_expedition_events_effect = yes
 	}
 
@@ -239,6 +328,7 @@ expedition_events.511 = { #Successful expedition
 		scope:expedition_leader = {
 			add_trait = explorer
 			set_character_busy = no
+			remove_variable = expedition_leader_var 
 		}
 		add_modifier = {
 			name = modifier_central_africa_expedition_complete
@@ -273,7 +363,6 @@ expedition_events.512 = { #Failed expedition
 			limit = { has_variable = expedition_leader_var }
 			save_scope_as = expedition_leader
 			set_variable = failed_expedition_leader_var
-			remove_variable = expedition_leader_var
 		}
 	}
 
@@ -326,7 +415,7 @@ expedition_events.520 = { #Pay Tax
 		add_modifier = {
 			name = expedition_taxes_modifier
 			multiplier = money_amount_multiplier_small
-			months = normal_modifier_time
+			#months = normal_modifier_time
 		}
 	}
 
