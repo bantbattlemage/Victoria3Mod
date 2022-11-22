@@ -2,7 +2,7 @@
 #### This AI strategy will override the way AI seek out targets for conquest and expansion. It should be fully compatible with AroAI's economic overrides, howevever, LotusAI must be loaded after AroAI in mod load order
 #####
 
-ai_strategy_default = {
+ai_strategy_lotus = {
 	icon = "gfx/interface/icons/ai_strategy_icons/placate_population.dds" # Never shown
 
 	undesirable_infamy_level = 75
@@ -458,13 +458,23 @@ ai_strategy_default = {
 			multiply = 0
 		}
 
+		# germany should not overestimate itself vs austria
 		if = {
 			limit = {
-				exists = c:NGF
-				root = c:NGF
+				OR = {
+					AND = {
+						exists = c:NGF
+						root = c:NGF						
+					}
+					AND = {
+						exists = c:PRU
+						root = c:PRU					
+					}	
+				}
 				scope:target_country = c:AUS
 			}
 
+			multiply = 0
 			add = 1
 		}
 	}
@@ -3652,18 +3662,20 @@ ai_strategy_default = {
 		}
 
 		unification_leadership = {
-			value = 1000 
+			value = 1000
 
 			if = {
 				limit = {
+
+					# leadershhip mechanics are dumb becuase if you lose once you can never do it again, so AI austria just wont try to take it 
+
 					OR = {
-						# leadershhip mechanics are dumb becuase if you lose once you can never do it again, so AI austria just wont try to take it 
 						AND = { 
 							exists = c:AUS
 							root = c:AUS
 						}
 						AND = {
-							army_size < 300
+							army_size < 450 #pretty sure army size counts conscripts too
 							scope:target_country = {
 								army_size > root.army_size
 							}
