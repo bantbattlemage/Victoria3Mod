@@ -2474,8 +2474,9 @@ ai_strategy_lotus = {
 			if = {
 				limit = {
 					NOT = {
+						is_adjacent = scope:target_state
 						any_scope_state = {
-							scope:target_state.state_region = this.state_region
+							scope:target_state.state_region = this.state_region							
 						}
 					}
 				}
@@ -2512,8 +2513,19 @@ ai_strategy_lotus = {
 			multiply = {
 				value = lotus_strategy_block_checks
 			}
-			multiply = {
-				value = lotus_conquer_state_check
+
+			if = {
+				limit = {
+					NOT = {
+						scope:target_state = {
+							is_homeland_of_country_cultures = root
+						}
+					}
+				}
+
+				multiply = {
+					value = lotus_conquer_state_check
+				}
 			}
 
 			min = 0

@@ -14,3 +14,4 @@
  TRIGGER_IS_SUPPORTING_UNIFICATION_CANDIDATE:0 "[COUNTRY.GetName]支持[TARGET_COUNTRY.GetName]作为[CountryFormation.GetName]的[concept_unification_candidate]"
  TRIGGER_IS_SUPPORTING_UNIFICATION_CANDIDATE_NOT:0 "[COUNTRY.GetName]#bold 未#!支持[TARGET_COUNTRY.GetName]作为[CountryFormation.GetName]的[concept_unification_candidate]"
  STATE_CONSTRUCTION_ACTIVE:0 "[Country.GetNumBuildingsUnderConstructionInState(State.Self)|v]建造中"
+ concept_open_market_desc:2 "一种[concept_war_goal]，可以在[concept_diplomatic_play]中或是[concept_peace_deal]中索取。被迫$concept_open_market_short$[concept_market]的[concept_country]要立即将[SelectLocalization(GetPlayer.IsValid,'concept_open_market_desc_added','贸易政策')]改为[SelectLocalization(GetPlayer.IsValid,'concept_open_market_desc_added_2','自由贸易')]，而且在#v [GetDefine('NDiplomacy','WAR_GOAL_OPEN_MARKET_DURATION')|0]年#!内不能再次更改。[AddLocalizationIf(GetPlayer.IsValid,'concept_open_market_desc_added_3')]"
