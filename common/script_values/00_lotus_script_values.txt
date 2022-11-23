@@ -1533,6 +1533,16 @@ lotus_strategy_block_checks = {
 
 		multiply = 0
 	}
+
+	# ioanion islands conquering greece is a bit silly
+	if = {
+		limit = {
+			exists = c:ION
+			root = c:ION
+		}
+
+		multiply = 0
+	}
 }
 
 # generally prioritize conquering small countries over subjecting them

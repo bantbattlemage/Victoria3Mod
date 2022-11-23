@@ -4099,6 +4099,146 @@ ai_strategy_lotus = {
 		}
 	}
 
+	### all values here are copied from AroAI however are they are largely just default values any ways
+			
+	desired_tax_level = very_high
+	max_tax_level = very_high
+	min_tax_level = very_low
+
+	wanted_construction_ratio = 2000000 # 1 level of construction sector per 1 million incorporated population
+	wanted_army_ratio = 500000 # 1 barrack per 200k incorporated population
+	wanted_navy_ratio = 1000000 # 1 naval base per 400k coastal incorporated population
+	
+	subsidies = {
+		#building_power_plant = should_have
+		building_railway = should_have
+		#building_trade_center = should_have		
+	}
+	
+	goods_stances = {
+		small_arms = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = napoleonic_warfare
+			}
+		}
+		artillery = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = artillery
+			}
+		}
+		ammunition = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = general_staff
+			}
+		}
+		aeroplanes = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = military_aviation
+				country_rank >= rank_value:major_power
+			}
+		}
+		tanks = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = mobile_armor
+				country_rank >= rank_value:major_power
+			}
+		}
+		clippers = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = navigation
+				NAND = {
+					has_technology_researched = ironclad_tech
+					has_technology_researched = gantry_cranes				
+				}
+				has_port = yes
+				country_rank >= rank_value:major_power
+			}
+		}
+		manowars = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = admiralty
+				NAND = {
+					has_technology_researched = ironclad_tech
+					has_technology_researched = gantry_cranes				
+				}
+				has_port = yes
+				country_rank >= rank_value:major_power
+			}
+		}	
+		steamers = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = ironclad_tech
+				has_technology_researched = gantry_cranes
+				has_port = yes
+				country_rank >= rank_value:major_power
+			}
+		}			
+		ironclads = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = ironclad_tech
+				has_technology_researched = gantry_cranes
+				has_port = yes
+				country_rank >= rank_value:major_power				
+			}
+		}	
+		paper = {
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = centralization
+				total_population >= 1000000
+				NOT = { has_law = law_type:law_traditionalism }
+			}
+		}
+		electricity = { 
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = electrical_generation
+			}
+		}			
+		coal = { 
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = railways
+			}
+		}	
+		engines = { 
+			stance = wants_high_supply
+			trigger = {
+				has_technology_researched = railways
+			}
+		}		
+		dye = { 
+			stance = wants_high_supply 
+			trigger = {
+				has_building = building_textile_mills
+				has_technology_researched = lathe
+			}
+		}
+		silk = { 
+			stance = wants_high_supply 
+			trigger = {
+				has_building = building_textile_mills
+				total_population >= 1000000
+			}
+		}
+		hardwood = { 
+			stance = wants_high_supply 
+			trigger = {
+				has_building = building_furniture_manufacturies
+				total_population >= 1000000
+			}
+		}		
+	}
+
 	possible = {
 		always = no
 	}
