@@ -1,4 +1,4 @@
-je_lca_gold_reserves_limit = {
+﻿je_lca_gold_reserves_limit = {
 	icon = "gfx/interface/icons/event_icons/event_trade.dds"
 
 	is_shown_when_inactive = {

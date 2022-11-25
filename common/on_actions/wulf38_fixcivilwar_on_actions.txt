@@ -1,0 +1,6 @@
+﻿on_monthly_pulse_country = {
+	events = {
+		wulf38_fixcivilwar_events.1
+		wulf38_fixcivilwar_events.2
+	}
+}

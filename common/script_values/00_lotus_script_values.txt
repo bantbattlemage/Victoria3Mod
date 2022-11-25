@@ -855,7 +855,8 @@ lotus_strategy_block_checks = {
 		limit = {
 
 			AND = {
-
+				
+				# limit countries that are less than major powers
 				OR = {
 					AND = {
 						country_rank < rank_value:major_power
@@ -876,6 +877,7 @@ lotus_strategy_block_checks = {
 					is_country_type = unrecognized
 				}
 
+				# always allow going after claims
 				NOT = {
 					scope:target_country = {
 						any_scope_state = {
@@ -884,17 +886,31 @@ lotus_strategy_block_checks = {
 					}
 				}
 
+				# let these areas fight over homeland states
 				NOT = {
-					capital.region = sr:region_ethiopia
-					capital.region = sr:region_balkans
-					capital.region = sr:region_danubia
-					capital.region = sr:region_poland
+					AND = {
+						scope:target_country = {
+							any_scope_state = {
+								is_homeland_of_country_cultures = root
+							}
+						}
+						OR = {
+							capital.region = sr:region_ethiopia
+							capital.region = sr:region_balkans
+							capital.region = sr:region_danubia
+							capital.region = sr:region_poland
+						}	
+					}
 				}
-
+				
+				# let other arab minors start fighting after a bit
 				NOT = {
 					AND = {
 						capital.region = sr:region_arabic
 						has_technology_researched = nationalism
+						scope:target_country = {
+							capital.region = sr:region_arabic
+						}
 					}
 				}
 
@@ -939,6 +955,7 @@ lotus_strategy_block_checks = {
 		limit ={
 			scope:target_country = { is_country_type = recognized }
 
+			# exception for italy v austria
 			NOT = {
 				AND = {
 					exists = c:ITA
@@ -947,6 +964,7 @@ lotus_strategy_block_checks = {
 					scope:target_country = c:AUS
 				}
 			}
+			# exception for NGF/Ger v austira
 			NOT = {
 				AND = {
 					OR = {
@@ -1159,6 +1177,12 @@ lotus_strategy_block_checks = {
 			root = c:GBR
 			scope:target_country = {
 				capital.region = sr:region_central_asia
+				NOT = {
+					AND = {
+						exists = c:RUS
+						this = c:RUS
+					}
+				}
 			}
 		}
 

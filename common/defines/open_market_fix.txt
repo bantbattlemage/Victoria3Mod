@@ -1,0 +1,3 @@
+﻿NDiplomacy = {
+	WAR_GOAL_OPEN_MARKET_DURATION = 5 # In years. wrong for months
+}

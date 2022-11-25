@@ -1,4 +1,4 @@
-#### fixed error spam from line 536
+﻿#### fixed error spam from line 536
 
 namespace = opium_wars
 

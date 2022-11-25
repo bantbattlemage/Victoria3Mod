@@ -1,3 +1,6 @@
 ﻿lca_gold_reserves_limit_modifier = {
     country_gold_reserve_limit_mult = 4
 }
+lca_gold_reserves_limit_modifier_2 = {
+    country_gold_reserve_limit_mult = -0.2
+}

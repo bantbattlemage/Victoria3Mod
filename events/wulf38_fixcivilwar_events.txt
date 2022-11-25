@@ -1,0 +1,98 @@
+﻿namespace = wulf38_fixcivilwar_events
+
+# Push stalemated civil wars closer to ending
+wulf38_fixcivilwar_events.1 = {
+	type = country_event
+	placement = ROOT
+	hidden = yes
+
+	immediate = {
+		every_scope_war = {
+			limit = {
+				attacker_warleader = {
+					is_player = no
+				}
+				defender_warleader = {
+					is_player = no
+				}
+				OR = {
+					attacker_warleader = {
+						OR = {
+							is_revolutionary = yes
+							is_secessionist = yes
+						}
+					}
+					defender_warleader = {
+						OR = {
+							is_revolutionary = yes
+							is_secessionist = yes
+						}
+					}
+				}
+				has_war_support = {
+					target = attacker_warleader
+					value <= 0
+				}
+				has_war_support = {
+					target = defender_warleader
+					value <= 0
+				}
+			}
+
+			add_war_war_support = {
+				target = ROOT
+				value = -8
+			}
+		}
+	}
+}
+
+# Replace civil war countries at peace
+wulf38_fixcivilwar_events.2 = {
+	type = country_event
+	placement = ROOT
+	hidden = yes
+
+	trigger = {
+		is_player = no
+		NOT = { is_country_type = decentralized }
+		OR = {
+			is_revolutionary = yes
+			is_secessionist = yes
+		}
+		is_at_war = no
+		is_diplomatic_play_committed_participant = no
+	}
+
+	immediate = {
+		create_country = {
+			origin = ROOT
+			state = ROOT.capital
+			on_created = {
+				set_variable = wulf38_fixcivilwar_new_country
+			}
+		}
+
+		every_country = {
+			limit = {
+				has_variable = wulf38_fixcivilwar_new_country
+			}
+			remove_variable = wulf38_fixcivilwar_new_country
+
+			if = {
+				limit = { ROOT = { is_country_type = colonial } }
+				set_country_type = colonial
+			}
+			if = {
+				limit = { ROOT = { is_country_type = recognized } }
+				set_country_type = recognized
+			}
+			if = {
+				limit = { ROOT = { is_country_type = unrecognized } }
+				set_country_type = unrecognized
+			}
+
+			annex = ROOT
+		}
+	}
+}
